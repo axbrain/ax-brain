@@ -95,3 +95,28 @@ jQuery(function ($) {
     });
   });
 })(jQuery);
+
+// ドロワーメニュー
+(function ($) {
+  const $drawer = $('.p-drawer');
+  const $drawerBg = $('.p-drawer-bg');
+  const $drawerOpen = $('.js-drawer-open-nav');
+  const $drawerClose = $('.p-drawer__close');
+
+  // ドロワーを開く
+  $drawerOpen.on('click', function () {
+    $drawer.addClass('is-active');
+    $drawerBg.addClass('is-active');
+    $('body').css('overflow', 'hidden');
+  });
+
+  // ドロワーを閉じる
+  function closeDrawer() {
+    $drawer.removeClass('is-active');
+    $drawerBg.removeClass('is-active');
+    $('body').css('overflow', '');
+  }
+
+  $drawerClose.on('click', closeDrawer);
+  $drawerBg.on('click', closeDrawer);
+})(jQuery);

@@ -93,6 +93,29 @@
   </header>
 
   <div class="p-gnav__bg"></div>
+
+  <!-- 検索オーバーレイを修正 -->
+  <div class="p-search-overlay js-search-overlay">
+    <div class="p-search-overlay__content">
+      <form action="<?php bloginfo('url'); ?>" method="get" class="p-search-overlay__form">
+        <button type="submit" class="p-search-overlay__submit">
+          <svg viewBox="0 0 22.15 23.4" xmlns="http://www.w3.org/2000/svg" class="icon icon-search">
+            <g fill="none" stroke="#4d4d4d" stroke-miterlimit="10" stroke-width="1.2">
+              <circle cx="10.8" cy="10.8" r="10.2" />
+              <path d="m17.51 18.47 4.04 4.33" stroke-linecap="round" />
+            </g>
+          </svg>
+        </button>
+        <input type="search" name="s" class="p-search-overlay__input" placeholder="キーワードを入力" aria-label="サイト内検索">
+        <button type="button" class="p-search-overlay__close">
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 64 64">
+            <path d="M19 17.61l27.12 27.13m0-27.12L19 44.74" stroke="#000000" stroke-width="2"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
   <main <?php if (is_front_page()): ?> class="p-fp" <?php endif; ?>>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -116,3 +139,117 @@
         }).mount();
       });
     </script>
+
+    <div class="p-drawer">
+      <div class="p-drawer__inner">
+        <div class="p-drawer__close"></div>
+        <nav class="p-drawer__nav">
+          <?php
+          wp_nav_menu(
+            array(
+              'theme_location' => 'header-menu',
+              'container' => false,
+              'menu_class' => '',
+              'walker' => new Custom_Nav_Walker()
+            )
+          );
+          ?>
+        </nav>
+        <div class="p-drawer__search">
+          <form method="get" id="drawer-searchform" action="<?php bloginfo('url'); ?>" class="p-drawer__search-form">
+            <input type="text" name="s" placeholder="サイト内検索" />
+            <button type="submit">
+              <svg viewBox="0 0 22.15 23.4" xmlns="http://www.w3.org/2000/svg" class="icon icon-search">
+                <g fill="none" stroke="#4d4d4d" stroke-miterlimit="10" stroke-width="1.2">
+                  <circle cx="10.8" cy="10.8" r="10.2" />
+                  <path d="m17.51 18.47 4.04 4.33" stroke-linecap="round" />
+                </g>
+              </svg>
+            </button>
+          </form>
+        </div>
+        <div class="p-drawer__sns">
+          <?php if (have_rows('sns_list', 'option')): ?>
+            <ul>
+              <?php while (have_rows('sns_list', 'option')): the_row();
+                $sns_url = get_sub_field('sns_url');
+                $sns_image = get_sub_field('sns_image');
+                $sns_alt = get_sub_field('sns_alt');
+
+                // URLと画像の両方が入力されている場合のみ表示
+                if ($sns_url && $sns_image):
+              ?>
+                  <li>
+                    <a href="<?php echo $sns_url; ?>" target="_blank">
+                      <img src="<?php echo $sns_image; ?>" alt="<?php echo $sns_alt; ?>">
+                    </a>
+                  </li>
+              <?php
+                endif;
+              endwhile;
+              ?>
+            </ul>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+    <div class="p-drawer-bg"></div>
+  </main>
+
+  <script>
+    // 検索オーバーレイの制御
+    (function() {
+      const searchHeader = document.querySelector('.js-search-header');
+      const searchOverlay = document.querySelector('.js-search-overlay');
+      const searchClose = document.querySelector('.p-search-overlay__close'); // 閉じるボタンの要素を取得
+      const searchInput = searchOverlay?.querySelector('input[type="search"]');
+      let searchBg;
+
+      if (!searchHeader || !searchOverlay || !searchClose) return; // searchCloseのチェックを追加
+
+      // 背景オーバーレイを動的に追加
+      function createOverlayBg() {
+        searchBg = document.createElement('div');
+        searchBg.className = 'p-search-overlay-bg';
+        document.body.appendChild(searchBg);
+      }
+      createOverlayBg();
+
+      function openSearch(e) {
+        e.preventDefault();
+        searchOverlay.classList.add('is-active');
+        searchBg.classList.add('is-active');
+        // フォーカスを検索入力欄に移動
+        setTimeout(() => {
+          searchInput?.focus();
+        }, 400);
+      }
+
+      function closeSearch() {
+        searchOverlay.classList.remove('is-active');
+        searchBg.classList.remove('is-active');
+      }
+
+      // 背景クリックで閉じる
+      function handleBgClick(e) {
+        if (e.target === searchBg) {
+          closeSearch();
+        }
+      }
+
+      // ESCキーでも閉じられるように
+      function handleEscape(e) {
+        if (e.key === 'Escape' && searchOverlay.classList.contains('is-active')) {
+          closeSearch();
+        }
+      }
+
+      searchHeader.addEventListener('click', openSearch);
+      searchClose.addEventListener('click', closeSearch); // 閉じるボタンのクリックイベントを追加
+      searchBg.addEventListener('click', handleBgClick);
+      document.addEventListener('keydown', handleEscape);
+    })();
+  </script>
+</body>
+
+</html>
