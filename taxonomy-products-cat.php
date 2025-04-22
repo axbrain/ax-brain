@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * The template for displaying product category archive pages
+ *
+ * @package WordPress
+ * @subpackage Ax-Brain
+ * @since 1.0.0
+ */
+
+get_header();
+?>
+<div class="l-wide p-category c-products">
+
+	<h1 class="c-h1">
+		<?php
+		$term = get_queried_object();
+		printf(
+			/* translators: %s: Category name. */
+			esc_html__('カテゴリー: %s', 'ax-brain'),
+			'<span class="p-products__category-name">' . esc_html($term->name) . '</span>'
+		);
+		?>
+	</h1>
+
+	<?php if (have_posts()) : ?>
+		<ul class="c-products__list">
+			<?php while (have_posts()) : the_post(); ?>
+				<li class="c-products__item">
+					<a href="<?php the_permalink(); ?>" class="c-products__link">
+						<?php if (has_post_thumbnail()) : ?>
+							<div class="c-products__img">
+								<?php the_post_thumbnail('full'); ?>
+							</div>
+						<?php endif; ?>
+						<h3 class="c-products__title"><?php the_title(); ?></h3>
+					</a>
+				</li>
+			<?php endwhile; ?>
+		</ul>
+
+		<div class="c-products__pagination">
+			<?php
+			$big = 999999999;
+			echo paginate_links(array(
+				'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+				'format' => '?paged=%#%',
+				'current' => max(1, get_query_var('paged')),
+				'total' => $wp_query->max_num_pages,
+				'prev_text' => '',
+				'next_text' => '',
+			));
+			?>
+		</div>
+
+	<?php else : ?>
+		<p class="c-products__no-results">該当の製品がありません</p>
+	<?php endif; ?>
+</div>
+
+<?php
+get_footer();
+?>

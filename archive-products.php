@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * The template for displaying product archive pages
+ *
+ * @package WordPress
+ * @subpackage Ax-Brain
+ * @since 1.0.0
+ */
+
+get_header();
+?>
+<div class="l-wide p-products c-products">
+	<h1 class="c-h1">製品情報一覧</h1>
+
+	<?php
+	// カテゴリー一覧の表示
+	$categories = get_terms(array(
+		'taxonomy' => 'products-cat',
+		'hide_empty' => true,
+	));
+
+	if (!empty($categories) && !is_wp_error($categories)) :
+	?>
+		<ul class="c-category__list">
+			<?php foreach ($categories as $category) : ?>
+				<li>
+					<a href="<?php echo esc_url(get_term_link($category)); ?>">
+						<?php echo esc_html($category->name); ?>
+					</a>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+
+	<?php if (have_posts()) : ?>
+		<ul class="c-products__list">
+			<?php while (have_posts()) : the_post(); ?>
+				<li class="c-products__item">
+					<a href="<?php the_permalink(); ?>" class="c-products__link">
+						<?php if (has_post_thumbnail()) : ?>
+							<div class="c-products__img">
+								<?php the_post_thumbnail('full'); ?>
+							</div>
+						<?php endif; ?>
+						<h3 class="c-products__title"><?php the_title(); ?></h3>
+					</a>
+				</li>
+			<?php endwhile; ?>
+		</ul>
+
+		<div class="c-products__pagination">
+			<?php
+			$big = 999999999;
+			echo paginate_links(array(
+				'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+				'format' => '?paged=%#%',
+				'current' => max(1, get_query_var('paged')),
+				'total' => $wp_query->max_num_pages,
+				'prev_text' => '',
+				'next_text' => '',
+			));
+			?>
+		</div>
+
+	<?php else : ?>
+		<p class="c-products__no-results">該当の製品がありません</p>
+	<?php endif; ?>
+</div>
+
+<?php
+get_footer();
+?>
