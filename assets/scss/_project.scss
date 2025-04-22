@@ -736,6 +736,10 @@ input[type=submit] {
     margin-top: 5rem;
     padding-left: 1rem;
 
+    @include media(tb) {
+      padding-right: 1rem;
+    }
+
     &__title {
       @include fontsize(16, 18);
     }
@@ -856,10 +860,19 @@ input[type=submit] {
       }
     }
 
-
+    &__list {
+      @include media(pc) {
+        margin-top: 2rem;
+      }
+    }
 
     &__more {
+      margin-top: 5rem;
       text-align: center;
+
+      @include media(pc) {
+        margin-top: 7rem;
+      }
 
       a {
         @include fontsize(16, 18);

@@ -50,20 +50,29 @@ get_header();
 				pagination: false,
 				speed: 800,
 				pauseOnHover: true,
+				mediaQuery: 'min',
 				classes: {
 					root: 'splide frontpage-splide',
 					track: 'splide__track frontpage-track',
 					list: 'splide__list frontpage-list',
 					slide: 'splide__slide frontpage-slide',
 				},
-				transition: 'slide'
+				transition: 'slide',
+				breakpoints: {
+					768: {
+						autoplay: true, // 自動再生
+						type: "loop", // ループ
+						padding: "20%", // スライダーの左右の余白
+						gap: 20, // スライド間の余白
+					}
+				}
 			}).mount();
 		});
 	</script>
 
 
 	<!-- 新製品一覧セクション -->
-	<section class="p-fp__newproducts">
+	<section class="l-wide p-fp__newproducts">
 		<h2 class="p-fp__newproducts__title">新製品</h2>
 		<?php
 		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
@@ -125,10 +134,14 @@ get_header();
 								track: 'splide__track new-products-track',
 								list: 'splide__list new-products-list',
 								slide: 'splide__slide new-products-slide',
+								mediaQuery: 'min',
 							},
 							breakpoints: {
 								480: {
 									perPage: 2,
+								},
+								768: {
+									perPage: 4,
 								}
 							}
 						}).mount();
@@ -136,7 +149,7 @@ get_header();
 				</script>
 			<?php else : ?>
 				<!-- PC版：通常のグリッドレイアウト -->
-				<ul class="c-products__list">
+				<ul class="c-products__list p-fp__newproducts__list">
 					<?php while ($query->have_posts()) : $query->the_post(); ?>
 						<li class="c-products__item">
 							<a href="<?php the_permalink(); ?>" class="c-products__link">
@@ -152,22 +165,6 @@ get_header();
 				</ul>
 			<?php endif; ?>
 
-			<?php if (!isset($args['hide_pagination']) || !$args['hide_pagination']) : ?>
-				<div class="c-products__pagination">
-					<?php
-					$big = 999999999;
-					echo paginate_links(array(
-						'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-						'format' => '?paged=%#%',
-						'current' => max(1, $paged),
-						'total' => $query->max_num_pages,
-						'prev_text' => '',
-						'next_text' => '',
-					));
-					?>
-				</div>
-			<?php endif; ?>
-
 		<?php else : ?>
 			<p>新製品はありません。</p>
 		<?php endif; ?>
@@ -180,8 +177,8 @@ get_header();
 	</section>
 
 
-	<section class="p-fp__products l-wide">
-		<h2 class="p-fp__products__title">新製品</h2>
+	<section class="l-wide p-fp__products ">
+		<h2 class="p-fp__products__title">製品情報</h2>
 
 		<div class="p-fp__products__list">
 			<ul>

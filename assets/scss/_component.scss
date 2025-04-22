@@ -210,7 +210,16 @@
   gap: 1rem;
   margin-bottom: 0.5rem;
 
-  @include media(tb) {}
+
+  @include media(tb) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem; // アイテム間の余白
+  }
+
+  @include media(pc) {
+    gap: 4rem;
+  }
 
   li {
     display: inline-block;
