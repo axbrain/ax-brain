@@ -734,6 +734,7 @@ input[type=submit] {
 
   &__newproducts {
     margin-top: 5rem;
+    margin-right: 0;
     padding-left: 1rem;
 
     @include media(tb) {
@@ -870,14 +871,24 @@ input[type=submit] {
       margin-top: 5rem;
       text-align: center;
 
+      @include media(tb) {
+        margin-top: 6rem;
+      }
+
       @include media(pc) {
         margin-top: 7rem;
       }
 
       a {
-        @include fontsize(16, 18);
+        font-size: 1.4rem;
         color: $color_dark-gray;
         transition: all 0.3s linear;
+
+        @include media(tb) {}
+
+        @include media(pc) {
+          font-size: 1.6rem;
+        }
 
         &:hover {
           opacity: 0.7;
@@ -896,6 +907,10 @@ input[type=submit] {
     &__list {
       margin-top: 1rem;
 
+      @include media(pc) {
+        margin-top: 1.7rem;
+      }
+
       ul {
         display: flex;
         flex-wrap: wrap;
@@ -910,18 +925,57 @@ input[type=submit] {
             font-size: 1.4rem;
             display: flex;
             transition: all 0.3s linear;
+
+            @include media(tb) {}
+
+            @include media(pc) {
+              font-size: 1.6rem;
+              padding-left: 3rem;
+            }
+
+            cursor: pointer;
+            display: block;
+            position: relative;
+            font-style: normal;
+
+            /* emのイタリック体を解除 */
+            &::after {
+              content: '+';
+              position: absolute;
+              right: 10px;
+              transition: all 0.3s ease;
+
+              @include media(pc) {
+                line-height: 1;
+                font-size: 2.4rem;
+              }
+            }
+
+            &.is-active {
+              &+.accordion-content {
+                margin-top: 0.8rem;
+
+              }
+
+              &::after {
+                transform: rotate(45deg);
+              }
+            }
+
+            &:hover {
+              opacity: 0.7;
+            }
           }
 
           >ul {
             display: flex;
             flex-wrap: wrap;
-            // margin-top: 0.8rem;
+            overflow: hidden;
+            max-height: 0;
             margin-left: 3rem;
             transition: all 0.3s linear;
 
             li {
-
-
               a {
                 padding: 1.3rem 1.3rem 1.3rem 2rem;
                 display: block;
@@ -929,6 +983,11 @@ input[type=submit] {
                 color: $color_dark-gray;
                 transition: all 0.3s linear;
                 background-color: $color_light-gray2;
+
+                @include media(pc) {
+                  font-size: 1.6rem;
+                  padding-left: 3rem;
+                }
 
                 &:hover {
                   opacity: 0.7;
@@ -938,43 +997,12 @@ input[type=submit] {
             }
           }
         }
-
-
       }
 
-      .accordion-trigger {
-        cursor: pointer;
-        display: block;
-        padding: 10px;
-        position: relative;
-        font-style: normal;
 
-        /* emのイタリック体を解除 */
-        &::after {
-          content: '+';
-          position: absolute;
-          right: 10px;
-          transition: all 0.3s ease;
 
-        }
 
-        &.is-active {
-          &+.accordion-content {
-            margin-top: 0.8rem;
 
-          }
-
-          &::after {
-            transform: rotate(45deg);
-          }
-        }
-      }
-
-      .accordion-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: all 0.3s linear;
-      }
     }
   }
 }

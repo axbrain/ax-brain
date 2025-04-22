@@ -233,7 +233,7 @@ get_header();
 															echo esc_html($products_name);
 														}
 														if ($products_newitem === '有効') {
-															echo ' <span class="new-badge">【NEW】</span>';
+															echo ' <span class="c-new-badge">【NEW】</span>';
 														}
 														?>
 													</a>
