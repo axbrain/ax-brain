@@ -1,0 +1,62 @@
+@use "global"as *;
+
+// display
+.u-sp {
+  display: block;
+
+  @include media(tb) {
+    display: none;
+  }
+}
+
+.u-sp-inline {
+  display: inline-block;
+
+  @include media(tb) {
+    display: none;
+  }
+}
+
+.u-pc {
+  display: none;
+
+  @include media(tb) {
+    display: block;
+  }
+}
+
+.u-pc-inline {
+  display: none;
+
+  @include media(tb) {
+    display: inline-block;
+  }
+}
+
+// color
+.u-white {
+  color: #fff;
+}
+
+.u-black {
+  color: $color_font;
+}
+
+// text-align
+.u-tac {
+  text-align: center;
+}
+
+.u-tar {
+  text-align: right !important;
+}
+
+// marker
+.u-marker {
+  text-decoration: underline !important;
+}
+
+// font-weight 
+.u-bold {
+  font-weight: bold;
+}

@@ -1,0 +1,237 @@
+@use "global"as *;
+
+// button
+.c-btn {
+  & {
+    @include hover;
+  }
+}
+
+// heading
+.c-h1 {
+  font-size: 2.2rem;
+
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: $color_dark-gray;
+  margin-bottom: 3rem;
+
+
+  @include media(tb) {
+    font-size: 2.2rem;
+    margin-bottom: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  @include media(pc) {
+    font-size: 2.2rem;
+    margin-bottom: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  &.-bdb {
+    padding-bottom: 3rem;
+    border-bottom: 1px solid $color_light-gray1;
+
+    @include media(tb) {
+      padding-bottom: 4rem;
+    }
+
+    @include media(pc) {
+      padding-bottom: 4rem;
+    }
+  }
+}
+
+
+// link-txt
+.c-link-txt {
+  text-decoration: underline;
+  position: relative;
+  color: $color_dark-gray;
+
+  &::before {
+    content: '';
+    @include absolute($bottom:-0.5rem, $left:0);
+    height: 2px;
+    width: 0;
+    background: $color_dark-gray;
+    transition: width 0.3s;
+  }
+
+  &:hover {
+    &::before {
+      width: 100%;
+    }
+  }
+}
+
+.c-bold {
+  font-weight: bold;
+}
+
+
+.c-new-badge {
+  color: #cb0014;
+  display: inline-block;
+  font-size: 1rem;
+  left: 3px;
+  line-height: 1;
+}
+
+
+
+//製品一覧
+.c-products {
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+
+    @include media(tb) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4rem;
+    }
+  }
+
+  &__item {
+    a {
+      display: block;
+      transition: opacity 0.3s;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &__img {
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  &__title {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: $color_dark-gray;
+  }
+
+
+  // ページネーション
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 4rem;
+
+    @include media(tb) {
+      margin-top: 6rem;
+      gap: 1.5rem;
+    }
+
+    .page-numbers {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 4rem;
+      height: 4rem;
+      border: 1px solid $color_light-gray1;
+      color: $color_dark-gray;
+      font-size: 1.6rem;
+      text-decoration: none;
+      transition: all .3s linear;
+
+      @include media(tb) {
+        width: 5rem;
+        height: 5rem;
+      }
+
+      &:hover {
+        background: $color_light-gray1;
+      }
+
+      &.current {
+        background: $color_dark-gray;
+        color: #fff;
+        border-color: $color_dark-gray;
+      }
+
+      &.prev,
+      &.next {
+        position: relative;
+
+        &::before {
+          content: '';
+          width: 0.8rem;
+          height: 0.8rem;
+          border-top: 1px solid $color_dark-gray;
+          border-right: 1px solid $color_dark-gray;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+        }
+
+        &:hover::before {
+          opacity: 0.7;
+        }
+      }
+
+      &.prev::before {
+        transform: translate(-25%, -50%) rotate(-135deg);
+      }
+
+      &.next::before {
+        transform: translate(-75%, -50%) rotate(45deg);
+      }
+    }
+
+    .dots {
+      padding: 0 1rem;
+    }
+  }
+
+  &__no-results {
+    text-align: center;
+    font-size: 1.6rem;
+    color: $color_dark-gray;
+  }
+}
+
+//カテゴリー一覧
+.c-category__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+
+  @include media(tb) {}
+
+  li {
+    display: inline-block;
+
+    a {
+      font-size: 1.4rem;
+      color: #4d4d4d;
+      padding: 1.2rem 1.8rem;
+      background-color: #fff;
+      border: 1px solid #E5E5E5;
+      transition: all 0.3s linear;
+      display: inline-block;
+      text-align: center;
+      line-height: 1;
+      cursor: pointer;
+      border-radius: 3rem;
+      white-space: nowrap;
+
+      &:hover {
+        background: $color_light-gray1;
+      }
+    }
+  }
+}

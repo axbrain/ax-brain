@@ -1,0 +1,2168 @@
+@use "global"as *;
+
+// header
+.p-hdr {
+  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  border-bottom: 1px solid $color_light-gray1;
+  transition: all .3s linear;
+
+  &__slide {
+    background: $color_light-gray1;
+    height: 3.6rem;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    transition: all .3s linear;
+
+    @include media(tb) {
+      height: 5.4rem;
+    }
+
+    ul {
+      display: flex;
+
+      li {
+        @include fontsize(10, 14);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .3s linear;
+        font-size: 1rem;
+
+        @include media(tb) {
+          font-size: 1.2rem;
+
+        }
+
+        @include media(pc) {
+          font-size: 1.4rem;
+
+        }
+      }
+    }
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5.4rem;
+
+    @include media(tb) {}
+
+    @include media(pc) {
+      gap: 0 6rem;
+      height: 12.4rem;
+    }
+
+    nav {
+      flex: 1;
+    }
+  }
+
+  &__logo {
+
+
+    a {}
+
+    img {
+      height: 2rem;
+
+      @include media(m) {
+        height: 2.5rem;
+      }
+    }
+  }
+}
+
+.p-gnav {
+  display: none;
+
+  @include media(pc) {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  li {
+    a {
+      display: inline-block;
+      color: $color_dark-gray;
+      white-space: nowrap;
+      position: relative;
+
+      @include media(tb) {
+        font-size: 1.8rem;
+      }
+
+      &::before {
+        content: '';
+        @include absolute($bottom:-0.5rem, $left:0);
+        height: 2px;
+        width: 0;
+        background: $color_dark-gray;
+        transition: width 0.3s;
+      }
+
+      &:hover {
+        &::before {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &__new {
+    color: #CB0014;
+    display: inline-block;
+    font-size: 1rem;
+    line-height: 1;
+    position: absolute;
+    top: -15px;
+    left: 3px;
+
+    @include media(tb) {}
+  }
+}
+
+.p-hdr__search {
+  display: none;
+
+  @include media(pc) {
+    display: block;
+  }
+
+  .p-search-form {
+    background: #F3F3F3;
+    border-radius: 2rem;
+    width: 28.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0 1.5rem;
+    padding: 0 2rem;
+
+    input[type="text"] {
+      border: none;
+      margin: 0;
+      padding: 0.6rem 0;
+      flex: 1;
+      background: transparent;
+      font-family: inherit;
+      letter-spacing: 0.1em;
+      @include fontsize(16, 18);
+    }
+
+    button {
+      width: 1.6rem;
+      height: 1.6rem;
+      background: url('../images/common/icon_search.svg') no-repeat center / contain;
+      appearance: none;
+      bottom: 0;
+      margin: 0;
+      border: 0;
+      cursor: pointer;
+    }
+  }
+
+  .site-header__search-btn {
+    @include media(pc) {
+      display: none;
+    }
+  }
+}
+
+button,
+input[type=submit] {
+  cursor: pointer;
+}
+
+.p-hdr__site-nav {
+  display: flex;
+  gap: 0 1rem;
+
+  @include media(pc) {
+    display: none;
+  }
+
+  .site-nav__link {
+    display: inline-block;
+  }
+
+  .site-nav__link,
+  .site-nav__dropdown-link {
+    font-size: 13px;
+  }
+
+  .site-nav__link--icon {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0;
+
+    .icon {
+      fill: #333;
+      transition: all .3s linear;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-search {
+      width: 30px;
+      height: 30px;
+      padding: 4px;
+    }
+
+    .icon-hamburger {
+      width: 30px;
+      height: 30px;
+    }
+
+    .icon__fallback-text {
+      clip: rect(0, 0, 0, 0);
+      overflow: hidden;
+      position: absolute;
+      height: 1px;
+      width: 1px;
+    }
+
+    .icon-hamburger path {
+      stroke: #333;
+    }
+
+    &:hover {
+      svg {
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+
+
+
+//p-insta
+.p-insta {
+  padding: 0;
+  margin-top: 8rem;
+
+  @include media(tb) {
+    margin-top: 6rem;
+  }
+
+  @include media(pc) {
+    margin-top: 8.4rem;
+  }
+
+  &__inner {
+    @include media(tb) {}
+
+    @include media(pc) {
+      width: min(calc(100%), 144rem);
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+
+  &__h1 {
+    @include fontsize(18, 22);
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: $color_dark-gray;
+
+    @include media(tb) {}
+
+    @include media(pc) {
+      margin-bottom: 3.5rem;
+    }
+  }
+
+  #sb_instagram #sbi_images {
+    padding: 0;
+  }
+}
+
+// footer
+.p-ftr {
+  background: #E8E7E2;
+  padding: 5rem 0 2rem;
+  transition: all .3s linear;
+
+  &__logo {
+    margin-bottom: 2rem;
+
+    a {
+      display: block;
+      height: 4rem;
+
+      @include media(tb) {
+        height: 3rem;
+      }
+
+      img {
+        height: 100%;
+        width: auto;
+      }
+    }
+  }
+
+  &__txt {
+    @include fontsize(15, 15);
+
+  }
+
+  &__sns {
+    display: flex;
+    justify-content: center;
+    gap: 0 2rem;
+
+    li {
+      a {
+        display: block;
+        height: 3.5rem;
+        transition: all .3s linear;
+
+        &:hover {
+          opacity: 0.7;
+        }
+
+        @include media(tb) {
+          height: 4.5rem;
+        }
+
+
+
+        img {
+          height: 100%;
+          width: auto;
+        }
+      }
+    }
+  }
+
+  &__inner {
+    margin-top: 5rem;
+
+    @include media(tb) {
+      display: flex;
+      justify-content: space-between;
+      gap: 0 3rem;
+    }
+
+    @include media(pc) {
+      width: min(calc(100%), 120rem);
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+
+  &__info {
+    @include media(pc) {
+      width: min(calc(100%), 50rem);
+
+    }
+  }
+
+
+  &__txt {
+    line-height: 1.79;
+    letter-spacing: 0.15em;
+    font-size: 1.5rem;
+
+    @include media(tb) {
+      font-size: 1.4rem;
+    }
+
+    @include media(tb) {
+      font-size: 1.9rem;
+    }
+
+  }
+
+  &__tel-box {
+    margin-top: 2rem;
+    padding: 2.3rem 1rem 1.4rem;
+    border: 2px solid #fff;
+    color: $color_dark-gray;
+    text-align: center;
+
+    &__h1 {
+      margin-bottom: 1.5rem;
+      text-align: center;
+      @include fontsize(16, 17);
+    }
+
+    &__tel {
+      font-weight: bold;
+      color: inherit;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      transition: all .3s linear;
+      font-size: 3.2rem;
+
+      @include media(tb) {
+        font-size: 2.6rem;
+      }
+
+      @include media(pc) {
+        font-size: 3.8rem;
+      }
+
+      &:hover {
+        // transform: scale(1.1);
+        opacity: 0.7;
+
+      }
+    }
+
+    &__txt {
+      text-align: center;
+      font-size: 1.4rem;
+      @include fontsize(14, 16);
+
+      br {
+        @include media(pc) {
+          display: none;
+        }
+      }
+
+    }
+  }
+
+  &__btm-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 8rem;
+
+    @include media(tb) {
+      flex-direction: row;
+      justify-content: space-between;
+      height: 5rem;
+      margin-top: 5rem;
+
+    }
+
+    @include media(pc) {
+      width: min(calc(100%), 120rem);
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+
+    @include media(tb) {
+      flex-direction: row;
+      gap: 0.5rem 1.5rem;
+    }
+
+
+    li {
+      a {
+        display: inline-block;
+        color: $color_dark-gray;
+        @include fontsize(14, 14);
+
+        & {
+          @include hover;
+        }
+      }
+    }
+  }
+
+  &__cr {
+    color: $color_dark-gray;
+    @include fontsize(14, 14);
+    margin-top: 3rem;
+
+    @include media(tb) {
+      margin-top: 0;
+
+    }
+  }
+}
+
+.p-calender {
+  width: min(100%, 37.6rem);
+  margin: 5rem auto 0;
+
+  @include media(tb) {
+    margin: 0;
+  }
+
+  &__h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: $color_dark-gray;
+    @include fontsize(16, 18);
+  }
+
+  .xo-event-calendar {
+    font-family: inherit;
+
+    table {
+      border: none;
+
+      .month-header {
+        margin-bottom: 2.6rem;
+
+        .calendar-caption {
+          color: $color_dark-gray;
+          @include fontsize(16, 20);
+        }
+      }
+
+      button span.nav-next,
+      button span.nav-prev {
+        width: 17px;
+        height: 17px;
+        border-color: $color_dark-gray;
+      }
+
+      thead {
+        position: relative;
+
+        &::before {
+          content: '';
+          @include absolute($bottom:18px, $left:0);
+          width: 100%;
+          height: 1px;
+          background: $color_light-gray1;
+        }
+
+        th {
+          font-weight: normal;
+          border: none;
+          color: $color_dark-gray;
+          text-align: right;
+          padding: 4px 4px 36px !important;
+        }
+      }
+
+      .month-dayname {
+        td {
+          border: none;
+
+          div.today {
+            background: transparent !important;
+            position: relative;
+            font-weight: normal;
+            color: $color_dark-gray;
+          }
+
+          div.other-month {
+            opacity: 0.4;
+          }
+
+          .holiday-all {
+            color: #DD0000;
+          }
+        }
+
+        .custom-today {
+          position: relative;
+
+          &::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            right: 0;
+            width: 32px;
+            height: 29px;
+            background: $color_light-gray1;
+          }
+        }
+      }
+    }
+  }
+
+  .calendars {
+    background: #fff;
+    color: $color_dark-gray;
+    padding: 3.8rem 3.3rem 2.8rem;
+
+    @include media(tb) {
+      padding: 2rem 2rem 0rem;
+    }
+  }
+
+  .holiday-titles {
+    .holiday-title {
+      text-align: right;
+      margin-top: 1rem;
+      color: $color_dark-gray;
+      @include fontsize(16, 18);
+
+      @include media(tb) {
+        font-size: 1.6rem;
+      }
+
+      span {
+        display: none;
+      }
+    }
+  }
+}
+
+// ホームページ
+.p-fp {
+  &__mv {
+    &__splide {
+      margin-top: 2rem;
+      position: relative; // 親要素に相対位置を設定
+
+      @include media(pc) {
+        margin-top: 0;
+
+      }
+
+      &-wrapper {
+        @include media(tb) {
+          display: grid;
+          gap: 0 2rem;
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media(pc) {
+          display: grid;
+          gap: 0 2rem;
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
+
+      .splide__track {
+        overflow: hidden;
+      }
+
+      .splide__slide {
+        position: relative; // スライドに相対位置を設定
+
+        img {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+          display: block; // 画像下の余白を削除
+        }
+      }
+
+      // 矢印ボタンの基本スタイル
+      .splide__arrows {
+        position: absolute; // 絶対位置指定
+        width: 100%;
+        height: 0; // 高さを0に
+        top: 50%; // 上下中央配置の基準点
+        left: 0;
+        z-index: 1; // 画像の上に表示
+
+        .splide__arrow {
+          width: 40px;
+          height: 50px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: transparent; // 背景色を削除
+
+          &:hover {
+            opacity: 0.7; // ホバー時は透明度で変化をつける
+          }
+
+          // デフォルトのSVGを非表示
+          svg {
+            display: none;
+          }
+
+          // 新しい矢印を疑似要素で作成
+          &::before {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border-top: 2px solid #fff;
+            border-right: 2px solid #fff;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+          }
+
+          // 右向き矢印
+          &--next {
+            right: 15px;
+          }
+
+          // 左向き矢印
+          &--prev {
+            left: 15px;
+
+            &::before {
+              transform: translate(-50%, -50%) rotate(-135deg);
+            }
+          }
+        }
+      }
+
+      // ページネーションのスタイル
+      .splide__pagination {
+        bottom: -2rem;
+
+        .splide__pagination__page {
+          background: #ccc;
+          width: 30px;
+          height: 30px;
+          margin: 0 5px;
+
+          &.is-active {
+            background: #333;
+            transform: scale(1.2);
+          }
+        }
+      }
+    }
+  }
+
+  &__newproducts {
+    margin-top: 5rem;
+    padding-left: 1rem;
+
+    &__title {
+      @include fontsize(16, 18);
+    }
+
+    &__splide {
+      margin-top: 2rem;
+      position: relative; // 親要素に相対位置を設定
+
+      @include media(pc) {
+        margin-top: 0;
+
+      }
+
+      &-wrapper {
+        @include media(tb) {
+          display: grid;
+          gap: 0 2rem;
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media(pc) {
+          display: grid;
+          gap: 0 2rem;
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
+
+      .splide__track {
+        overflow: hidden;
+      }
+
+
+      .splide__slide {
+        position: relative; // スライドに相対位置を設定
+        display: grid;
+        place-content: center;
+        aspect-ratio: 1/1;
+
+        img {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+          display: block; // 画像下の余白を削除
+        }
+      }
+
+      // 矢印ボタンの基本スタイル
+      .splide__arrows {
+        position: absolute; // 絶対位置指定
+        width: 100%;
+        height: 0; // 高さを0に
+        top: 50%; // 上下中央配置の基準点
+        left: 0;
+        z-index: 1; // 画像の上に表示
+
+        .splide__arrow {
+          width: 40px;
+          height: 50px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: transparent; // 背景色を削除
+
+          &:hover {
+            opacity: 0.7; // ホバー時は透明度で変化をつける
+          }
+
+          // デフォルトのSVGを非表示
+          svg {
+            display: none;
+          }
+
+          // 新しい矢印を疑似要素で作成
+          &::before {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border-top: 2px solid #fff;
+            border-right: 2px solid #fff;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+          }
+
+          // 右向き矢印
+          &--next {
+            right: 15px;
+          }
+
+          // 左向き矢印
+          &--prev {
+            left: 15px;
+
+            &::before {
+              transform: translate(-50%, -50%) rotate(-135deg);
+            }
+          }
+        }
+      }
+
+      // ページネーションのスタイル
+      .splide__pagination {
+        bottom: -2rem;
+
+        .splide__pagination__page {
+          background: #ccc;
+          width: 30px;
+          height: 30px;
+          margin: 0 5px;
+
+          &.is-active {
+            background: #333;
+            transform: scale(1.2);
+          }
+        }
+      }
+    }
+
+
+
+    &__more {
+      text-align: center;
+
+      a {
+        @include fontsize(16, 18);
+        color: $color_dark-gray;
+        transition: all 0.3s linear;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  &__products {
+    margin-top: 5rem;
+
+    &__title {
+      @include fontsize(16, 18);
+    }
+
+    &__list {
+      margin-top: 1rem;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .8rem;
+
+        >li {
+          width: 100%;
+
+          em {
+            background-color: #E8E7E2;
+            padding: 1.3rem 1.3rem 1.3rem 2rem;
+            font-size: 1.4rem;
+            display: flex;
+            transition: all 0.3s linear;
+          }
+
+          >ul {
+            display: flex;
+            flex-wrap: wrap;
+            // margin-top: 0.8rem;
+            margin-left: 3rem;
+            transition: all 0.3s linear;
+
+            li {
+
+
+              a {
+                padding: 1.3rem 1.3rem 1.3rem 2rem;
+                display: block;
+                font-size: 1.4rem;
+                color: $color_dark-gray;
+                transition: all 0.3s linear;
+                background-color: $color_light-gray2;
+
+                &:hover {
+                  opacity: 0.7;
+                }
+
+              }
+            }
+          }
+        }
+
+
+      }
+
+      .accordion-trigger {
+        cursor: pointer;
+        display: block;
+        padding: 10px;
+        position: relative;
+        font-style: normal;
+
+        /* emのイタリック体を解除 */
+        &::after {
+          content: '+';
+          position: absolute;
+          right: 10px;
+          transition: all 0.3s ease;
+
+        }
+
+        &.is-active {
+          &+.accordion-content {
+            margin-top: 0.8rem;
+
+          }
+
+          &::after {
+            transform: rotate(45deg);
+          }
+        }
+      }
+
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s linear;
+      }
+    }
+  }
+}
+
+
+// プライバシーポリシー
+// p-privacypolicy
+.p-privacypolicy {
+  &__h1 {
+    font-size: 2.2rem;
+
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: $color_dark-gray;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid $color_light-gray1;
+
+    @include media(tb) {
+      font-size: 2.2rem;
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+    }
+
+    @include media(pc) {
+      font-size: 2.2rem;
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+
+    }
+  }
+
+  &__text {
+    @include fontsize(16, 18);
+  }
+
+  &__list {
+    list-style: disc;
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+
+    li {
+
+      &:nth-of-type(n+2) {
+        margin-top: 1.5rem;
+
+      }
+    }
+  }
+
+  &__text-bottom {
+    text-align: right;
+    margin-top: 1.5rem;
+  }
+
+  &__contact {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid $color_light-gray1;
+
+
+    p {
+      text-align: center;
+
+      @include media(tb) {
+        text-align: left;
+      }
+
+      &:nth-of-type(n+2) {
+        margin-top: 1.5rem;
+
+      }
+
+    }
+  }
+
+}
+
+.p-company {
+  &-h1 {}
+
+  &__dl {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @include media(tb) {
+      flex-wrap: wrap;
+      flex-direction: row;
+      gap: .8rem 4rem;
+      width: 70rem;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    dt,
+    dd {
+      @include fontsize(16, 18);
+      text-align: center;
+      padding: 1.3rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @include media(tb) {
+        font-size: 1.4rem;
+
+      }
+    }
+
+    dt {
+      background-color: $color_light-gray2;
+
+      @include media(tb) {
+        width: 30%;
+
+      }
+    }
+
+    dd {
+      flex-direction: column;
+
+      @include media(tb) {
+        width: calc(70% - 4rem);
+        justify-content: flex-start;
+        text-align: left;
+        align-items: flex-start;
+
+      }
+    }
+
+
+  }
+}
+
+// お問い合わせ
+.p-contact {
+  &__h1 {
+    font-size: 2.2rem;
+
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: $color_dark-gray;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid $color_light-gray1;
+
+    @include media(tb) {
+      font-size: 2.2rem;
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+    }
+
+    @include media(pc) {
+      font-size: 2.2rem;
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+
+    }
+  }
+
+  &__form {
+    margin-top: 4rem;
+
+    &-text {
+      margin-top: 3rem;
+    }
+
+    &-att {
+      margin-top: 3rem;
+      @include fontsize(12, 14);
+    }
+
+    // Contact Form 7のスタイリング
+    .cf7 {
+      &__list {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 4rem;
+
+        @include media(tb) {
+          gap: 0.8rem 2rem;
+        }
+
+        dt,
+        dd {
+          width: 100%;
+          font-size: 1.6rem;
+          display: flex;
+          align-items: center;
+
+          &:nth-of-type(n + 2) {}
+        }
+
+        dt {
+          background-color: $color_light-gray2;
+          padding: .8rem 1rem;
+          flex-direction: row-reverse;
+          justify-content: flex-end;
+
+          @include media(tb) {
+            width: 35%;
+            flex-direction: row;
+            justify-content: flex-start;
+          }
+
+          @include media(pc) {
+            width: 30rem;
+            padding: 1rem 2rem;
+
+          }
+
+          &:nth-of-type(n + 2) {
+            margin-top: 2rem;
+
+            @include media(tb) {
+              margin-top: 0;
+            }
+          }
+
+          &:last-of-type {
+
+            @include media(tb) {
+              align-items: flex-start;
+            }
+          }
+
+        }
+
+        dd {
+          width: 100%;
+          margin-top: 1rem;
+
+          @include media(tb) {
+            margin-top: 0;
+            width: calc(100% - 35% - 2rem);
+          }
+
+          @include media(pc) {
+            width: calc(100% - 30rem - 2rem);
+          }
+
+          &:nth-of-type(n + 2) {
+            @include media(tb) {
+              margin-top: 0;
+            }
+          }
+
+          &:last-of-type {
+            .wpcf7-not-valid-tip {
+              @include media(tb) {
+                top: .79rem;
+                margin: 0;
+              }
+
+
+            }
+          }
+
+          // 入力フィールドの共通スタイル
+          input[type="text"],
+          input[type="tel"],
+          input[type="email"],
+          textarea {
+            width: 100%;
+            height: 100%;
+            color: $color_placeholder;
+            border: 1px solid $color_light-gray1;
+            padding: .8rem 1rem;
+
+            // プレースホルダーの共通スタイル（全ブラウザ対応）
+            &::placeholder {
+              color: $color_placeholder;
+              opacity: 1; // Firefoxでの透明度を調整
+            }
+
+            // Firefox古いバージョン用
+            &::-moz-placeholder {
+              color: $color_placeholder;
+              opacity: 1;
+            }
+
+            // IE10+用
+            &:-ms-input-placeholder {
+              color: $color_placeholder;
+            }
+
+            // Edge用
+            &::-ms-input-placeholder {
+              color: $color_placeholder;
+            }
+
+            // Safari/Chrome古いバージョン用
+            &::-webkit-input-placeholder {
+              color: $color_placeholder;
+            }
+          }
+
+          // チェックボックスとラジオボタンの共通スタイル
+          .wpcf7-checkbox,
+          .wpcf7-radio {
+            display: block;
+            padding: 15px 0 10px;
+
+
+          }
+
+          .wpcf7-list-item {
+            display: block;
+            margin: 0;
+
+            &:nth-child(n + 2) {
+              margin-top: 18px;
+            }
+
+            label {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      // 必須・任意ラベル
+      &__required,
+      &__optional {
+        padding: .2rem .4rem;
+        color: #fff;
+        border-radius: .2rem;
+        margin-right: 1rem;
+        @include fontsize(10, 12);
+
+        @include media(tb) {
+          margin-left: auto;
+          margin-right: 0;
+
+        }
+      }
+
+      &__required {
+        background: #CB0014;
+      }
+
+      &__optional {
+        background: #007DCB;
+      }
+
+      // セレクトボックス
+      &__select {
+        position: relative;
+
+        &:before {
+          position: absolute;
+          top: 50%;
+          right: 20px;
+          z-index: 10;
+          transform: translateY(-50%);
+          width: 0;
+          height: 0;
+
+          border: {
+            top: 8px solid #000;
+            right: 6px solid transparent;
+            left: 6px solid transparent;
+          }
+
+          pointer-events: none;
+          content: '';
+        }
+
+        select {
+          width: 100%;
+          padding: 19px 20px;
+          background: #F4F4F4;
+          color: #a5a5a5;
+          appearance: none;
+        }
+      }
+
+      // チェックボックス・ラジオボタンの共通スタイル
+      input[type="checkbox"],
+      input[type="radio"] {
+        position: relative;
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+        border: 1px solid #bcbcbc;
+        vertical-align: -3px;
+        cursor: pointer;
+        appearance: none;
+      }
+
+      // チェックボックス固有のスタイル
+      input[type="checkbox"] {
+        &:checked {
+          border: 1px solid #000;
+          background: #000;
+
+          &:before {
+            position: absolute;
+            top: 2px;
+            left: 5px;
+            transform: rotate(50deg);
+            width: 6px;
+            height: 10px;
+
+            border: {
+              right: 2px solid #fff;
+              bottom: 2px solid #fff;
+            }
+
+            content: '';
+          }
+        }
+      }
+
+      // ラジオボタン固有のスタイル
+      input[type="radio"] {
+        border-radius: 50%;
+
+        &:checked:before {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 9px;
+          height: 9px;
+          border-radius: 50%;
+          background: #000;
+          content: '';
+        }
+      }
+
+      // 送信ボタン
+      &__button {
+        padding-left: 72px;
+        text-align: center;
+        margin-top: 2rem;
+
+        input[type="submit"] {
+          width: 26rem;
+          height: 60px;
+          background-color: $color_dark-gray;
+          color: #fff;
+          transition: all .3s linear;
+          border: 2px solid $color_dark-gray;
+
+          @include media(tb) {
+            width: 19rem;
+            height: 50px;
+          }
+
+          &:hover {
+            background-color: #fff;
+            color: $color_dark-gray;
+          }
+
+          @media screen and (max-width: 767px) {
+            width: 180px;
+            height: 56px;
+          }
+        }
+      }
+
+      &__text {
+        margin-top: 2rem;
+        margin-left: 2rem;
+        margin-right: 2rem;
+
+        @include media(tb) {
+          text-align: center;
+        }
+
+        a {
+          color: $color_font;
+          text-decoration: underline;
+          transition: all .3s linear;
+
+          &:hover {
+            text-decoration: none;
+
+          }
+        }
+      }
+    }
+
+    // Spinnerのスタイル
+    .wpcf7-spinner {
+      vertical-align: middle;
+    }
+
+    .wpcf7-form-control-wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wpcf7-not-valid-tip {
+      margin-top: 0.5rem;
+      @include fontsize(12, 14);
+
+      @include media(tb) {
+        font-size: 1rem;
+        padding: .5rem 1rem;
+        position: absolute;
+        right: 1rem;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        height: fit-content;
+        background-color: #cc0015;
+        color: #fff;
+        transition: all .3s linear;
+        border-radius: .2rem;
+      }
+    }
+  }
+}
+
+// 商品詳細
+.p-pro_single {
+  @include media(pc) {
+    display: grid;
+    gap: 0 4.5rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &__imgbox {
+    width: 100%;
+    margin-bottom: 2rem;
+
+
+    .p-pro_single__features {
+      @include media(pc) {
+        display: none;
+      }
+    }
+
+    .p-pro_single__price {
+      @include media(pc) {
+        display: none;
+      }
+    }
+
+    .p-pro_single__jan {
+      @include media(pc) {
+        display: none;
+      }
+    }
+  }
+
+  &__h1 {
+    display: flex;
+    flex-direction: column;
+
+    @include media(pc) {
+      display: none;
+    }
+
+    &-label,
+    &-value {
+      font-weight: bold;
+    }
+
+    &-label {
+      font-size: 1.4rem;
+
+      @include media(pc) {
+        font-size: 1.6rem;
+      }
+    }
+
+    &-value {
+      margin-top: 0.5rem;
+      font-size: 2.6rem;
+      line-height: 1.2;
+
+      @include media(pc) {
+        font-size: 3.2rem;
+      }
+    }
+  }
+
+  &__features {
+    display: flex;
+    gap: .5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+
+    @include media(pc) {
+      gap: 1rem 1rem;
+    }
+
+    li {
+      color: #fff;
+      background-color: #666666;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-weight: bold;
+      line-height: 1.2;
+
+      @include media(pc) {
+        font-size: 1.4rem;
+
+      }
+    }
+  }
+
+  &__price {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    justify-content: flex-start;
+
+    &-label,
+    &-value {
+      font-size: 1.8rem;
+    }
+
+    &-value-tax {
+      font-size: 1.4rem;
+    }
+  }
+
+  &__jan {
+    margin-top: .5rem;
+    display: flex;
+
+    &-label,
+    &-value {}
+  }
+
+
+  &__splide {
+    margin-top: 2rem;
+    position: relative; // 親要素に相対位置を設定
+
+    @include media(pc) {
+      margin-top: 0;
+
+    }
+
+    &-wrapper {
+      @include media(tb) {
+        display: grid;
+        gap: 0 2rem;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include media(pc) {
+        display: grid;
+        gap: 0 2rem;
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+
+    .splide__track {
+      overflow: hidden;
+    }
+
+    .splide__slide {
+      position: relative; // スライドに相対位置を設定
+
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        display: block; // 画像下の余白を削除
+      }
+    }
+
+    // 矢印ボタンの基本スタイル
+    .splide__arrows {
+      position: absolute; // 絶対位置指定
+      width: 100%;
+      height: 0; // 高さを0に
+      top: 50%; // 上下中央配置の基準点
+      left: 0;
+      z-index: 1; // 画像の上に表示
+
+      .splide__arrow {
+        width: 40px;
+        height: 50px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent; // 背景色を削除
+
+        &:hover {
+          opacity: 0.7; // ホバー時は透明度で変化をつける
+        }
+
+        // デフォルトのSVGを非表示
+        svg {
+          display: none;
+        }
+
+        // 新しい矢印を疑似要素で作成
+        &::before {
+          content: '';
+          width: 30px;
+          height: 30px;
+          border-top: 2px solid #fff;
+          border-right: 2px solid #fff;
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        // 右向き矢印
+        &--next {
+          right: 15px;
+        }
+
+        // 左向き矢印
+        &--prev {
+          left: 15px;
+
+          &::before {
+            transform: translate(-50%, -50%) rotate(-135deg);
+          }
+        }
+      }
+    }
+
+    // ページネーションのスタイル
+    .splide__pagination {
+      bottom: -2rem;
+
+      .splide__pagination__page {
+        background: #ccc;
+        width: 30px;
+        height: 30px;
+        margin: 0 5px;
+
+        &.is-active {
+          background: #333;
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+
+  &__productimages {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // 2カラム
+    gap: 2rem; // 画像間の余白
+    margin-top: 2rem; // 上部の余白
+
+    @include media(tb) {
+      gap: 1rem;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include media(pc) {
+      margin-top: 4rem;
+      gap: 3rem;
+
+      grid-template-columns: repeat(2, 1fr);
+
+    }
+
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block; // 画像下の余白を削除
+    }
+  }
+
+  &__contentbox {
+    .p-pro_single__h1 {
+      display: none;
+
+      @include media(pc) {
+        display: flex;
+        color: $color_dark-gray;
+        align-items: flex-start;
+        @include fontsize(18, 22);
+      }
+    }
+
+    .p-pro_single__features {
+      display: none;
+
+      @include media(pc) {
+        display: flex;
+      }
+    }
+
+    .p-pro_single__price {
+      display: none;
+
+      @include media(pc) {
+        display: flex;
+      }
+    }
+
+    .p-pro_single__jan {
+      display: none;
+
+      @include media(pc) {
+        display: flex;
+      }
+    }
+
+    &__h2 {
+      margin-top: 4rem;
+      color: $color_dark-gray;
+      @include fontsize(18, 22);
+    }
+
+    &__catchphrase {
+      margin-top: 2rem;
+
+      @include media(tb) {
+        font-size: 1.4rem;
+      }
+
+      @include media(pc) {
+        font-size: 1.6rem;
+      }
+    }
+
+    &__introduction {
+      margin-top: 2rem;
+
+      @include media(tb) {
+        font-size: 1.4rem;
+      }
+
+      @include media(pc) {
+        font-size: 1.6rem;
+      }
+    }
+
+    &__table-wrapper {
+      width: 100%;
+      overflow-x: auto; // 横スクロールを有効化
+      -webkit-overflow-scrolling: touch; // iOSでのスムーズスクロール
+      position: relative;
+      margin-top: 2rem;
+
+      @include media(pc) {
+        margin-top: 1rem;
+      }
+
+      // スクロールバーのカスタマイズ
+      &::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+
+        &:hover {
+          background: #555;
+        }
+      }
+
+      // Firefoxのスクロールバーカスタマイズ
+      scrollbar-width: thin;
+      scrollbar-color: #888 #f1f1f1;
+    }
+
+    &__table {
+      width: 100%;
+      min-width: 600px; // テーブルの最小幅を設定
+      border-collapse: collapse;
+
+      tr.js-accordion-content {
+        @include media(tb) {
+          display: table-row;
+
+        }
+
+      }
+
+      th,
+      td {
+        padding: 1rem;
+        border: 1px solid #ddd;
+        line-height: 1.6;
+
+        @include media(tb) {
+          font-size: 1.4rem;
+        }
+      }
+
+      th {
+        background: #f5f5f5;
+        font-weight: bold;
+        width: 25%;
+        vertical-align: top;
+        text-align: left;
+        white-space: nowrap; // 項目名を改行させない
+      }
+
+      td {
+        background: #fff;
+
+        p {
+          margin: 0;
+
+          &:not(:first-child) {
+            margin-top: 0.5rem;
+          }
+        }
+      }
+
+      &-more {
+        color: $color_font;
+        display: block;
+        text-align: center;
+        transition: all .3s linear;
+        width: 100%;
+        border: 1px solid $color_light-gray1;
+        margin-top: 2rem;
+        padding: 1rem 0;
+
+        @include media(tb) {
+          display: none;
+        }
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+
+    &__attention {
+      margin-top: 2rem;
+      text-align: justify;
+      font-size: 1.2rem;
+    }
+
+    &__warning {
+      margin-top: 2rem;
+      text-align: justify;
+      font-size: 1.2rem;
+    }
+
+    &__pamphlet {
+      margin-top: 4rem;
+      text-align: justify;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      a {
+        background-color: #E6E6E6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        font-size: 1.4rem;
+        padding: 5rem 1rem;
+        color: #000;
+        width: 100%;
+        transition: all .3s linear;
+
+        img {
+          width: 4rem;
+        }
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+
+    &__relatedproducts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); // 2カラム
+      gap: 2rem; // 画像間の余白
+
+      @include media(tb) {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem; // 画像間の余白
+
+      }
+
+      @include media(pc) {
+        gap: 4.5rem;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block; // 画像下の余白を削除
+      }
+
+      &__h2 {
+        text-align: center;
+        margin-top: 10rem;
+        margin-bottom: 2.5rem;
+        color: $color_dark-gray;
+        @include fontsize(18, 22);
+
+        @include media(pc) {
+          margin-top: 5.5rem;
+
+        }
+      }
+
+      li {
+        img {}
+
+        p {
+          margin-top: 1rem;
+
+          @include media(tb) {
+            font-size: 1.4rem;
+          }
+        }
+      }
+
+    }
+  }
+
+}
+
+// 新製品一覧
+.p-new-products {}
+
+// 404ページ
+.p-404 {
+  padding: 8rem 2rem;
+  text-align: center;
+
+  @include media(tb) {
+    padding: 12rem 2rem;
+  }
+
+  @include media(pc) {
+    padding: 16rem 2rem;
+  }
+
+  &__inner {
+    max-width: 60rem;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: 8rem;
+    font-weight: bold;
+    color: $color_dark-gray;
+    line-height: 1;
+
+    @include media(tb) {
+      font-size: 12rem;
+    }
+
+    @include media(pc) {
+      font-size: 16rem;
+    }
+  }
+
+  &__text {
+    margin-top: 2rem;
+    font-size: 1.6rem;
+    color: $color_dark-gray;
+    text-align: center;
+
+    @include media(tb) {
+      font-size: 1.8rem;
+    }
+
+    @include media(pc) {
+      font-size: 2rem;
+    }
+  }
+
+  &__button {
+    margin-top: 4rem;
+
+    @include media(tb) {
+      margin-top: 6rem;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    padding: 1.5rem 4rem;
+    background-color: $color_dark-gray;
+    color: #fff;
+    font-size: 1.6rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    @include media(tb) {
+      font-size: 1.8rem;
+      padding: 2rem 5rem;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+// 検索結果ページ
+.p-search {
+
+
+  &__title {
+    color: $color_dark-gray;
+    text-align: center;
+    margin-bottom: 4rem;
+
+    @include media(tb) {
+      font-size: 2.4rem;
+      margin-bottom: 6rem;
+    }
+
+    @include media(pc) {
+      font-size: 1.8rem;
+      margin-bottom: 8rem;
+    }
+  }
+
+  &__query {
+    color: #CB0014;
+  }
+
+
+}
+
+// 製品情報一覧
+.p-products {
+  &__category-name {
+    color: #CB0014;
+  }
+
+  &__categories {
+    margin-bottom: 4rem;
+
+    @include media(tb) {
+      margin-bottom: 6rem;
+    }
+
+    @include media(pc) {
+      margin-bottom: 8rem;
+    }
+  }
+
+  &__category-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+
+    @include media(tb) {
+      gap: 2rem;
+    }
+  }
+
+  &__category-item {
+    list-style: none;
+  }
+
+  &__category-link {
+    display: inline-block;
+    padding: 0.8rem 1.6rem;
+    background-color: $color_light-gray1;
+    color: $color_dark-gray;
+    text-decoration: none;
+    border-radius: 0.4rem;
+    transition: all 0.3s ease;
+
+    @include media(tb) {
+      padding: 1rem 2rem;
+    }
+
+    &:hover {
+      background-color: $color_dark-gray;
+      color: #fff;
+    }
+  }
+
+  &__no-results {
+    text-align: center;
+    font-size: 1.6rem;
+    color: $color_dark-gray;
+
+    @include media(tb) {
+      font-size: 1.8rem;
+    }
+
+    @include media(pc) {
+      font-size: 2rem;
+    }
+  }
+}

@@ -1,0 +1,97 @@
+@use "sass:math";
+@use "vars"as *;
+@use "media"as *;
+
+// @include hover;
+@mixin hover {
+  transition: opacity linear .3s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+// text-aligh
+// @include justify();
+@mixin justify() {
+  text-align: justify;
+  text-justify: inter-ideograph;
+  word-break: break-all;
+}
+
+// フォントサイズ
+// @include fontsize(14, 16);
+@mixin fontsize($size-s: 14, $size-m: 16) {
+  font-size: ($size-s / 10) * 1rem;
+
+  @include media(tb) {
+    font-size: ($size-m / 10) * 1rem;
+  }
+}
+
+// absolute一括指定
+// @include absolute(0,0,0,0);
+// @include absolute($top:0, $bottom:0);
+@mixin absolute($top:null, $left:null, $right:null, $bottom:null) {
+  position: absolute;
+
+  @if $top !=null {
+    top: $top;
+  }
+
+  @if $right !=null {
+    right: $right;
+  }
+
+  @if $bottom !=null {
+    bottom: $bottom;
+  }
+
+  @if $left !=null {
+    left: $left;
+  }
+}
+
+// 親要素に対して中央寄せ
+// x：横方向中央寄せ,y：縦方向中央寄せ,xy：縦横方向中央寄せ
+// @include center(x);
+@mixin center($direction) {
+  position: absolute;
+
+  @if $direction==xy {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @else if $direction==x {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @else if $direction==y {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+// @include clearfix;
+@mixin clearfix {
+
+  &::after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+}
+
+// その他
+@mixin replace($original, $replacement) {
+
+  // @include replace($, $) {}
+  @at-root {
+    #{selector-replace(&, $original, $replacement)} {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+@use "vars"as *;
+@use "sass:map";
+
+// レスポンシブ対応用 メディアクエリ
+$breakpoints: ('tb': '768px',
+  'pc': $width + ($width-m-sp * 2),
+) !default;
+
+@mixin media ($breakpoint: tb) {
+  @media only screen and (min-width: #{ map.get( $breakpoints, $breakpoint ) }) {
+    @content;
+  }
+}
+
+// コンパイル後のメディアクエリの記載順が前後しないよう、事前に記載しておく
+@include media(tb) {
+  /* tablet-size */
+}
+
+@include media(pc) {
+  /* pc-size */
+}

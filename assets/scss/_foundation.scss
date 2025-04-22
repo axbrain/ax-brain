@@ -1,0 +1,119 @@
+@use "sass:math";
+@use "global"as *;
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 9rem;
+
+  @include media(tb) {}
+
+  @include media(pc) {
+    scroll-padding-top: 18rem;
+
+  }
+}
+
+body {
+  font-family: "M PLUS 1p",
+    "ヒラギノ角ゴ Pro W3",
+    "Hiragino Kaku Gothic Pro",
+    "游ゴシック",
+    "Yu Gothic",
+    YuGothic,
+    Osaka,
+    "ＭＳ Ｐゴシック",
+    "MS PGothic",
+    "メイリオ",
+    Meiryo,
+    sans-serif;
+  color: $color_font;
+  font-weight: 400;
+  line-height: 1.47;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  @include fontsize(14, 16);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+}
+
+*:focus {
+  outline: none;
+}
+
+p,
+ul li,
+ol li {
+  @include justify();
+}
+
+picture,
+img {
+  display: block;
+}
+
+img {
+  width: 100%;
+}
+
+b,
+strong {
+  font-weight: 600;
+}
+
+button,
+input,
+textarea {
+  appearance: none;
+  border: none;
+  background-color: initial;
+}
+
+
+
+main {
+  margin-top: 13rem;
+
+  @include media(tb) {
+    margin-top: 14.8rem;
+  }
+
+  @include media(pc) {
+    margin-top: 26rem;
+  }
+
+  &.p-fp {
+    margin-top: 9rem;
+
+    @include media(tb) {
+      margin-top: 14.8rem;
+    }
+
+    @include media(pc) {
+      margin-top: 26rem;
+    }
+  }
+
+  &.single-products {
+    margin-top: 9.8rem;
+
+    @include media(tb) {
+      margin-top: 9.8rem;
+    }
+
+    @include media(pc) {
+      margin-top: 19rem;
+    }
+  }
+}
