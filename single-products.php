@@ -261,13 +261,11 @@ $post_id = get_the_ID();
         </a>
       </div>
     <?php endif; ?>
-
-    <h2 class="p-pro_single__contentbox__relatedproducts__h2">関連する商品</h2>
-
     <?php
 
     if (have_rows('products_relatedproducts', $post_id)):
     ?>
+      <h2 class="p-pro_single__contentbox__relatedproducts__h2">関連する商品</h2>
       <ul class="p-pro_single__contentbox__relatedproducts">
         <?php
         while (have_rows('products_relatedproducts', $post_id)) : the_row();
@@ -298,19 +296,8 @@ $post_id = get_the_ID();
     <?php
     endif;
     ?>
-
-
-
   </div>
-
 </div>
-
-
-
-
-
-
-
 
 <?php
 // Splideの初期化スクリプトをフッターに追加

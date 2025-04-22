@@ -1253,11 +1253,11 @@ button,input[type=submit]{
 }
 .p-pro_single__h1-label{
   font-size:1.4rem;
+  margin-bottom:.5rem;
 }
 .p-pro_single__h1-value{
   font-size:2.6rem;
   line-height:1.2;
-  margin-top:.5rem;
 }
 .p-pro_single__features{
   display:-webkit-box;
