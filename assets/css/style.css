@@ -1447,6 +1447,31 @@ button,input[type=submit]{
 .p-pro_single__contentbox__table-more:hover{
   opacity:.7;
 }
+.p-pro_single__contentbox__description table{
+  width:1800px;
+}
+.p-pro_single__contentbox__description td,.p-pro_single__contentbox__description th{
+  border:1px solid #ccc;
+  height:100px;
+  padding:0 15px;
+  vertical-align:middle;
+  width:300px;
+}
+.p-pro_single__contentbox__description tr td:first-of-type,.p-pro_single__contentbox__description tr th:first-of-type{
+  background:#333;
+  color:#fff;
+  left:0;
+  position:sticky;
+}
+.p-pro_single__contentbox__description tr td:first-of-type:before,.p-pro_single__contentbox__description tr th:first-of-type:before{
+  border:1px solid #ccc;
+  content:"";
+  height:100%;
+  left:-1px;
+  position:absolute;
+  top:-1px;
+  width:100%;
+}
 .p-pro_single__contentbox__attention,.p-pro_single__contentbox__warning{
   font-size:1.2rem;
   margin-top:2rem;
