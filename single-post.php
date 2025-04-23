@@ -13,6 +13,7 @@ $post_id = get_the_ID();
     <?php the_content(); ?>
   </div>
 </div>
+
 <?php
 get_footer();
 ?>
