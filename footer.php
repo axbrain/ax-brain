@@ -3,7 +3,7 @@
 <section class="l-wide p-insta">
 	<h2 class="p-insta__h1">INSTAGRAM</h2>
 	<div class="p-insta__inner">
-		<?php echo do_shortcode('[instagram-feed feed=1]'); ?>
+		<?php echo do_shortcode('[instagram-feed feed=2]'); ?>
 	</div>
 </section>
 <footer class="p-ftr">
