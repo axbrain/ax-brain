@@ -192,143 +192,25 @@ $post_id = get_the_ID();
       </div>
     <?php endif; ?>
 
-    <h2 class="p-pro_single__contentbox__h2">商品説明</h2>
-
     <?php
-    $products_genre = get_field('products_genre');
-    $rows = [];
-    $show_accordion = false;
+    $description_irregular = get_field('product_description_irregular');
+    $description = get_field('product_description');
 
-    // カテゴリごとに適切なフィールドを取得
-    switch ($products_genre) {
-      case 'レーザー機器':
-        if (have_rows('product_description_laserequipment')) {
-          while (have_rows('product_description_laserequipment')) : the_row();
-            $th = get_sub_field('product_description_table_th');
-            $td = get_sub_field('product_description_table_td');
-            if ($th || $td) {
-              $rows[] = [
-                'th' => $th,
-                'td' => $td
-              ];
-            }
-          endwhile;
-        }
-        break;
-      case '測定・測量機器':
-        $description = get_field('product_description_measuring');
-        if ($description) {
-          echo '<div class="p-pro_single__contentbox__description">';
-          echo $description;
-          echo '</div>';
-        }
-        break;
-      case 'バキュームクリーナー':
-        $description = get_field('product_description_vacuum');
-        if ($description) {
-          echo '<div class="p-pro_single__contentbox__description">';
-          echo $description;
-          echo '</div>';
-        }
-        break;
-      case '作業工具':
-        $description = get_field('product_description_worktool');
-        if ($description) {
-          echo '<div class="p-pro_single__contentbox__description">';
-          echo $description;
-          echo '</div>';
-        }
-        break;
-      case 'ナイフ・鑢・作業用ハサミ':
-        $description = get_field('product_description_knife');
-        if ($description) {
-          echo '<div class="p-pro_single__contentbox__description">';
-          echo $description;
-          echo '</div>';
-        }
-        break;
-      case 'LEDライト':
-        $description = get_field('product_description_led');
-        if ($description) {
-          echo '<div class="p-pro_single__contentbox__description">';
-          echo $description;
-          echo '</div>';
-        }
-        break;
-      case 'ツールバッグ・ツールホルダー':
-        $description = get_field('product_description_tool');
-        if ($description) {
-          echo '<div class="p-pro_single__contentbox__description">';
-          echo $description;
-          echo '</div>';
-        }
-        break;
-      case '先端工具':
-        $description = get_field('product_description_advancedtool');
-        if ($description) {
-          echo '<div class="p-pro_single__contentbox__description">';
-          echo $description;
-          echo '</div>';
-        }
-        break;
-      case 'ファスニング':
-        $description = get_field('product_description_fastening');
-        if ($description) {
-          echo '<div class="p-pro_single__contentbox__description">';
-          echo $description;
-          echo '</div>';
-        }
-        break;
-      case 'ワーキングロープ（作業用手袋）':
-        $description = get_field('product_description_workgloves');
-        if ($description) {
-          echo '<div class="p-pro_single__contentbox__description">';
-          echo $description;
-          echo '</div>';
-        }
-        break;
-      case '安全用品':
-        $description = get_field('product_description_safety');
-        if ($description) {
-          echo '<div class="p-pro_single__contentbox__description">';
-          echo $description;
-          echo '</div>';
-        }
-        break;
-      case 'ケミカル製品・その他':
-        $description = get_field('product_description_other');
-        if ($description) {
-          echo '<div class="p-pro_single__contentbox__description">';
-          echo $description;
-          echo '</div>';
-        }
-        break;
-    }
-
-    // レーザー機器の場合のみテーブル表示
-    if ($products_genre === 'レーザー機器' && !empty($rows)) :
-      $show_accordion = count($rows) > 5;
+    if ($description_irregular || $description) : // どちらかのデータが存在する場合のみ表示
     ?>
-      <div class="p-pro_single__contentbox__table-wrapper">
-        <table class="p-pro_single__contentbox__table">
-          <?php
-          foreach ($rows as $index => $row) :
-            $is_hidden = $index >= 5;
-          ?>
-            <tr class="<?php echo $is_hidden ? 'js-accordion-content' : ''; ?>">
-              <th><?php echo wp_kses_post($row['th']); ?></th>
-              <td><?php echo wp_kses_post($row['td']); ?></td>
-            </tr>
-          <?php endforeach; ?>
-        </table>
-      </div>
-      <?php if (count($rows) > 5) : ?>
-        <button type="button" class="p-pro_single__contentbox__table-more js-accordion-trigger">
-          <span class="more-text">▼ MORE</span>
-        </button>
-      <?php endif; ?>
+      <h2 class="p-pro_single__contentbox__h2">商品説明</h2>
+      <?php
+      if ($description_irregular) {
+        echo '<div class="p-pro_single__contentbox__description">';
+        echo $description_irregular;
+        echo '</div>';
+      } else {
+        echo '<div class="p-pro_single__contentbox__description">';
+        echo $description;
+        echo '</div>';
+      }
+      ?>
     <?php endif; ?>
-
 
     <?php
     $products_attention = get_field('products_attention');

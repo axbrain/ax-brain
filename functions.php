@@ -273,7 +273,7 @@ add_action('admin_print_footer_scripts', function () {
 
   if (wp_script_is('quicktags')) {
 
-    //設定した値でQTags.addButton(JavaScript)を出力		
+    //設定した値でQTags.addButton(JavaScript)を出力
 
     echo <<<EOF
       <script type="text/javascript">

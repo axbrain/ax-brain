@@ -1516,7 +1516,7 @@ input[type=submit] {
   &__imgbox {
     width: 100%;
     margin-bottom: 2rem;
-
+    transition: all .3s linear;
 
     .p-pro_single__features {
       @include media(pc) {
@@ -1760,6 +1760,12 @@ input[type=submit] {
   }
 
   &__contentbox {
+    transition: all .3s linear;
+
+    @include media(pc) {
+      width: 65rem;
+    }
+
     .p-pro_single__h1 {
       display: none;
 
@@ -1868,7 +1874,6 @@ input[type=submit] {
       tr.js-accordion-content {
         @include media(tb) {
           display: table-row;
-
         }
 
       }
@@ -1926,41 +1931,74 @@ input[type=submit] {
     }
 
     &__description {
+      overflow-y: auto;
+      overflow-x: auto;
+      margin-top: 2rem;
+      height: 400px;
+
+      @include media(tb) {
+        height: 500px;
+      }
+
+      @include media(pc) {
+        height: auto;
+      }
+
       table {
-        width: 1800px;
-      }
+        border-collapse: separate;
+        border-spacing: 0;
+        empty-cells: show;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        //横スクロールの場合はtableの幅を指定する
+        width: 950px;
 
-      th,
-      td {
-        width: 300px;
-        height: 100px;
-        vertical-align: middle;
-        padding: 0 15px;
-        border: 1px solid #ccc;
-      }
-
-      tr {
 
         th,
         td {
-          &:nth-of-type(1) {
+          border-right: 1px solid #ddd;
+          border-bottom: 1px solid #ddd;
+          line-height: 1.6;
+          padding: 0.6rem 1.5rem;
+          font-size: 1.2rem;
+
+          @include media(tb) {
+            font-size: 1.4rem;
+          }
+
+          @include media(pc) {
+            font-size: 1.6rem;
+          }
+
+
+        }
+
+        th {
+          z-index: 1;
+          background: #f5f5f5;
+          text-align: left;
+          vertical-align: top;
+          width: 100px;
+
+          &:first-of-type {
             position: sticky;
             left: 0;
-            color: #fff;
-            background: #333;
+          }
 
-            &:before {
-              content: "";
-              position: absolute;
-              top: -1px;
-              left: -1px;
-              width: 100%;
-              height: 100%;
-              border: 1px solid #ccc;
-            }
+          @include media(tb) {
+            width: 150px;
           }
         }
+
+        //左1列固定
+
+
+        td {
+          background: #fff;
+          width: 160px;
+        }
       }
+
     }
 
     &__attention {
