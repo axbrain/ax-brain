@@ -208,7 +208,7 @@ $post_id = get_the_ID();
     if ($products_Introduction) : // 値が空でない場合のみ表示
     ?>
       <div class="p-pro_single__contentbox__introduction">
-        <?php echo esc_html($products_Introduction); ?>
+        <?php echo wpautop($products_Introduction); ?>
       </div>
     <?php endif; ?>
 
