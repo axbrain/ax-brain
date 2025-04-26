@@ -517,12 +517,15 @@ function display_products_columns($column_name, $post_id)
         $category_names[] = $term->name;
       }
       echo esc_html(implode(', ', $category_names));
-    } elseif ($column_name === 'newitem') {
-      $newitem = get_field('products_newitem', $post_id);
-      echo esc_html($newitem === '有効' ? '○' : '-');
     } else {
       echo '-';
     }
+  } elseif ($column_name === 'newitem') {
+    $newitem = get_field('products_newitem', $post_id);
+    // 「有効」の場合は✅️、それ以外は「-」を表示
+    echo esc_html($newitem === '有効' ? '✅️' : '-');
+  } else {
+    echo '-';
   }
 }
 add_action('manage_products_posts_custom_column', 'display_products_columns', 10, 2);
