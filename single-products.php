@@ -263,7 +263,7 @@ $post_id = get_the_ID();
     if ($products_attention) : // 値が空でない場合のみ表示
     ?>
       <div class="p-pro_single__contentbox__attention">
-        <?php echo esc_html($products_attention); ?>
+        <?php echo wpautop($products_attention); ?>
       </div>
     <?php endif; ?>
 
@@ -272,7 +272,7 @@ $post_id = get_the_ID();
     if ($products_warning) : // 値が空でない場合のみ表示
     ?>
       <div class="p-pro_single__contentbox__warning">
-        警告：<?php echo esc_html($products_warning); ?>
+        <?php echo wpautop($products_warning); ?>
       </div>
     <?php endif; ?>
 
