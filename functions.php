@@ -482,3 +482,73 @@ function custom_products_rewrite_rules()
   );
 }
 add_action('init', 'custom_products_rewrite_rules', 10);
+
+/**
+ * 製品情報一覧画面にパーマリンクとカテゴリを表示する列を追加
+ */
+function add_products_columns($columns)
+{
+  $new_columns = array();
+  foreach ($columns as $key => $value) {
+    if ($key === 'title') {
+      $new_columns[$key] = $value;
+      $new_columns['permalink'] = 'パーマリンク';
+      $new_columns['category'] = 'カテゴリ';
+      $new_columns['newitem'] = '新製品';  // 追加
+    } else {
+      $new_columns[$key] = $value;
+    }
+  }
+  return $new_columns;
+}
+add_filter('manage_products_posts_columns', 'add_products_columns');
+
+function display_products_columns($column_name, $post_id)
+{
+  if ($column_name === 'permalink') {
+    $post = get_post($post_id);
+    $permalink = get_permalink($post_id);
+    echo '<a href="' . esc_url($permalink) . '" target="_blank">' . esc_html($post->post_name) . '</a>';
+  } elseif ($column_name === 'category') {
+    $terms = get_the_terms($post_id, 'products-cat');
+    if ($terms && !is_wp_error($terms)) {
+      $category_names = array();
+      foreach ($terms as $term) {
+        $category_names[] = $term->name;
+      }
+      echo esc_html(implode(', ', $category_names));
+    } elseif ($column_name === 'newitem') {
+      $newitem = get_field('products_newitem', $post_id);
+      echo esc_html($newitem === '有効' ? '○' : '-');
+    } else {
+      echo '-';
+    }
+  }
+}
+add_action('manage_products_posts_custom_column', 'display_products_columns', 10, 2);
+
+/**
+ * 製品情報一覧画面にカテゴリでの絞り込み検索を追加
+ */
+function add_products_category_filter()
+{
+  global $typenow;
+
+  if ($typenow === 'products') {
+    $taxonomy = 'products-cat';
+    $selected = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
+    $info_taxonomy = get_taxonomy($taxonomy);
+
+    wp_dropdown_categories(array(
+      'show_option_all' => sprintf(__('すべての%s', 'ax-brain'), $info_taxonomy->label),
+      'taxonomy' => $taxonomy,
+      'name' => $taxonomy,
+      'selected' => $selected,
+      'show_count' => true,
+      'hide_empty' => true,
+      'value_field' => 'slug',
+      'hierarchical' => true,
+    ));
+  }
+}
+add_action('restrict_manage_posts', 'add_products_category_filter');

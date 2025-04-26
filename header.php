@@ -56,6 +56,7 @@
       <div class="p-hdr__search">
         <form method="get" id="searchform" action="<?php bloginfo('url'); ?>" class="p-search-form">
           <input type="text" name="s" id="s" placeholder="サイト内検索" />
+          <input type="hidden" name="post_type" value="products" />
           <button type="submit"></button>
         </form>
         <button type="button" class="js-search-header-close text-link site-header__search-btn">
@@ -107,6 +108,7 @@
           </svg>
         </button>
         <input type="search" name="s" class="p-search-overlay__input" placeholder="キーワードを入力" aria-label="サイト内検索">
+        <input type="hidden" name="post_type" value="products" />
         <button type="button" class="p-search-overlay__close">
           <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 64 64">
             <path d="M19 17.61l27.12 27.13m0-27.12L19 44.74" stroke="#000000" stroke-width="2"></path>
@@ -158,7 +160,7 @@
         <div class="p-drawer__search">
           <form method="get" id="drawer-searchform" action="<?php bloginfo('url'); ?>" class="p-drawer__search-form">
             <input type="text" name="s" placeholder="サイト内検索" />
-            <button type="submit">
+            <button type="submit" class="p-drawer__search-submit">
               <svg viewBox="0 0 22.15 23.4" xmlns="http://www.w3.org/2000/svg" class="icon icon-search">
                 <g fill="none" stroke="#4d4d4d" stroke-miterlimit="10" stroke-width="1.2">
                   <circle cx="10.8" cy="10.8" r="10.2" />
@@ -249,6 +251,51 @@
       searchBg.addEventListener('click', handleBgClick);
       document.addEventListener('keydown', handleEscape);
     })();
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchForm = document.querySelector('#searchform');
+      const searchInput = document.querySelector('#s');
+
+      if (searchForm && searchInput) {
+        searchForm.addEventListener('submit', function(e) {
+          if (!searchInput.value.trim()) {
+            e.preventDefault();
+            return false;
+          }
+        });
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // オーバーレイ検索フォームの送信制御
+      const overlayForm = document.querySelector('.p-search-overlay__form');
+      const overlayInput = document.querySelector('.p-search-overlay__input');
+      const overlaySubmit = document.querySelector('.p-search-overlay__submit');
+
+      if (overlayForm && overlayInput && overlaySubmit) {
+        overlayForm.addEventListener('submit', function(e) {
+          if (!overlayInput.value.trim()) {
+            e.preventDefault();
+            return false;
+          }
+        });
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // ドロワー検索フォームの送信制御
+      const drawerForm = document.querySelector('.p-drawer__search-form');
+      const drawerInput = drawerForm ? drawerForm.querySelector('input[name="s"]') : null;
+
+      if (drawerForm && drawerInput) {
+        drawerForm.addEventListener('submit', function(e) {
+          if (!drawerInput.value.trim()) {
+            e.preventDefault();
+            return false;
+          }
+        });
+      }
+    });
   </script>
 </body>
 

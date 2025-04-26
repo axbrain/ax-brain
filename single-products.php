@@ -59,8 +59,20 @@ $post_id = get_the_ID();
       </div>
     <?php endif; ?>
 
+    <?php
+    // 画像の総数をカウント
+    $image_count = 0;
+    if (have_rows('products_productimages', $post_id)) {
+      while (have_rows('products_productimages', $post_id)) : the_row();
+        if (get_sub_field('products_productimages_thumb')) {
+          $image_count++;
+        }
+      endwhile;
+      reset_rows(); // ポインタをリセット
+    }
+    ?>
     <div class="p-pro_single__splide-wrapper">
-      <div class="p-pro_single__splide splide">
+      <div class="p-pro_single__splide<?php echo $image_count > 1 ? ' splide' : ''; ?>">
         <div class="splide__track">
           <?php
 
@@ -72,7 +84,7 @@ $post_id = get_the_ID();
                 $thumb = get_sub_field('products_productimages_thumb');
                 if ($thumb) :
               ?>
-                  <li class="splide__slide">
+                  <li class="<?php echo $image_count > 1 ? 'splide__slide' : ''; ?>">
                     <img src="<?php echo esc_url($thumb); ?>" alt="">
                   </li>
               <?php
@@ -85,33 +97,33 @@ $post_id = get_the_ID();
           ?>
         </div>
       </div>
-      <?php
-
-      if (have_rows('products_productimages', $post_id)):
-        $first_image = true; // 1枚目かどうかを判定するフラグ
-      ?>
-        <ul class="p-pro_single__productimages">
-          <?php
-          while (have_rows('products_productimages', $post_id)) : the_row();
-            if ($first_image) {
-              $first_image = false; // 1枚目をスキップ
-              continue;
-            }
-            $thumb = get_sub_field('products_productimages_thumb');
-            if ($thumb) :
-          ?>
-              <li class="splide__slide">
-                <img src="<?php echo esc_url($thumb); ?>" alt="">
-              </li>
-          <?php
-            endif;
-          endwhile;
-          ?>
-        </ul>
-      <?php
-      endif;
-      ?>
     </div>
+    <?php
+    // 画像が2枚以上ある場合のみサムネイル一覧を表示
+    if ($image_count > 1):
+      $first_image = true; // 1枚目かどうかを判定するフラグ
+    ?>
+      <ul class="p-pro_single__productimages">
+        <?php
+        while (have_rows('products_productimages', $post_id)) : the_row();
+          if ($first_image) {
+            $first_image = false; // 1枚目をスキップ
+            continue;
+          }
+          $thumb = get_sub_field('products_productimages_thumb');
+          if ($thumb) :
+        ?>
+            <li class="">
+              <img src="<?php echo esc_url($thumb); ?>" alt="">
+            </li>
+        <?php
+          endif;
+        endwhile;
+        ?>
+      </ul>
+    <?php
+    endif;
+    ?>
   </div>
 
 
@@ -179,7 +191,7 @@ $post_id = get_the_ID();
     if ($products_catchphrase) : // 値が空でない場合のみ表示
     ?>
       <div class="p-pro_single__contentbox__catchphrase">
-        <?php echo esc_html($products_catchphrase); ?>
+        <?php echo wpautop($products_catchphrase); ?>
       </div>
     <?php endif; ?>
 
@@ -248,29 +260,29 @@ $post_id = get_the_ID();
       <ul class="p-pro_single__contentbox__relatedproducts">
         <?php
         while (have_rows('products_relatedproducts', $post_id)) : the_row();
-          $relatedproducts_thumb = get_sub_field('products_relatedproducts_thumb');
-          $relatedproducts_name = get_sub_field('products_relatedproducts_name');
+          $relatedproducts_link = get_sub_field('products_relatedproducts_link');
 
+          // URLからスラッグを取得
+          $slug = basename(parse_url($relatedproducts_link, PHP_URL_PATH));
+
+          // スラッグから投稿を取得
+          $linked_post = get_page_by_path($slug, OBJECT, 'products');
+          $linked_post_title = $linked_post ? $linked_post->post_title : '';
+
+          // アイキャッチ画像のURLを取得
+          $thumb_url = get_the_post_thumbnail_url($linked_post, 'full');
+          // アイキャッチ画像がない場合のデフォルト画像
+          $default_thumb = get_template_directory_uri() . '/assets/images/common/thumb.webp';
         ?>
           <li>
-            <?php if ($relatedproducts_thumb) : ?>
-              <?php
-              // 画像配列の場合
-              if (is_array($relatedproducts_thumb)) : ?>
-                <img src="<?php echo esc_url($relatedproducts_thumb['url']); ?>" alt="<?php echo esc_attr($relatedproducts_name); ?>">
-              <?php
-              // 画像URLの場合
-              else : ?>
-                <img src="<?php echo esc_url($relatedproducts_thumb); ?>" alt="<?php echo esc_attr($relatedproducts_name); ?>">
+            <a href="<?php echo esc_url($relatedproducts_link); ?>">
+              <img src="<?php echo esc_url($thumb_url ? $thumb_url : $default_thumb); ?>" alt="<?php echo esc_attr($linked_post_title); ?>">
+              <?php if ($linked_post_title) : ?>
+                <p><?php echo esc_html($linked_post_title); ?></p>
               <?php endif; ?>
-            <?php endif; ?>
-            <?php if ($relatedproducts_name) : ?>
-              <p><?php echo esc_html($relatedproducts_name); ?></p>
-            <?php endif; ?>
+            </a>
           </li>
-        <?php
-        endwhile;
-        ?>
+        <?php endwhile; ?>
       </ul>
     <?php
     endif;
@@ -335,4 +347,5 @@ add_action('wp_footer', function () {
 
 
 get_footer();
+?>
 ?>

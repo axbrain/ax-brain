@@ -1624,19 +1624,22 @@ input[type=submit] {
     margin-top: 2rem;
     position: relative; // 親要素に相対位置を設定
 
-    @include media(pc) {
+    @include media(tb) {
       margin-top: 0;
-
     }
+
+    @include media(pc) {}
 
     &-wrapper {
       @include media(tb) {
+        margin-top: 2rem;
         display: grid;
         gap: 0 2rem;
         grid-template-columns: repeat(2, 1fr);
       }
 
       @include media(pc) {
+        margin-top: 0;
         display: grid;
         gap: 0 2rem;
         grid-template-columns: repeat(1, 1fr);
@@ -1934,25 +1937,18 @@ input[type=submit] {
       overflow-y: auto;
       overflow-x: auto;
       margin-top: 2rem;
-      height: 400px;
 
-      @include media(tb) {
-        height: 500px;
-      }
+      @include media(tb) {}
 
-      @include media(pc) {
-        height: auto;
-      }
+      @include media(pc) {}
 
       table {
         border-collapse: separate;
         border-spacing: 0;
         empty-cells: show;
         border-top: 1px solid #ddd;
-        border-left: 1px solid #ddd;
         //横スクロールの場合はtableの幅を指定する
         width: 950px;
-
 
         th,
         td {
@@ -1969,8 +1965,6 @@ input[type=submit] {
           @include media(pc) {
             font-size: 1.6rem;
           }
-
-
         }
 
         th {
@@ -1978,7 +1972,8 @@ input[type=submit] {
           background: #f5f5f5;
           text-align: left;
           vertical-align: top;
-          width: 100px;
+          width: 1px;
+          border-left: 1px solid #ddd;
 
           &:first-of-type {
             position: sticky;
@@ -2050,7 +2045,6 @@ input[type=submit] {
       @include media(tb) {
         grid-template-columns: repeat(4, 1fr);
         gap: 1rem; // 画像間の余白
-
       }
 
       @include media(pc) {
@@ -2078,10 +2072,18 @@ input[type=submit] {
       }
 
       li {
-        img {}
+        a {
+          display: block;
+          transition: opacity 0.3s linear;
+
+          &:hover {
+            opacity: 0.7;
+          }
+        }
 
         p {
           margin-top: 1rem;
+          color: $color_dark-gray;
 
           @include media(tb) {
             font-size: 1.4rem;

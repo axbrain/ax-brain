@@ -2,9 +2,11 @@
 
 <section class="l-wide p-insta">
 	<h2 class="p-insta__h1">INSTAGRAM</h2>
-	<div class="p-insta__inner">
-		<!-- <?php echo do_shortcode('[instagram-feed feed=2]'); ?> -->
-	</div>
+	<?php if (strpos($_SERVER['HTTP_HOST'], 'axbrain.local') === false): ?>
+		<div class="p-insta__inner">
+			<?php echo do_shortcode('[instagram-feed feed=2]'); ?>
+		</div>
+	<?php endif; ?>
 </section>
 <footer class="p-ftr">
 	<div class="l-wide">

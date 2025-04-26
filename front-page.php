@@ -106,12 +106,14 @@ get_header();
 							<?php while ($query->have_posts()) : $query->the_post(); ?>
 								<li class="splide__slide c-products__item">
 									<a href="<?php the_permalink(); ?>" class="c-products__link">
-										<?php if (has_post_thumbnail()) : ?>
-											<div class="c-products__img">
+										<div class="c-products__img">
+											<?php if (has_post_thumbnail()) : ?>
 												<?php the_post_thumbnail('full'); ?>
-											</div>
-										<?php endif; ?>
-										<h3 class="c-products__title"><?php the_title(); ?></h3>
+											<?php else : ?>
+												<img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/thumb.webp" alt="デフォルトサムネイル">
+											<?php endif; ?>
+										</div>
+										<p class="c-products__title"><?php the_title(); ?></p>
 									</a>
 								</li>
 							<?php endwhile; ?>
@@ -153,11 +155,13 @@ get_header();
 					<?php while ($query->have_posts()) : $query->the_post(); ?>
 						<li class="c-products__item">
 							<a href="<?php the_permalink(); ?>" class="c-products__link">
-								<?php if (has_post_thumbnail()) : ?>
-									<div class="c-products__img">
+								<div class="c-products__img">
+									<?php if (has_post_thumbnail()) : ?>
 										<?php the_post_thumbnail('full'); ?>
-									</div>
-								<?php endif; ?>
+									<?php else : ?>
+										<img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/thumb.webp" alt="デフォルトサムネイル">
+									<?php endif; ?>
+								</div>
 								<h3 class="c-products__title"><?php the_title(); ?></h3>
 							</a>
 						</li>

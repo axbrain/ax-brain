@@ -55,11 +55,18 @@ $query = new WP_Query($args);
 			<?php while ($query->have_posts()) : $query->the_post(); ?>
 				<li class="p-new-products__item">
 					<a href="<?php the_permalink(); ?>" class="p-new-products__link">
-						<?php if (has_post_thumbnail()) : ?>
-							<div class="p-new-products__img">
+						<div class="p-new-products__img">
+							<?php if (has_post_thumbnail()) : ?>
 								<?php the_post_thumbnail('full'); ?>
-							</div>
-						<?php endif; ?>
+							<?php else : ?>
+								<?php
+								$default_image_path = get_template_directory_uri() . '/assets/images/common/thumb.webp';
+								?>
+								<img src="<?php echo esc_url($default_image_path); ?>" alt="デフォルトサムネイル">
+								<!-- 開発時のみ表示 -->
+								<p style="display:none;"><?php echo $default_image_path; ?></p>
+							<?php endif; ?>
+						</div>
 						<h3 class="p-new-products__title"><?php the_title(); ?></h3>
 					</a>
 				</li>

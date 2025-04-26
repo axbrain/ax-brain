@@ -1454,14 +1454,12 @@ button,input[type=submit]{
   opacity:.7;
 }
 .p-pro_single__contentbox__description{
-  height:400px;
   margin-top:2rem;
   overflow-x:auto;
   overflow-y:auto;
 }
 .p-pro_single__contentbox__description table{
   border-collapse:separate;
-  border-left:1px solid #ddd;
   border-spacing:0;
   border-top:1px solid #ddd;
   empty-cells:show;
@@ -1476,9 +1474,10 @@ button,input[type=submit]{
 }
 .p-pro_single__contentbox__description table th{
   background:#f5f5f5;
+  border-left:1px solid #ddd;
   text-align:left;
   vertical-align:top;
-  width:100px;
+  width:1px;
   z-index:1;
 }
 .p-pro_single__contentbox__description table th:first-of-type{
@@ -1542,7 +1541,16 @@ button,input[type=submit]{
   margin-top:10rem;
   text-align:center;
 }
+.p-pro_single__contentbox__relatedproducts li a{
+  display:block;
+  -webkit-transition:opacity .3s linear;
+  transition:opacity .3s linear;
+}
+.p-pro_single__contentbox__relatedproducts li a:hover{
+  opacity:.7;
+}
 .p-pro_single__contentbox__relatedproducts li p{
+  color:#4d4d4d;
   margin-top:1rem;
 }
 
@@ -2297,10 +2305,14 @@ button,input[type=submit]{
     -webkit-transition:all .3s linear;
     transition:all .3s linear;
   }
+  .p-pro_single__splide{
+    margin-top:0;
+  }
   .p-pro_single__splide-wrapper{
     display:grid;
     gap:0 2rem;
     grid-template-columns:repeat(2, 1fr);
+    margin-top:2rem;
   }
   .p-pro_single__productimages{
     gap:1rem;
@@ -2320,9 +2332,6 @@ button,input[type=submit]{
   }
   .p-pro_single__contentbox__table-more{
     display:none;
-  }
-  .p-pro_single__contentbox__description{
-    height:500px;
   }
   .p-pro_single__contentbox__description table td,.p-pro_single__contentbox__description table th{
     font-size:1.4rem;
@@ -2527,13 +2536,11 @@ button,input[type=submit]{
   .p-pro_single__features li{
     font-size:1.4rem;
   }
-  .p-pro_single__splide{
-    margin-top:0;
-  }
   .p-pro_single__splide-wrapper{
     display:grid;
     gap:0 2rem;
     grid-template-columns:repeat(1, 1fr);
+    margin-top:0;
   }
   .p-pro_single__productimages{
     gap:3rem;
@@ -2560,9 +2567,6 @@ button,input[type=submit]{
   }
   .p-pro_single__contentbox__table-wrapper{
     margin-top:1rem;
-  }
-  .p-pro_single__contentbox__description{
-    height:auto;
   }
   .p-pro_single__contentbox__description table td,.p-pro_single__contentbox__description table th{
     font-size:1.6rem;
