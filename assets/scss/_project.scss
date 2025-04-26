@@ -1895,6 +1895,10 @@ input[type=submit] {
       border-top: 1px solid #ddd;
       width: 100%;
 
+      &.-middle {
+        width: 99rem;
+      }
+
       &.-wide {
         width: 145rem;
       }

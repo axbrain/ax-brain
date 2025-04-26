@@ -1454,6 +1454,9 @@ button,input[type=submit]{
   empty-cells:show;
   width:100%;
 }
+.p-pro_single__contentbox table.-middle{
+  width:99rem;
+}
 .p-pro_single__contentbox table.-wide{
   width:145rem;
 }

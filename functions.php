@@ -571,6 +571,7 @@ add_action('admin_print_footer_scripts', function () {
       QTags.addButton('button-link-button','ボタンリンク','<a href="#" class="c-editor__button-link">','</a>\\n','', 'ボタンリンクを挿入したい場合に使用します',6);
       QTags.addButton('button-link-button','ボタンリンク(外部サイト)','<a href="#" class="c-editor__button-link" target="_blank">','</a>\\n','', 'ボタンリンク(外部サイト)を挿入したい場合に使用します',7);
       QTags.addButton('table_wide-button','テーブル(横幅広め)','<table class="-wide">','','', 'テーブル(横幅広め)を挿入したい場合に使用します',8);
+        QTags.addButton('table_middle-button','テーブル(横幅少し広め)','<table class="-middle">','','', 'テーブル(横幅少し広め)を挿入したい場合に使用します',8);
       </script>
 EOF;
   }
