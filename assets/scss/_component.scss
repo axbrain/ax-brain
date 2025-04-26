@@ -83,22 +83,29 @@
 
 //製品一覧
 .c-products {
+  transition: all .3s linear;
+
   &__list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-    margin-top: 4rem;
+    margin-top: 2rem;
+    transition: all .3s linear;
 
     @include media(tb) {
       grid-template-columns: repeat(4, 1fr);
-      gap: 4rem;
+      gap: 3rem;
+      margin-top: 3rem;
+
     }
+
+    @include media(pc) {}
   }
 
   &__item {
     a {
       display: block;
-      transition: opacity 0.3s;
+      transition: all .3s linear;
 
       &:hover {
         opacity: 0.7;
@@ -211,15 +218,9 @@
   margin-bottom: 0.5rem;
 
 
-  @include media(tb) {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem; // アイテム間の余白
-  }
+  @include media(tb) {}
 
-  @include media(pc) {
-    gap: 4rem;
-  }
+  @include media(pc) {}
 
   li {
     display: inline-block;
