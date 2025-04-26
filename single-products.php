@@ -75,27 +75,49 @@ $post_id = get_the_ID();
       <div class="p-pro_single__splide<?php echo $image_count > 1 ? ' splide' : ''; ?>">
         <div class="splide__track">
           <?php
+          $has_valid_images = false;
           if (have_rows('products_productimages', $post_id)):
+            while (have_rows('products_productimages', $post_id)) : the_row();
+              $thumb = get_sub_field('products_productimages_thumb');
+              if ($thumb) {
+                $has_valid_images = true;
+                break;
+              }
+            endwhile;
+            reset_rows();
+
+            if ($has_valid_images):
           ?>
-            <ul class="splide__list">
-              <?php
-              while (have_rows('products_productimages', $post_id)) : the_row();
-                $thumb = get_sub_field('products_productimages_thumb');
-                if ($thumb) :
-              ?>
-                  <li class="<?php echo $image_count > 1 ? 'splide__slide' : ''; ?>">
-                    <img src="<?php echo esc_url($thumb); ?>" alt="">
-                  </li>
-              <?php
-                endif;
-              endwhile;
-              ?>
-            </ul>
-          <?php
+              <ul class="splide__list">
+                <?php
+                while (have_rows('products_productimages', $post_id)) : the_row();
+                  $thumb = get_sub_field('products_productimages_thumb');
+                  if ($thumb) :
+                ?>
+                    <li class="<?php echo $image_count > 1 ? 'splide__slide' : ''; ?>">
+                      <img src="<?php echo esc_url($thumb); ?>" alt="">
+                    </li>
+                <?php
+                  endif;
+                endwhile;
+                ?>
+              </ul>
+            <?php
+            else:
+              // サムネイルが空の場合のデフォルト画像を表示
+              $default_thumb = get_template_directory_uri() . '/assets/images/common/thumb.webp';
+            ?>
+              <ul class="splide__list">
+                <li>
+                  <img src="<?php echo esc_url($default_thumb); ?>" alt="">
+                </li>
+              </ul>
+            <?php
+            endif;
           else:
-            // 画像が0枚の場合のデフォルト画像を表示
+            // フィールドグループが存在しない場合のデフォルト画像を表示
             $default_thumb = get_template_directory_uri() . '/assets/images/common/thumb.webp';
-          ?>
+            ?>
             <ul class="splide__list">
               <li>
                 <img src="<?php echo esc_url($default_thumb); ?>" alt="">

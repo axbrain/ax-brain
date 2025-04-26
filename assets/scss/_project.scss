@@ -1584,7 +1584,7 @@ input[type=submit] {
       background-color: #666666;
       padding: 0.5rem 1rem;
       font-size: 1rem;
-      font-weight: bold;
+      // font-weight: bold;
       line-height: 1.2;
 
       @include media(pc) {
