@@ -1374,6 +1374,7 @@ button,input[type=submit]{
   display:grid;
   gap:2rem;
   grid-template-columns:repeat(2, 1fr);
+  margin-top:2rem;
 }
 .p-pro_single__productimages img{
   display:block;

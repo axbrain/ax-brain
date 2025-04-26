@@ -1739,6 +1739,7 @@ input[type=submit] {
     display: grid;
     grid-template-columns: repeat(2, 1fr); // 2カラム
     gap: 2rem; // 画像間の余白
+    margin-top: 2rem;
 
     @include media(tb) {
       margin-top: 0;
