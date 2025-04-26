@@ -552,3 +552,47 @@ function add_products_category_filter()
   }
 }
 add_action('restrict_manage_posts', 'add_products_category_filter');
+
+
+/**
+ * テキストエディタにカスタムボタンを追加
+ */
+add_action('admin_print_footer_scripts', function () {
+  global $post;
+  $post_id = $post ? $post->ID : '';
+  if (wp_script_is('quicktags')) {
+    echo <<<EOF
+      <script type="text/javascript">
+      QTags.addButton('h2-button', '見出し', '<h2 class="c-editor__title">', '</h2>\\n', '', '見出しを挿入したい場合に使用します', 1);
+      QTags.addButton('h3-button', '小見出し','<h3 class="c-editor__subtitle">','</h3>\\n','', '小見出しを挿入したい場合に使用します',2);
+      QTags.addButton('blockquote-button', '引用', '<blockquote class="c-editor__quotation">', '</blockquote>', '', '引用を挿入したい場合に使用します', 3);
+      QTags.addButton('txt-link-button','テキストリンク','<a href="リンク先" class="c-editor__txt-link">','</a>\\n','', 'テキストリンクを挿入したい場合に使用します',4);
+      QTags.addButton('txt-bold-button', '強調', '<bold class="c-editor__txt-bold">', '</bold>', '', '強調を挿入したい場合に使用します', 5);
+      QTags.addButton('button-link-button','ボタンリンク','<a href="#" class="c-editor__button-link">','</a>\\n','', 'ボタンリンクを挿入したい場合に使用します',6);
+      QTags.addButton('button-link-button','ボタンリンク(外部サイト)','<a href="#" class="c-editor__button-link" target="_blank">','</a>\\n','', 'ボタンリンク(外部サイト)を挿入したい場合に使用します',7);
+      QTags.addButton('table_wide-button','テーブル(横幅広め)','<table class="-wide">','','', 'テーブル(横幅広め)を挿入したい場合に使用します',8);
+      </script>
+EOF;
+  }
+}, 100);
+
+
+//---------------------------------------
+//エディタのクイックタグボタン削除
+//---------------------------------------
+add_filter("quicktags_settings", function ($qt_init) {
+
+  global $typenow;
+
+  if ($typenow == ("products")) {
+    //条件にしたい投稿タイプ名に変更 投稿=post, 固定ページ=page, 他カスタム投稿タイプ名
+
+    //		//パターン② 全てのボタンを新しいものに入れ替える
+    $qt_init["buttons"] = "b,i,strong,em,link,block,del,ins,img,ul,ol,li,code,more,spell,close,fullscreen,dfw"; //CSV入力
+
+    //パターン② 全削除して空にする
+    $qt_init["buttons"] = ","; //カンマだけ入力
+  }
+
+  return $qt_init;
+});

@@ -1739,21 +1739,18 @@ input[type=submit] {
     display: grid;
     grid-template-columns: repeat(2, 1fr); // 2カラム
     gap: 2rem; // 画像間の余白
-    margin-top: 2rem; // 上部の余白
 
     @include media(tb) {
+      margin-top: 0;
       gap: 1rem;
       grid-template-columns: repeat(3, 1fr);
     }
 
     @include media(pc) {
-      margin-top: 4rem;
+      margin-top: 3rem;
       gap: 3rem;
-
       grid-template-columns: repeat(2, 1fr);
-
     }
-
 
     img {
       width: 100%;
@@ -1808,6 +1805,52 @@ input[type=submit] {
       margin-top: 4rem;
       color: $color_dark-gray;
       @include fontsize(18, 22);
+
+
+    }
+
+    &__scroll__induction {
+      &.-bottom {
+        margin-top: 1rem;
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        height: 1.9rem;
+        width: 6.2rem;
+        background-image: url(../images/common/table_guide_scroll.webp);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        margin-left: auto;
+        animation: scroll 3.5s infinite;
+
+        @include media(pc) {
+          height: 2.4rem;
+          width: 7.8rem;
+        }
+      }
+
+      @keyframes scroll {
+        0% {
+          transform: rotate(0deg) translate(0, 0);
+        }
+
+        80% {
+          transform: rotate(0deg) translate(0, 0);
+        }
+
+        0%,
+        80%,
+        100% {
+          opacity: 0;
+        }
+
+        40% {
+          opacity: 1;
+        }
+      }
     }
 
     &__catchphrase {
@@ -1834,166 +1877,82 @@ input[type=submit] {
       }
     }
 
-    &__table-wrapper {
-      width: 100%;
-      overflow-x: auto; // 横スクロールを有効化
-      -webkit-overflow-scrolling: touch; // iOSでのスムーズスクロール
-      position: relative;
-      margin-top: 2rem;
-
-      @include media(pc) {
-        margin-top: 1rem;
-      }
-
-      // スクロールバーのカスタマイズ
-      &::-webkit-scrollbar {
-        height: 6px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 3px;
-
-        &:hover {
-          background: #555;
-        }
-      }
-
-      // Firefoxのスクロールバーカスタマイズ
-      scrollbar-width: thin;
-      scrollbar-color: #888 #f1f1f1;
-    }
-
-    &__table {
-      width: 100%;
-      min-width: 600px; // テーブルの最小幅を設定
-      border-collapse: collapse;
-
-      tr.js-accordion-content {
-        @include media(tb) {
-          display: table-row;
-        }
-
-      }
-
-      th,
-      td {
-        padding: 1rem;
-        border: 1px solid #ddd;
-        line-height: 1.6;
-
-        @include media(tb) {
-          font-size: 1.4rem;
-        }
-      }
-
-      th {
-        background: #f5f5f5;
-        font-weight: bold;
-        width: 25%;
-        vertical-align: top;
-        text-align: left;
-        white-space: nowrap; // 項目名を改行させない
-      }
-
-      td {
-        background: #fff;
-
-        p {
-          margin: 0;
-
-          &:not(:first-child) {
-            margin-top: 0.5rem;
-          }
-        }
-      }
-
-      &-more {
-        color: $color_font;
-        display: block;
-        text-align: center;
-        transition: all .3s linear;
-        width: 100%;
-        border: 1px solid $color_light-gray1;
-        margin-top: 2rem;
-        padding: 1rem 0;
-
-        @include media(tb) {
-          display: none;
-        }
-
-        &:hover {
-          opacity: 0.7;
-        }
-      }
-    }
-
     &__description {
-      overflow-y: auto;
-      overflow-x: auto;
-      margin-top: 2rem;
+      margin-top: 1rem;
+      overflow: auto;
 
       @include media(tb) {}
 
       @include media(pc) {}
 
-      table {
-        border-collapse: separate;
-        border-spacing: 0;
-        empty-cells: show;
-        border-top: 1px solid #ddd;
-        //横スクロールの場合はtableの幅を指定する
-        width: 950px;
 
-        th,
-        td {
-          border-right: 1px solid #ddd;
-          border-bottom: 1px solid #ddd;
-          line-height: 1.6;
+    }
+
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+      empty-cells: show;
+      border-top: 1px solid #ddd;
+      width: 100%;
+
+      &.-wide {
+        width: 145rem;
+      }
+
+      th,
+      td {
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        line-height: 1.6;
+        padding: 0.6rem 1rem;
+        font-size: 1.2rem;
+
+        @include media(tb) {
+          font-size: 1.4rem;
           padding: 0.6rem 1.5rem;
-          font-size: 1.2rem;
 
-          @include media(tb) {
-            font-size: 1.4rem;
-          }
-
-          @include media(pc) {
-            font-size: 1.6rem;
-          }
         }
 
-        th {
-          z-index: 1;
-          background: #f5f5f5;
-          text-align: left;
-          vertical-align: top;
-          width: 1px;
-          border-left: 1px solid #ddd;
-
-          &:first-of-type {
-            position: sticky;
-            left: 0;
-          }
-
-          @include media(tb) {
-            width: 150px;
-          }
-        }
-
-        //左1列固定
-
-
-        td {
-          background: #fff;
-          width: 160px;
+        @include media(pc) {
+          // font-size: 1.6rem;
         }
       }
 
+      th {
+        z-index: 1;
+        background: #f5f5f5;
+        text-align: left;
+        vertical-align: top;
+        border-left: 1px solid #ddd;
+        position: sticky;
+        left: 0;
+        width: 12rem;
+
+        @include media(tb) {
+          width: 15rem;
+        }
+
+        @include media(pc) {
+          width: 20rem;
+
+        }
+
+        &::before {
+          content: "";
+          width: 100%;
+          height: 100%;
+          display: block;
+          border: 1px solid #E4E4E4;
+          position: absolute;
+          top: -1px;
+          left: -1px;
+          box-sizing: content-box;
+        }
+      }
+
+      td {
+        background: #fff;
+      }
     }
 
     &__attention {
@@ -2048,7 +2007,7 @@ input[type=submit] {
       }
 
       @include media(pc) {
-        gap: 4.5rem;
+        gap: 3rem;
         grid-template-columns: repeat(3, 1fr);
       }
 

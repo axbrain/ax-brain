@@ -75,7 +75,6 @@ $post_id = get_the_ID();
       <div class="p-pro_single__splide<?php echo $image_count > 1 ? ' splide' : ''; ?>">
         <div class="splide__track">
           <?php
-
           if (have_rows('products_productimages', $post_id)):
           ?>
             <ul class="splide__list">
@@ -93,39 +92,48 @@ $post_id = get_the_ID();
               ?>
             </ul>
           <?php
+          else:
+            // 画像が0枚の場合のデフォルト画像を表示
+            $default_thumb = get_template_directory_uri() . '/assets/images/common/thumb.webp';
+          ?>
+            <ul class="splide__list">
+              <li>
+                <img src="<?php echo esc_url($default_thumb); ?>" alt="">
+              </li>
+            </ul>
+          <?php
           endif;
           ?>
         </div>
       </div>
+      <?php
+      // 画像が2枚以上ある場合のみサムネイル一覧を表示
+      if ($image_count > 1):
+        $first_image = true; // 1枚目かどうかを判定するフラグ
+      ?>
+        <ul class="p-pro_single__productimages">
+          <?php
+          while (have_rows('products_productimages', $post_id)) : the_row();
+            if ($first_image) {
+              $first_image = false; // 1枚目をスキップ
+              continue;
+            }
+            $thumb = get_sub_field('products_productimages_thumb');
+            if ($thumb) :
+          ?>
+              <li class="">
+                <img src="<?php echo esc_url($thumb); ?>" alt="">
+              </li>
+          <?php
+            endif;
+          endwhile;
+          ?>
+        </ul>
+      <?php
+      endif;
+      ?>
     </div>
-    <?php
-    // 画像が2枚以上ある場合のみサムネイル一覧を表示
-    if ($image_count > 1):
-      $first_image = true; // 1枚目かどうかを判定するフラグ
-    ?>
-      <ul class="p-pro_single__productimages">
-        <?php
-        while (have_rows('products_productimages', $post_id)) : the_row();
-          if ($first_image) {
-            $first_image = false; // 1枚目をスキップ
-            continue;
-          }
-          $thumb = get_sub_field('products_productimages_thumb');
-          if ($thumb) :
-        ?>
-            <li class="">
-              <img src="<?php echo esc_url($thumb); ?>" alt="">
-            </li>
-        <?php
-          endif;
-        endwhile;
-        ?>
-      </ul>
-    <?php
-    endif;
-    ?>
   </div>
-
 
   <div class="p-pro_single__contentbox">
 
@@ -212,6 +220,27 @@ $post_id = get_the_ID();
     ?>
       <h2 class="p-pro_single__contentbox__h2">商品説明</h2>
       <?php
+      // テーブルの-wideクラスの有無をチェック
+      $has_wide_class = false;
+      if ($description) {
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML('<?xml encoding="UTF-8">' . $description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+
+        $tables = $dom->getElementsByTagName('table');
+        if ($tables->length > 0) {
+          $table = $tables->item(0);
+          $class = $table->getAttribute('class');
+          $has_wide_class = strpos($class, '-wide') !== false;
+        }
+      }
+
+      // -wideクラスがない場合のみ誘導表示を出力
+      if ($has_wide_class) {
+        echo '<div class="p-pro_single__contentbox__scroll__induction"></div>';
+      }
+
       if ($description_irregular) {
         echo '<div class="p-pro_single__contentbox__description">';
         echo $description_irregular;
@@ -220,6 +249,11 @@ $post_id = get_the_ID();
         echo '<div class="p-pro_single__contentbox__description">';
         echo $description;
         echo '</div>';
+      }
+
+      // -wideクラスがない場合のみ誘導表示を出力
+      if ($has_wide_class) {
+        echo '<div class="p-pro_single__contentbox__scroll__induction -bottom"></div>';
       }
       ?>
     <?php endif; ?>
