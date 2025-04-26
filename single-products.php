@@ -232,7 +232,7 @@ $post_id = get_the_ID();
         if ($tables->length > 0) {
           $table = $tables->item(0);
           $class = $table->getAttribute('class');
-          $has_wide_class = strpos($class, '-wide') !== false;
+          $has_wide_class = strpos($class, '-wide') !== false || strpos($class, '-middle') !== false;
         }
       }
 
