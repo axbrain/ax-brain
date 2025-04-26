@@ -10,31 +10,27 @@
 // heading
 .c-h1 {
   font-size: 2.2rem;
-
   text-align: center;
-  margin-bottom: 2.5rem;
   color: $color_dark-gray;
-  margin-bottom: 3rem;
-
+  margin-bottom: 2rem;
+  transition: all .3s linear;
 
   @include media(tb) {
     font-size: 2.2rem;
-    margin-bottom: 4rem;
-    padding-bottom: 4rem;
+    margin-bottom: 3rem;
   }
 
   @include media(pc) {
     font-size: 2.2rem;
     margin-bottom: 4rem;
-    padding-bottom: 4rem;
   }
 
   &.-bdb {
-    padding-bottom: 3rem;
+    padding-bottom: 2rem;
     border-bottom: 1px solid $color_light-gray1;
 
     @include media(tb) {
-      padding-bottom: 4rem;
+      padding-bottom: 3rem;
     }
 
     @include media(pc) {
@@ -49,6 +45,7 @@
   text-decoration: underline;
   position: relative;
   color: $color_dark-gray;
+  transition: all .3s linear;
 
   &::before {
     content: '';
@@ -104,6 +101,8 @@
 
   &__item {
     a {
+      transition: all .3s linear;
+
       display: block;
       transition: all .3s linear;
 
@@ -136,6 +135,7 @@
     align-items: center;
     gap: 1rem;
     margin-top: 4rem;
+    transition: all .3s linear;
 
     @include media(tb) {
       margin-top: 6rem;

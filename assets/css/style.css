@@ -110,18 +110,22 @@ main.p-fp{
 .c-h1{
   color:#4d4d4d;
   font-size:2.2rem;
-  margin-bottom:3rem;
+  margin-bottom:2rem;
   text-align:center;
+  -webkit-transition:all .3s linear;
+  transition:all .3s linear;
 }
 .c-h1.-bdb{
   border-bottom:1px solid #e3e1db;
-  padding-bottom:3rem;
+  padding-bottom:2rem;
 }
 
 .c-link-txt{
   color:#4d4d4d;
   position:relative;
   text-decoration:underline;
+  -webkit-transition:all .3s linear;
+  transition:all .3s linear;
 }
 .c-link-txt:before{
   background:#4d4d4d;
@@ -192,6 +196,8 @@ main.p-fp{
   -webkit-box-align:center;
       -ms-flex-align:center;
           align-items:center;
+  -webkit-transition:all .3s linear;
+  transition:all .3s linear;
 }
 .c-products__pagination .page-numbers{
   border:1px solid #e3e1db;
@@ -199,8 +205,6 @@ main.p-fp{
   font-size:1.6rem;
   height:4rem;
   text-decoration:none;
-  -webkit-transition:all .3s linear;
-  transition:all .3s linear;
   width:4rem;
 }
 .c-products__pagination .page-numbers:hover{
@@ -2069,10 +2073,10 @@ button,input[type=submit]{
   }
   .c-h1{
     font-size:2.2rem;
-    margin-bottom:4rem;
+    margin-bottom:3rem;
   }
-  .c-h1,.c-h1.-bdb{
-    padding-bottom:4rem;
+  .c-h1.-bdb{
+    padding-bottom:3rem;
   }
   .c-products__list{
     gap:3rem;
@@ -2406,7 +2410,7 @@ button,input[type=submit]{
     font-size:2.2rem;
     margin-bottom:4rem;
   }
-  .c-h1,.c-h1.-bdb{
+  .c-h1.-bdb{
     padding-bottom:4rem;
   }
   .p-hdr__slide ul li{
