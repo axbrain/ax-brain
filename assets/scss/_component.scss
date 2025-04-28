@@ -91,12 +91,13 @@
 
     @include media(tb) {
       grid-template-columns: repeat(4, 1fr);
-      gap: 3rem;
-      margin-top: 3rem;
-
     }
 
-    @include media(pc) {}
+    @include media(pc) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3rem;
+      margin-top: 3rem;
+    }
   }
 
   &__item {

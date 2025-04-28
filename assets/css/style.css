@@ -2081,9 +2081,7 @@ button,input[type=submit]{
     padding-bottom:3rem;
   }
   .c-products__list{
-    gap:3rem;
     grid-template-columns:repeat(4, 1fr);
-    margin-top:3rem;
   }
   .c-products__pagination{
     gap:1.5rem;
@@ -2411,6 +2409,11 @@ button,input[type=submit]{
   }
   .c-h1.-bdb{
     padding-bottom:4rem;
+  }
+  .c-products__list{
+    gap:3rem;
+    grid-template-columns:repeat(4, 1fr);
+    margin-top:3rem;
   }
   .p-hdr__slide ul li{
     font-size:1.4rem;
