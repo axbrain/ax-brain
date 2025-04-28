@@ -196,107 +196,103 @@
       </div>
     </div>
     <div class="p-drawer-bg"></div>
-  </main>
 
-  <script>
-    // 検索オーバーレイの制御
-    (function() {
-      const searchHeader = document.querySelector('.js-search-header');
-      const searchOverlay = document.querySelector('.js-search-overlay');
-      const searchClose = document.querySelector('.p-search-overlay__close'); // 閉じるボタンの要素を取得
-      const searchInput = searchOverlay?.querySelector('input[type="search"]');
-      let searchBg;
+    <script>
+      // 検索オーバーレイの制御
+      (function() {
+        const searchHeader = document.querySelector('.js-search-header');
+        const searchOverlay = document.querySelector('.js-search-overlay');
+        const searchClose = document.querySelector('.p-search-overlay__close'); // 閉じるボタンの要素を取得
+        const searchInput = searchOverlay?.querySelector('input[type="search"]');
+        let searchBg;
 
-      if (!searchHeader || !searchOverlay || !searchClose) return; // searchCloseのチェックを追加
+        if (!searchHeader || !searchOverlay || !searchClose) return; // searchCloseのチェックを追加
 
-      // 背景オーバーレイを動的に追加
-      function createOverlayBg() {
-        searchBg = document.createElement('div');
-        searchBg.className = 'p-search-overlay-bg';
-        document.body.appendChild(searchBg);
-      }
-      createOverlayBg();
-
-      function openSearch(e) {
-        e.preventDefault();
-        searchOverlay.classList.add('is-active');
-        searchBg.classList.add('is-active');
-        // フォーカスを検索入力欄に移動
-        setTimeout(() => {
-          searchInput?.focus();
-        }, 400);
-      }
-
-      function closeSearch() {
-        searchOverlay.classList.remove('is-active');
-        searchBg.classList.remove('is-active');
-      }
-
-      // 背景クリックで閉じる
-      function handleBgClick(e) {
-        if (e.target === searchBg) {
-          closeSearch();
+        // 背景オーバーレイを動的に追加
+        function createOverlayBg() {
+          searchBg = document.createElement('div');
+          searchBg.className = 'p-search-overlay-bg';
+          document.body.appendChild(searchBg);
         }
-      }
+        createOverlayBg();
 
-      // ESCキーでも閉じられるように
-      function handleEscape(e) {
-        if (e.key === 'Escape' && searchOverlay.classList.contains('is-active')) {
-          closeSearch();
+        function openSearch(e) {
+          e.preventDefault();
+          searchOverlay.classList.add('is-active');
+          searchBg.classList.add('is-active');
+          // フォーカスを検索入力欄に移動
+          setTimeout(() => {
+            searchInput?.focus();
+          }, 400);
         }
-      }
 
-      searchHeader.addEventListener('click', openSearch);
-      searchClose.addEventListener('click', closeSearch); // 閉じるボタンのクリックイベントを追加
-      searchBg.addEventListener('click', handleBgClick);
-      document.addEventListener('keydown', handleEscape);
-    })();
+        function closeSearch() {
+          searchOverlay.classList.remove('is-active');
+          searchBg.classList.remove('is-active');
+        }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      const searchForm = document.querySelector('#searchform');
-      const searchInput = document.querySelector('#s');
-
-      if (searchForm && searchInput) {
-        searchForm.addEventListener('submit', function(e) {
-          if (!searchInput.value.trim()) {
-            e.preventDefault();
-            return false;
+        // 背景クリックで閉じる
+        function handleBgClick(e) {
+          if (e.target === searchBg) {
+            closeSearch();
           }
-        });
-      }
-    });
+        }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      // オーバーレイ検索フォームの送信制御
-      const overlayForm = document.querySelector('.p-search-overlay__form');
-      const overlayInput = document.querySelector('.p-search-overlay__input');
-      const overlaySubmit = document.querySelector('.p-search-overlay__submit');
-
-      if (overlayForm && overlayInput && overlaySubmit) {
-        overlayForm.addEventListener('submit', function(e) {
-          if (!overlayInput.value.trim()) {
-            e.preventDefault();
-            return false;
+        // ESCキーでも閉じられるように
+        function handleEscape(e) {
+          if (e.key === 'Escape' && searchOverlay.classList.contains('is-active')) {
+            closeSearch();
           }
-        });
-      }
-    });
+        }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      // ドロワー検索フォームの送信制御
-      const drawerForm = document.querySelector('.p-drawer__search-form');
-      const drawerInput = drawerForm ? drawerForm.querySelector('input[name="s"]') : null;
+        searchHeader.addEventListener('click', openSearch);
+        searchClose.addEventListener('click', closeSearch); // 閉じるボタンのクリックイベントを追加
+        searchBg.addEventListener('click', handleBgClick);
+        document.addEventListener('keydown', handleEscape);
+      })();
 
-      if (drawerForm && drawerInput) {
-        drawerForm.addEventListener('submit', function(e) {
-          if (!drawerInput.value.trim()) {
-            e.preventDefault();
-            return false;
-          }
-        });
-      }
-    });
-  </script>
-</body>
+      document.addEventListener('DOMContentLoaded', function() {
+        const searchForm = document.querySelector('#searchform');
+        const searchInput = document.querySelector('#s');
 
-</html>
+        if (searchForm && searchInput) {
+          searchForm.addEventListener('submit', function(e) {
+            if (!searchInput.value.trim()) {
+              e.preventDefault();
+              return false;
+            }
+          });
+        }
+      });
+
+      document.addEventListener('DOMContentLoaded', function() {
+        // オーバーレイ検索フォームの送信制御
+        const overlayForm = document.querySelector('.p-search-overlay__form');
+        const overlayInput = document.querySelector('.p-search-overlay__input');
+        const overlaySubmit = document.querySelector('.p-search-overlay__submit');
+
+        if (overlayForm && overlayInput && overlaySubmit) {
+          overlayForm.addEventListener('submit', function(e) {
+            if (!overlayInput.value.trim()) {
+              e.preventDefault();
+              return false;
+            }
+          });
+        }
+      });
+
+      document.addEventListener('DOMContentLoaded', function() {
+        // ドロワー検索フォームの送信制御
+        const drawerForm = document.querySelector('.p-drawer__search-form');
+        const drawerInput = drawerForm ? drawerForm.querySelector('input[name="s"]') : null;
+
+        if (drawerForm && drawerInput) {
+          drawerForm.addEventListener('submit', function(e) {
+            if (!drawerInput.value.trim()) {
+              e.preventDefault();
+              return false;
+            }
+          });
+        }
+      });
+    </script>
