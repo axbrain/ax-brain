@@ -761,6 +761,11 @@ button,input[type=submit]{
 .p-fp__newproducts__splide .splide__track{
   overflow:hidden;
 }
+.p-fp__newproducts__splide .splide__list{
+  -webkit-box-align:start;
+      -ms-flex-align:start;
+          align-items:flex-start;
+}
 .p-fp__newproducts__splide .splide__slide{
   aspect-ratio:1/1;
   display:grid;

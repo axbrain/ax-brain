@@ -755,6 +755,9 @@ input[type=submit] {
         overflow: hidden;
       }
 
+      .splide__list {
+        align-items: flex-start;
+      }
 
       .splide__slide {
         position: relative; // スライドに相対位置を設定
