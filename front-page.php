@@ -17,7 +17,12 @@ get_header();
 						$pc_image = $item['mv_img-pc'];
 						$sp_image = $item['mv_img-sp'];
 						$link = $item['mv_img-link'];
-						$product_name = $item['mv_img-products_name'];
+						// ページリンクフィールドから投稿オブジェクトを取得
+						$post_object = get_field('mv_img-link', false, false);
+						$link_title = '';
+						if ($post_object instanceof WP_Post) {
+							$link_title = $post_object->post_title;
+						}
 				?>
 						<li class="splide__slide">
 							<?php if ($link) : ?>
@@ -25,7 +30,7 @@ get_header();
 								<?php endif; ?>
 								<picture>
 									<source media="(min-width: 768px)" srcset="<?php echo esc_url($pc_image); ?>">
-									<img src="<?php echo esc_url($sp_image); ?>" alt="<?php echo esc_attr($product_name); ?>">
+									<img src="<?php echo esc_url($sp_image); ?>" alt="<?php echo esc_attr($link_title); ?>">
 								</picture>
 								<?php if ($link) : ?>
 								</a>
@@ -107,11 +112,18 @@ get_header();
 								<li class="splide__slide c-products__item">
 									<a href="<?php the_permalink(); ?>" class="c-products__link">
 										<div class="c-products__img">
-											<?php if (has_post_thumbnail()) : ?>
-												<?php the_post_thumbnail('full'); ?>
-											<?php else : ?>
-												<img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/thumb.webp" alt="デフォルトサムネイル">
-											<?php endif; ?>
+											<?php
+											$thumb_id = get_post_thumbnail_id();
+											$thumb_alt = get_the_title();
+											$thumb_args = array(
+												'alt' => $thumb_alt
+											);
+											if (has_post_thumbnail()) :
+												the_post_thumbnail('full', $thumb_args);
+											else :
+												echo '<img src="' . esc_url(get_template_directory_uri()) . '/assets/images/common/thumb.webp" alt="' . esc_attr($thumb_alt) . '">';
+											endif;
+											?>
 										</div>
 										<p class="c-products__title"><?php the_title(); ?></p>
 									</a>
@@ -156,11 +168,18 @@ get_header();
 						<li class="c-products__item">
 							<a href="<?php the_permalink(); ?>" class="c-products__link">
 								<div class="c-products__img">
-									<?php if (has_post_thumbnail()) : ?>
-										<?php the_post_thumbnail('full'); ?>
-									<?php else : ?>
-										<img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/thumb.webp" alt="デフォルトサムネイル">
-									<?php endif; ?>
+									<?php
+									$thumb_id = get_post_thumbnail_id();
+									$thumb_alt = get_the_title();
+									$thumb_args = array(
+										'alt' => $thumb_alt
+									);
+									if (has_post_thumbnail()) :
+										the_post_thumbnail('full', $thumb_args);
+									else :
+										echo '<img src="' . esc_url(get_template_directory_uri()) . '/assets/images/common/thumb.webp" alt="' . esc_attr($thumb_alt) . '">';
+									endif;
+									?>
 								</div>
 								<h3 class="c-products__title"><?php the_title(); ?></h3>
 							</a>
