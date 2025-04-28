@@ -226,9 +226,9 @@
     display: inline-block;
 
     a {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       color: #4d4d4d;
-      padding: 1.2rem 1.8rem;
+      padding: 1.2rem 1.2rem;
       background-color: #fff;
       border: 1px solid #E5E5E5;
       transition: all 0.3s linear;
@@ -238,6 +238,11 @@
       cursor: pointer;
       border-radius: 3rem;
       white-space: nowrap;
+
+      @include media(tb) {
+        padding: 1.2rem 1.8rem;
+        font-size: 1.4rem;
+      }
 
       &:hover {
         background: $color_light-gray1;
