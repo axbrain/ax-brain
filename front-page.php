@@ -17,15 +17,22 @@ get_header();
 						$pc_image = $item['mv_img-pc'];
 						$sp_image = $item['mv_img-sp'];
 						$link = $item['mv_img-link'];
-						// ページリンクフィールドから投稿オブジェクトを取得
-						$post_object = get_field('mv_img-link', false, false);
+						// ページリンクフィールドから投稿オブジェクトを取得（itemの中から直接取得）
+						$post_object = $item['mv_img-link'];
 						$link_title = '';
-						if ($post_object instanceof WP_Post) {
+						if (is_array($post_object) && isset($post_object['post_title'])) {
+							$link_title = $post_object['post_title'];
+						} elseif (is_object($post_object) && isset($post_object->post_title)) {
 							$link_title = $post_object->post_title;
 						}
 				?>
 						<li class="splide__slide">
-							<?php if ($link) : ?>
+							<?php
+							// URLから投稿IDを取得し、そこからタイトルを取得
+							$post_id = url_to_postid($item['mv_img-link']);
+							$link_title = get_the_title($post_id);
+
+							if ($link) : ?>
 								<a href="<?php echo esc_url($link); ?>">
 								<?php endif; ?>
 								<picture>
