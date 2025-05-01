@@ -15,11 +15,7 @@ $post_id = get_the_ID();
       ?>
         <span class="p-pro_single__h1-label"><?php echo esc_html($products_partnumber); ?></span>
       <?php endif; ?>
-      <?php
-      if ($products_name) : // 値が空でない場合のみ表示
-      ?>
-        <span class="p-pro_single__h1-value"><?php echo esc_html($products_name); ?></span>
-      <?php endif; ?>
+      <?php if ($products_name) : ?><span class="p-pro_single__h1-value"><?php echo esc_html($products_name); ?><?php if (get_field('products_newitem') === '有効'): ?><span class="c-new-badge p-pro_single__h1-new">【NEW】</span><?php endif; ?></span><?php endif; ?>
     </h1>
 
     <?php
@@ -167,11 +163,7 @@ $post_id = get_the_ID();
       ?>
         <span class="p-pro_single__h1-label"><?php echo esc_html($products_partnumber); ?></span>
       <?php endif; ?>
-      <?php
-      if ($products_name) : // 値が空でない場合のみ表示
-      ?>
-        <span class="p-pro_single__h1-value"><?php echo esc_html($products_name); ?></span>
-      <?php endif; ?>
+      <?php if ($products_name) : ?><span class="p-pro_single__h1-value"><?php echo esc_html($products_name); ?><?php if (get_field('products_newitem') === '有効'): ?><span class="c-new-badge p-pro_single__h1-new">【NEW】</span><?php endif; ?></span><?php endif; ?>
     </h1>
 
     <?php
