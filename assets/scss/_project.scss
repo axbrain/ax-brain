@@ -1942,12 +1942,11 @@ input[type=submit] {
 
         @include media(tb) {
           font-size: 1.4rem;
+          text-align: left;
           padding: 0.6rem 1.5rem;
         }
 
-        @include media(pc) {
-          text-align: left;
-        }
+        @include media(pc) {}
 
         &:nth-child(1) {
           z-index: 1;

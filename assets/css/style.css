@@ -2351,6 +2351,7 @@ button,input[type=submit]{
   .p-pro_single__contentbox table td,.p-pro_single__contentbox table th{
     font-size:1.4rem;
     padding:.6rem 1.5rem;
+    text-align:left;
   }
   .p-pro_single__contentbox__relatedproducts{
     gap:1rem;
@@ -2586,9 +2587,6 @@ button,input[type=submit]{
   }
   .p-pro_single__contentbox__catchphrase,.p-pro_single__contentbox__introduction{
     font-size:1.6rem;
-  }
-  .p-pro_single__contentbox table td,.p-pro_single__contentbox table th{
-    text-align:left;
   }
   .p-pro_single__contentbox__relatedproducts{
     gap:3rem;
