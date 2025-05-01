@@ -285,6 +285,28 @@ $post_id = get_the_ID();
             $offset = $nextTrEnd;
           }
         }
+
+        // colspanを持つtdタグを検索
+        preg_match_all('/<td[^>]*colspan=["\'](\d+)["\'][^>]*>/is', $description, $colspanMatches, PREG_SET_ORDER);
+
+        foreach ($colspanMatches as $match) {
+          $tdTag = $match[0];
+          $tdStart = strpos($description, $tdTag);
+
+          // クラスを追加
+          if (strpos($tdTag, 'class=') !== false) {
+            if (strpos($tdTag, '-centercell') === false) {
+              $newTdTag = preg_replace('/class=(["\'])(.*?)\1/', 'class=\1\2 -centercell\1', $tdTag);
+            } else {
+              $newTdTag = $tdTag;
+            }
+          } else {
+            $newTdTag = substr($tdTag, 0, -1) . ' class="-centercell">';
+          }
+
+          // 修正したタグで置換
+          $description = substr_replace($description, $newTdTag, $tdStart, strlen($tdTag));
+        }
       }
 
       // -wideクラスの確認（既存の処理をシンプルに）

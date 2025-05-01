@@ -1928,6 +1928,10 @@ input[type=submit] {
 
       td {
         background: #fff;
+
+        &.-centercell {
+          text-align: center;
+        }
       }
 
 
@@ -1976,6 +1980,7 @@ input[type=submit] {
             display: none;
           }
         }
+
       }
     }
 

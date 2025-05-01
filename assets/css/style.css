@@ -1476,6 +1476,9 @@ button,input[type=submit]{
 .p-pro_single__contentbox table td{
   background:#fff;
 }
+.p-pro_single__contentbox table td.-centercell{
+  text-align:center;
+}
 .p-pro_single__contentbox table td,.p-pro_single__contentbox table th{
   border-bottom:1px solid #ddd;
   border-right:1px solid #ddd;
