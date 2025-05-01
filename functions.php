@@ -556,6 +556,41 @@ function add_products_category_filter()
 }
 add_action('restrict_manage_posts', 'add_products_category_filter');
 
+/**
+ * 「新製品」での絞り込みフィルターを追加
+ */
+function add_products_filter()
+{
+  global $post_type;
+  if ($post_type === 'products') {
+    $selected = isset($_GET['products_newitem']) ? $_GET['products_newitem'] : '';
+?>
+    <select name="products_newitem">
+      <option value=""><?php _e('新製品で絞り込み'); ?></option>
+      <option value="active" <?php selected($selected, 'active'); ?>>新製品のみ表示</option>
+    </select>
+<?php
+  }
+}
+add_action('restrict_manage_posts', 'add_products_filter');
+
+/**
+ * 絞り込みの検索条件を設定
+ */
+function filter_products_by_newitem($query)
+{
+  global $pagenow;
+  if (
+    is_admin() && $pagenow === 'edit.php' &&
+    isset($_GET['post_type']) && $_GET['post_type'] === 'products' &&
+    isset($_GET['products_newitem']) && $_GET['products_newitem'] === 'active'
+  ) {
+
+    $query->query_vars['meta_key'] = 'products_newitem';
+    $query->query_vars['meta_value'] = '有効';
+  }
+}
+add_action('pre_get_posts', 'filter_products_by_newitem');
 
 /**
  * テキストエディタにカスタムボタンを追加
