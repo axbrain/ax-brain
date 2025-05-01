@@ -230,27 +230,67 @@ $post_id = get_the_ID();
     $description_irregular = get_field('product_description_irregular');
     $description = get_field('product_description');
 
-    if ($description_irregular || $description) : // どちらかのデータが存在する場合のみ表示
+    if ($description_irregular || $description) :
     ?>
       <h2 class="p-pro_single__contentbox__h2">商品説明</h2>
       <?php
-      // テーブルの-wideクラスの有無をチェック
-      $has_wide_class = false;
       if ($description) {
-        $dom = new DOMDocument();
-        libxml_use_internal_errors(true);
-        $dom->loadHTML('<?xml encoding="UTF-8">' . $description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        libxml_clear_errors();
+        // rowspanを持つthタグを検索
+        preg_match_all('/<tr>\s*<th[^>]*rowspan=["\'](\d+)["\'][^>]*>.*?<\/tr>/is', $description, $matches, PREG_SET_ORDER);
 
-        $tables = $dom->getElementsByTagName('table');
-        if ($tables->length > 0) {
-          $table = $tables->item(0);
-          $class = $table->getAttribute('class');
-          $has_wide_class = strpos($class, '-wide') !== false || strpos($class, '-middle') !== false;
+        foreach ($matches as $match) {
+          $rowspan = intval($match[1]);
+          $trStart = strpos($description, $match[0]);
+          $trEnd = strpos($description, '</tr>', $trStart);
+
+          // 現在のtr以降のtrタグを検索
+          $offset = $trEnd;
+          $currentRow = 0;
+
+          while ($currentRow < $rowspan - 1) {
+            // 次のtrタグを見つける
+            $nextTrStart = strpos($description, '<tr>', $offset);
+            if ($nextTrStart === false) break;
+
+            $nextTrEnd = strpos($description, '</tr>', $nextTrStart);
+            if ($nextTrEnd === false) break;
+
+            // そのtr内のtdタグを見つける
+            $tdStart = strpos($description, '<td', $nextTrStart);
+            if ($tdStart === false || $tdStart > $nextTrEnd) break;
+
+            $tdEnd = strpos($description, '>', $tdStart);
+            if ($tdEnd === false) break;
+
+            // tdタグを取得
+            $tdTag = substr($description, $tdStart, $tdEnd - $tdStart + 1);
+
+            // 2行目以降に-mergedcellクラスを追加
+            $currentRow++;
+            if ($currentRow > 0) {
+              if (strpos($tdTag, 'class=') !== false) {
+                if (strpos($tdTag, '-mergedcell') === false) {
+                  $newTdTag = preg_replace('/class=(["\'])(.*?)\1/', 'class=\1\2 -mergedcell\1', $tdTag);
+                } else {
+                  $newTdTag = $tdTag;
+                }
+              } else {
+                $newTdTag = substr($tdTag, 0, -1) . ' class="-mergedcell">';
+              }
+
+              // 修正したタグで置換
+              $description = substr_replace($description, $newTdTag, $tdStart, strlen($tdTag));
+            }
+
+            $offset = $nextTrEnd;
+          }
         }
       }
 
-      // -wideクラスがない場合のみ誘導表示を出力
+      // -wideクラスの確認（既存の処理をシンプルに）
+      $has_wide_class = strpos($description, 'class="-wide"') !== false ||
+        strpos($description, 'class="-middle"') !== false;
+
       if ($has_wide_class) {
         echo '<div class="p-pro_single__contentbox__scroll__induction"></div>';
       }
@@ -265,7 +305,6 @@ $post_id = get_the_ID();
         echo '</div>';
       }
 
-      // -wideクラスがない場合のみ誘導表示を出力
       if ($has_wide_class) {
         echo '<div class="p-pro_single__contentbox__scroll__induction -bottom"></div>';
       }
@@ -395,5 +434,4 @@ add_action('wp_footer', function () {
 
 
 get_footer();
-?>
 ?>
