@@ -2353,7 +2353,7 @@ button,input[type=submit]{
   }
   .p-pro_single__contentbox table td,.p-pro_single__contentbox table th{
     font-size:1.4rem;
-    padding:.6rem 1.5rem;
+    padding:.6rem 1rem;
     text-align:left;
   }
   .p-pro_single__contentbox__relatedproducts{
