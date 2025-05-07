@@ -307,6 +307,85 @@ $post_id = get_the_ID();
           // 修正したタグで置換
           $description = substr_replace($description, $newTdTag, $tdStart, strlen($tdTag));
         }
+
+        // 「品番」のthタグに-centercellクラスを追加
+        $offset = 0;
+        while (($thStart = strpos($description, '<th', $offset)) !== false) {
+          $thEnd = strpos($description, '>', $thStart);
+          if ($thEnd !== false) {
+            $thTag = substr($description, $thStart, $thEnd - $thStart + 1);
+            $thContent = substr($description, $thEnd + 1, strpos($description, '</th>', $thEnd) - $thEnd - 1);
+
+            if (trim($thContent) === '品番') {
+              // クラスを追加
+              if (strpos($thTag, 'class=') !== false) {
+                if (strpos($thTag, '-centercell') === false) {
+                  $newThTag = str_replace('class="', 'class="-centercell ', $thTag);
+                  $newThTag = str_replace("class='", "class='-centercell ", $newThTag);
+                } else {
+                  $newThTag = $thTag;
+                }
+              } else {
+                $newThTag = substr($thTag, 0, -1) . ' class="-centercell">';
+              }
+
+              // 修正したタグで置換
+              $description = substr_replace($description, $newThTag, $thStart, strlen($thTag));
+            }
+
+            $offset = $thEnd + 1;
+          } else {
+            break;
+          }
+        }
+
+        // colspanを持つthタグの直後のtr内のthタグに-sticky-noneクラスを追加
+        preg_match_all('/<th[^>]*colspan=["\'](\d+)["\'][^>]*>.*?<\/th>/is', $description, $colspanThMatches, PREG_SET_ORDER);
+
+        foreach ($colspanThMatches as $match) {
+          $thTag = $match[0];
+          $thEnd = strpos($description, '</th>', strpos($description, $thTag)) + 5;
+
+          // 次のtrタグを探す
+          $nextTrStart = strpos($description, '<tr>', $thEnd);
+          if ($nextTrStart !== false) {
+            // そのtr内の全てのthタグを処理
+            $trEnd = strpos($description, '</tr>', $nextTrStart);
+            if ($trEnd !== false) {
+              $trContent = substr($description, $nextTrStart, $trEnd - $nextTrStart);
+
+              // tr内の全てのthタグを検索
+              $offset = 0;
+              while (($thStart = strpos($trContent, '<th', $offset)) !== false) {
+                $thEnd = strpos($trContent, '>', $thStart);
+                if ($thEnd !== false) {
+                  $thTag = substr($trContent, $thStart, $thEnd - $thStart + 1);
+
+                  // クラスを追加
+                  if (strpos($thTag, 'class=') !== false) {
+                    if (strpos($thTag, '-sticky-none') === false) {
+                      $newThTag = str_replace('class="', 'class="-sticky-none ', $thTag);
+                      $newThTag = str_replace("class='", "class='-sticky-none ", $newThTag);
+                    } else {
+                      $newThTag = $thTag;
+                    }
+                  } else {
+                    $newThTag = substr($thTag, 0, -1) . ' class="-sticky-none">';
+                  }
+
+                  // 修正したタグで置換
+                  $trContent = substr_replace($trContent, $newThTag, $thStart, strlen($thTag));
+                  $offset = $thStart + strlen($newThTag);
+                } else {
+                  break;
+                }
+              }
+
+              // 修正したtrの内容で置換
+              $description = substr_replace($description, $trContent, $nextTrStart, $trEnd - $nextTrStart);
+            }
+          }
+        }
       }
 
       // -wideクラスの確認（既存の処理をシンプルに）
