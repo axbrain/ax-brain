@@ -1939,9 +1939,11 @@ input[type=submit] {
 
         &[colspan] {
           text-align: center;
-
         }
 
+        &.-cellnowrap {
+          white-space: nowrap;
+        }
       }
 
 

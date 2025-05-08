@@ -235,6 +235,9 @@ $post_id = get_the_ID();
       <h2 class="p-pro_single__contentbox__h2">商品説明</h2>
       <?php
       if ($description) {
+        // 全てのthタグにcellnowrapクラスを追加
+        $description = preg_replace('/<th([^>]*)>/', '<th$1 class="-cellnowrap">', $description);
+
         // rowspanを持つthタグを検索
         preg_match_all('/<tr>\s*<th[^>]*rowspan=["\'](\d+)["\'][^>]*>.*?<\/tr>/is', $description, $matches, PREG_SET_ORDER);
 
