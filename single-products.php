@@ -227,231 +227,228 @@ $post_id = get_the_ID();
     <?php endif; ?>
 
     <?php
-    $description_irregular = get_field('product_description_irregular');
     $description = get_field('product_description');
 
-    if ($description_irregular || $description) :
+    if ($description) :
     ?>
       <h2 class="p-pro_single__contentbox__h2">商品説明</h2>
       <?php
-      if ($description) {
-        // 全てのthタグにcellnowrapクラスを追加
-        $description = preg_replace('/<th([^>]*)>/', '<th$1 class="-cellnowrap">', $description);
+      // 全てのthタグにcellnowrapクラスを追加
+      $description = preg_replace('/<th([^>]*)>/', '<th$1 class="-cellnowrap">', $description);
 
-        // 既存のクラス（-middleや-wide）を一旦削除
-        $description = preg_replace('/<table[^>]*class=["\']([^"\']*)["\'][^>]*>/', '<table>', $description);
+      // 既存のクラス（-middleや-wide）を一旦削除
+      $description = preg_replace('/<table[^>]*class=["\']([^"\']*)["\'][^>]*>/', '<table>', $description);
 
-        // テーブルの構造を判定して適切なクラスを追加
-        $first_row = '';
-        if (preg_match('/<table[^>]*>.*?<tr[^>]*>(.*?)<\/tr>/is', $description, $matches)) {
-          $first_row = $matches[1];
+      // テーブルの構造を判定して適切なクラスを追加
+      $first_row = '';
+      if (preg_match('/<table[^>]*>.*?<tr[^>]*>(.*?)<\/tr>/is', $description, $matches)) {
+        $first_row = $matches[1];
+      }
+
+      if (preg_match('/<th[^>]*>.*?<td[^>]*>/is', $first_row)) {
+        // 1列目が見出し列の場合（th-tdのパターン）
+        // まず-vertical-tableクラスを追加
+        $description = preg_replace('/<table([^>]*)>/', '<table$1 class="-vertical-table">', $description);
+
+        // 1行2列でthとtdの組み合わせかチェック
+        $is_single_row = substr_count($description, '<tr>') === 1;
+        $has_th_td = preg_match('/<th[^>]*>.*?<td[^>]*>/is', $first_row);
+
+        // 1行2列でthとtdの組み合わせの場合は-narrow-tableクラスも追加
+        if ($is_single_row && $has_th_td) {
+          // 既存のクラスを保持したまま-narrow-tableを追加
+          $description = preg_replace('/<table([^>]*)class=["\']([^"\']*)["\']([^>]*)>/', '<table$1class="$2 -narrow-table"$3>', $description);
         }
+      } elseif (preg_match('/<th[^>]*>.*?<th[^>]*>/is', $first_row)) {
+        // 1行目が見出し行の場合（th-thのパターン）
+        // 列数をカウント
+        $th_count = substr_count($first_row, '<th');
 
-        if (preg_match('/<th[^>]*>.*?<td[^>]*>/is', $first_row)) {
-          // 1列目が見出し列の場合（th-tdのパターン）
-          // まず-vertical-tableクラスを追加
-          $description = preg_replace('/<table([^>]*)>/', '<table$1 class="-vertical-table">', $description);
+        // まず-horizontal-tableクラスを追加
+        $description = preg_replace('/<table([^>]*)>/', '<table$1 class="-horizontal-table">', $description);
 
-          // 1行2列でthとtdの組み合わせかチェック
-          $is_single_row = substr_count($description, '<tr>') === 1;
-          $has_th_td = preg_match('/<th[^>]*>.*?<td[^>]*>/is', $first_row);
-
-          // 1行2列でthとtdの組み合わせの場合は-narrow-tableクラスも追加
-          if ($is_single_row && $has_th_td) {
-            // 既存のクラスを保持したまま-narrow-tableを追加
-            $description = preg_replace('/<table([^>]*)class=["\']([^"\']*)["\']([^>]*)>/', '<table$1class="$2 -narrow-table"$3>', $description);
-          }
-        } elseif (preg_match('/<th[^>]*>.*?<th[^>]*>/is', $first_row)) {
-          // 1行目が見出し行の場合（th-thのパターン）
-          // 列数をカウント
-          $th_count = substr_count($first_row, '<th');
-
-          // まず-horizontal-tableクラスを追加
-          $description = preg_replace('/<table([^>]*)>/', '<table$1 class="-horizontal-table">', $description);
-
-          // 5列以下の場合は-narrow-tableクラスも追加
-          if ($th_count <= 3) {
-            // 既存のクラスを保持したまま-narrow-tableを追加
-            $description = preg_replace('/<table([^>]*)class=["\']([^"\']*)["\']([^>]*)>/', '<table$1class="$2 -narrow-table"$3>', $description);
-          }
+        // 5列以下の場合は-narrow-tableクラスも追加
+        if ($th_count <= 3) {
+          // 既存のクラスを保持したまま-narrow-tableを追加
+          $description = preg_replace('/<table([^>]*)class=["\']([^"\']*)["\']([^>]*)>/', '<table$1class="$2 -narrow-table"$3>', $description);
         }
+      }
 
-        // テーブルの行数をカウント
-        $row_count = substr_count($description, '<tr>');
+      // テーブルの行数をカウント
+      $row_count = substr_count($description, '<tr>');
 
-        // デバイス判定と行数に応じてクラスを追加
-        $additional_classes = '';
+      // デバイス判定と行数に応じてクラスを追加
+      $additional_classes = '';
 
-        if (wp_is_mobile()) {
-          // スマホの場合
-          if ($row_count >= 9) {
-            $additional_classes = ' -sp -heightover';
+      if (wp_is_mobile()) {
+        // スマホの場合
+        if ($row_count >= 9) {
+          $additional_classes = ' -sp -heightover';
+        }
+      } else {
+        // PCまたはタブレットの場合
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        if (strpos($user_agent, 'iPad') !== false || strpos($user_agent, 'Android') !== false) {
+          // タブレットの場合
+          if ($row_count >= 11) {
+            $additional_classes = ' -tb -heightover';
           }
         } else {
-          // PCまたはタブレットの場合
-          $user_agent = $_SERVER['HTTP_USER_AGENT'];
-          if (strpos($user_agent, 'iPad') !== false || strpos($user_agent, 'Android') !== false) {
-            // タブレットの場合
-            if ($row_count >= 11) {
-              $additional_classes = ' -tb -heightover';
-            }
-          } else {
-            // PCの場合
-            if ($row_count >= 13) {
-              $additional_classes = ' -pc -heightover';
-            }
+          // PCの場合
+          if ($row_count >= 13) {
+            $additional_classes = ' -pc -heightover';
           }
         }
+      }
 
-        // rowspanを持つthタグを検索
-        preg_match_all('/<tr>\s*<th[^>]*rowspan=["\'](\d+)["\'][^>]*>.*?<\/tr>/is', $description, $matches, PREG_SET_ORDER);
+      // rowspanを持つthタグを検索
+      preg_match_all('/<tr>\s*<th[^>]*rowspan=["\'](\d+)["\'][^>]*>.*?<\/tr>/is', $description, $matches, PREG_SET_ORDER);
 
-        foreach ($matches as $match) {
-          $rowspan = intval($match[1]);
-          $trStart = strpos($description, $match[0]);
-          $trEnd = strpos($description, '</tr>', $trStart);
+      foreach ($matches as $match) {
+        $rowspan = intval($match[1]);
+        $trStart = strpos($description, $match[0]);
+        $trEnd = strpos($description, '</tr>', $trStart);
 
-          // 現在のtr以降のtrタグを検索
-          $offset = $trEnd;
-          $currentRow = 0;
+        // 現在のtr以降のtrタグを検索
+        $offset = $trEnd;
+        $currentRow = 0;
 
-          while ($currentRow < $rowspan - 1) {
-            // 次のtrタグを見つける
-            $nextTrStart = strpos($description, '<tr>', $offset);
-            if ($nextTrStart === false) break;
+        while ($currentRow < $rowspan - 1) {
+          // 次のtrタグを見つける
+          $nextTrStart = strpos($description, '<tr>', $offset);
+          if ($nextTrStart === false) break;
 
-            $nextTrEnd = strpos($description, '</tr>', $nextTrStart);
-            if ($nextTrEnd === false) break;
+          $nextTrEnd = strpos($description, '</tr>', $nextTrStart);
+          if ($nextTrEnd === false) break;
 
-            // そのtr内のtdタグを見つける
-            $tdStart = strpos($description, '<td', $nextTrStart);
-            if ($tdStart === false || $tdStart > $nextTrEnd) break;
+          // そのtr内のtdタグを見つける
+          $tdStart = strpos($description, '<td', $nextTrStart);
+          if ($tdStart === false || $tdStart > $nextTrEnd) break;
 
-            $tdEnd = strpos($description, '>', $tdStart);
-            if ($tdEnd === false) break;
+          $tdEnd = strpos($description, '>', $tdStart);
+          if ($tdEnd === false) break;
 
-            // tdタグを取得
-            $tdTag = substr($description, $tdStart, $tdEnd - $tdStart + 1);
+          // tdタグを取得
+          $tdTag = substr($description, $tdStart, $tdEnd - $tdStart + 1);
 
-            // 2行目以降に-mergedcellクラスを追加
-            $currentRow++;
-            if ($currentRow > 0) {
-              if (strpos($tdTag, 'class=') !== false) {
-                if (strpos($tdTag, '-mergedcell') === false) {
-                  $newTdTag = preg_replace('/class=(["\'])(.*?)\1/', 'class=\1\2 -mergedcell\1', $tdTag);
-                } else {
-                  $newTdTag = $tdTag;
-                }
+          // 2行目以降に-mergedcellクラスを追加
+          $currentRow++;
+          if ($currentRow > 0) {
+            if (strpos($tdTag, 'class=') !== false) {
+              if (strpos($tdTag, '-mergedcell') === false) {
+                $newTdTag = preg_replace('/class=(["\'])(.*?)\1/', 'class=\1\2 -mergedcell\1', $tdTag);
               } else {
-                $newTdTag = substr($tdTag, 0, -1) . ' class="-mergedcell">';
+                $newTdTag = $tdTag;
               }
-
-              // 修正したタグで置換
-              $description = substr_replace($description, $newTdTag, $tdStart, strlen($tdTag));
-            }
-
-            $offset = $nextTrEnd;
-          }
-        }
-
-        // colspanを持つtdタグを検索
-        preg_match_all('/<td[^>]*colspan=["\'](\d+)["\'][^>]*>/is', $description, $colspanMatches, PREG_SET_ORDER);
-
-        foreach ($colspanMatches as $match) {
-          $tdTag = $match[0];
-          $tdStart = strpos($description, $tdTag);
-
-          // クラスを追加
-          if (strpos($tdTag, 'class=') !== false) {
-            if (strpos($tdTag, '-centercell') === false) {
-              $newTdTag = preg_replace('/class=(["\'])(.*?)\1/', 'class=\1\2 -centercell\1', $tdTag);
             } else {
-              $newTdTag = $tdTag;
+              $newTdTag = substr($tdTag, 0, -1) . ' class="-mergedcell">';
             }
-          } else {
-            $newTdTag = substr($tdTag, 0, -1) . ' class="-centercell">';
+
+            // 修正したタグで置換
+            $description = substr_replace($description, $newTdTag, $tdStart, strlen($tdTag));
           }
 
-          // 修正したタグで置換
-          $description = substr_replace($description, $newTdTag, $tdStart, strlen($tdTag));
+          $offset = $nextTrEnd;
+        }
+      }
+
+      // colspanを持つtdタグを検索
+      preg_match_all('/<td[^>]*colspan=["\'](\d+)["\'][^>]*>/is', $description, $colspanMatches, PREG_SET_ORDER);
+
+      foreach ($colspanMatches as $match) {
+        $tdTag = $match[0];
+        $tdStart = strpos($description, $tdTag);
+
+        // クラスを追加
+        if (strpos($tdTag, 'class=') !== false) {
+          if (strpos($tdTag, '-centercell') === false) {
+            $newTdTag = preg_replace('/class=(["\'])(.*?)\1/', 'class=\1\2 -centercell\1', $tdTag);
+          } else {
+            $newTdTag = $tdTag;
+          }
+        } else {
+          $newTdTag = substr($tdTag, 0, -1) . ' class="-centercell">';
         }
 
-        // 「品番」のthタグに-centercellクラスを追加
-        $offset = 0;
-        while (($thStart = strpos($description, '<th', $offset)) !== false) {
-          $thEnd = strpos($description, '>', $thStart);
-          if ($thEnd !== false) {
-            $thTag = substr($description, $thStart, $thEnd - $thStart + 1);
-            $thContent = substr($description, $thEnd + 1, strpos($description, '</th>', $thEnd) - $thEnd - 1);
+        // 修正したタグで置換
+        $description = substr_replace($description, $newTdTag, $tdStart, strlen($tdTag));
+      }
 
-            if (trim($thContent) === '品番') {
-              // クラスを追加
-              if (strpos($thTag, 'class=') !== false) {
-                if (strpos($thTag, '-centercell') === false) {
-                  $newThTag = str_replace('class="', 'class="-centercell ', $thTag);
-                  $newThTag = str_replace("class='", "class='-centercell ", $newThTag);
-                } else {
-                  $newThTag = $thTag;
-                }
+      // 「品番」のthタグに-centercellクラスを追加
+      $offset = 0;
+      while (($thStart = strpos($description, '<th', $offset)) !== false) {
+        $thEnd = strpos($description, '>', $thStart);
+        if ($thEnd !== false) {
+          $thTag = substr($description, $thStart, $thEnd - $thStart + 1);
+          $thContent = substr($description, $thEnd + 1, strpos($description, '</th>', $thEnd) - $thEnd - 1);
+
+          if (trim($thContent) === '品番') {
+            // クラスを追加
+            if (strpos($thTag, 'class=') !== false) {
+              if (strpos($thTag, '-centercell') === false) {
+                $newThTag = str_replace('class="', 'class="-centercell ', $thTag);
+                $newThTag = str_replace("class='", "class='-centercell ", $newThTag);
               } else {
-                $newThTag = substr($thTag, 0, -1) . ' class="-centercell">';
+                $newThTag = $thTag;
               }
-
-              // 修正したタグで置換
-              $description = substr_replace($description, $newThTag, $thStart, strlen($thTag));
+            } else {
+              $newThTag = substr($thTag, 0, -1) . ' class="-centercell">';
             }
 
-            $offset = $thEnd + 1;
-          } else {
-            break;
+            // 修正したタグで置換
+            $description = substr_replace($description, $newThTag, $thStart, strlen($thTag));
           }
+
+          $offset = $thEnd + 1;
+        } else {
+          break;
         }
+      }
 
-        // colspanを持つthタグの直後のtr内のthタグに-sticky-noneクラスを追加
-        preg_match_all('/<th[^>]*colspan=["\'](\d+)["\'][^>]*>.*?<\/th>/is', $description, $colspanThMatches, PREG_SET_ORDER);
+      // colspanを持つthタグの直後のtr内のthタグに-sticky-noneクラスを追加
+      preg_match_all('/<th[^>]*colspan=["\'](\d+)["\'][^>]*>.*?<\/th>/is', $description, $colspanThMatches, PREG_SET_ORDER);
 
-        foreach ($colspanThMatches as $match) {
-          $thTag = $match[0];
-          $thEnd = strpos($description, '</th>', strpos($description, $thTag)) + 5;
+      foreach ($colspanThMatches as $match) {
+        $thTag = $match[0];
+        $thEnd = strpos($description, '</th>', strpos($description, $thTag)) + 5;
 
-          // 次のtrタグを探す
-          $nextTrStart = strpos($description, '<tr>', $thEnd);
-          if ($nextTrStart !== false) {
-            // そのtr内の全てのthタグを処理
-            $trEnd = strpos($description, '</tr>', $nextTrStart);
-            if ($trEnd !== false) {
-              $trContent = substr($description, $nextTrStart, $trEnd - $nextTrStart);
+        // 次のtrタグを探す
+        $nextTrStart = strpos($description, '<tr>', $thEnd);
+        if ($nextTrStart !== false) {
+          // そのtr内の全てのthタグを処理
+          $trEnd = strpos($description, '</tr>', $nextTrStart);
+          if ($trEnd !== false) {
+            $trContent = substr($description, $nextTrStart, $trEnd - $nextTrStart);
 
-              // tr内の全てのthタグを検索
-              $offset = 0;
-              while (($thStart = strpos($trContent, '<th', $offset)) !== false) {
-                $thEnd = strpos($trContent, '>', $thStart);
-                if ($thEnd !== false) {
-                  $thTag = substr($trContent, $thStart, $thEnd - $thStart + 1);
+            // tr内の全てのthタグを検索
+            $offset = 0;
+            while (($thStart = strpos($trContent, '<th', $offset)) !== false) {
+              $thEnd = strpos($trContent, '>', $thStart);
+              if ($thEnd !== false) {
+                $thTag = substr($trContent, $thStart, $thEnd - $thStart + 1);
 
-                  // クラスを追加
-                  if (strpos($thTag, 'class=') !== false) {
-                    if (strpos($thTag, '-sticky-none') === false) {
-                      $newThTag = str_replace('class="', 'class="-sticky-none ', $thTag);
-                      $newThTag = str_replace("class='", "class='-sticky-none ", $newThTag);
-                    } else {
-                      $newThTag = $thTag;
-                    }
+                // クラスを追加
+                if (strpos($thTag, 'class=') !== false) {
+                  if (strpos($thTag, '-sticky-none') === false) {
+                    $newThTag = str_replace('class="', 'class="-sticky-none ', $thTag);
+                    $newThTag = str_replace("class='", "class='-sticky-none ", $newThTag);
                   } else {
-                    $newThTag = substr($thTag, 0, -1) . ' class="-sticky-none">';
+                    $newThTag = $thTag;
                   }
-
-                  // 修正したタグで置換
-                  $trContent = substr_replace($trContent, $newThTag, $thStart, strlen($thTag));
-                  $offset = $thStart + strlen($newThTag);
                 } else {
-                  break;
+                  $newThTag = substr($thTag, 0, -1) . ' class="-sticky-none">';
                 }
-              }
 
-              // 修正したtrの内容で置換
-              $description = substr_replace($description, $trContent, $nextTrStart, $trEnd - $nextTrStart);
+                // 修正したタグで置換
+                $trContent = substr_replace($trContent, $newThTag, $thStart, strlen($thTag));
+                $offset = $thStart + strlen($newThTag);
+              } else {
+                break;
+              }
             }
+
+            // 修正したtrの内容で置換
+            $description = substr_replace($description, $trContent, $nextTrStart, $trEnd - $nextTrStart);
           }
         }
       }
@@ -468,42 +465,9 @@ $post_id = get_the_ID();
         echo '<div class="p-pro_single__contentbox__scroll__induction"></div>';
       }
 
-      if ($description_irregular) {
-        echo '<div class="p-pro_single__contentbox__description">';
-        echo $description_irregular;
-        echo '</div>';
-      } else {
-        // テーブルの行数をカウント
-        $row_count = substr_count($description, '<tr>');
-
-        // デバイス判定と行数に応じてクラスを追加
-        $additional_classes = '';
-
-        if (wp_is_mobile()) {
-          // スマホの場合
-          if ($row_count >= 9) {
-            $additional_classes = ' -sp -heightover';
-          }
-        } else {
-          // PCまたはタブレットの場合
-          $user_agent = $_SERVER['HTTP_USER_AGENT'];
-          if (strpos($user_agent, 'iPad') !== false || strpos($user_agent, 'Android') !== false) {
-            // タブレットの場合
-            if ($row_count >= 11) {
-              $additional_classes = ' -tb -heightover';
-            }
-          } else {
-            // PCの場合
-            if ($row_count >= 13) {
-              $additional_classes = ' -pc -heightover';
-            }
-          }
-        }
-
-        echo '<div class="p-pro_single__contentbox__description' . $additional_classes . '">';
-        echo $description;
-        echo '</div>';
-      }
+      echo '<div class="p-pro_single__contentbox__description' . $additional_classes . '">';
+      echo $description;
+      echo '</div>';
 
       if ($show_scroll_induction) {
         echo '<div class="p-pro_single__contentbox__scroll__induction -bottom"></div>';
