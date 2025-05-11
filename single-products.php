@@ -268,7 +268,7 @@ $post_id = get_the_ID();
         $description = preg_replace('/<table([^>]*)>/', '<table$1 class="-horizontal-table">', $description);
 
         // 5列以下の場合は-narrow-tableクラスも追加
-        if ($th_count <= 3) {
+        if ($th_count <= 6) {
           // 既存のクラスを保持したまま-narrow-tableを追加
           $description = preg_replace('/<table([^>]*)class=["\']([^"\']*)["\']([^>]*)>/', '<table$1class="$2 -narrow-table"$3>', $description);
         }
