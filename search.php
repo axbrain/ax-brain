@@ -22,7 +22,25 @@ get_header();
 		);
 		?>
 	</h2>
+	<?php
+	// カテゴリー一覧の表示
+	$categories = get_terms(array(
+		'taxonomy' => 'products-cat',
+		'hide_empty' => true,
+	));
 
+	if (!empty($categories) && !is_wp_error($categories)) :
+	?>
+		<ul class="c-category__list">
+			<?php foreach ($categories as $category) : ?>
+				<li>
+					<a href="<?php echo esc_url(get_term_link($category)); ?>">
+						<?php echo esc_html($category->name); ?>
+					</a>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
 	<?php if (have_posts()) : ?>
 		<ul class="c-products__list">
 			<?php while (have_posts()) : the_post(); ?>

@@ -2428,7 +2428,7 @@ button,input[type=submit]{
   .p-search__title{
     font-size:2.4rem;
   }
-  .p-products__categories,.p-search__title{
+  .p-products__categories{
     margin-bottom:6rem;
   }
   .p-products__category-list{
@@ -2653,7 +2653,7 @@ button,input[type=submit]{
   .p-search__title{
     font-size:1.8rem;
   }
-  .p-products__categories,.p-search__title{
+  .p-products__categories{
     margin-bottom:8rem;
   }
   .p-products__no-results{
