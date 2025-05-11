@@ -238,6 +238,71 @@ $post_id = get_the_ID();
         // 全てのthタグにcellnowrapクラスを追加
         $description = preg_replace('/<th([^>]*)>/', '<th$1 class="-cellnowrap">', $description);
 
+        // 既存のクラス（-middleや-wide）を一旦削除
+        $description = preg_replace('/<table[^>]*class=["\']([^"\']*)["\'][^>]*>/', '<table>', $description);
+
+        // テーブルの構造を判定して適切なクラスを追加
+        $first_row = '';
+        if (preg_match('/<table[^>]*>.*?<tr[^>]*>(.*?)<\/tr>/is', $description, $matches)) {
+          $first_row = $matches[1];
+        }
+
+        if (preg_match('/<th[^>]*>.*?<td[^>]*>/is', $first_row)) {
+          // 1列目が見出し列の場合（th-tdのパターン）
+          // まず-vertical-tableクラスを追加
+          $description = preg_replace('/<table([^>]*)>/', '<table$1 class="-vertical-table">', $description);
+
+          // 1行2列でthとtdの組み合わせかチェック
+          $is_single_row = substr_count($description, '<tr>') === 1;
+          $has_th_td = preg_match('/<th[^>]*>.*?<td[^>]*>/is', $first_row);
+
+          // 1行2列でthとtdの組み合わせの場合は-narrow-tableクラスも追加
+          if ($is_single_row && $has_th_td) {
+            // 既存のクラスを保持したまま-narrow-tableを追加
+            $description = preg_replace('/<table([^>]*)class=["\']([^"\']*)["\']([^>]*)>/', '<table$1class="$2 -narrow-table"$3>', $description);
+          }
+        } elseif (preg_match('/<th[^>]*>.*?<th[^>]*>/is', $first_row)) {
+          // 1行目が見出し行の場合（th-thのパターン）
+          // 列数をカウント
+          $th_count = substr_count($first_row, '<th');
+
+          // まず-horizontal-tableクラスを追加
+          $description = preg_replace('/<table([^>]*)>/', '<table$1 class="-horizontal-table">', $description);
+
+          // 5列以下の場合は-narrow-tableクラスも追加
+          if ($th_count <= 3) {
+            // 既存のクラスを保持したまま-narrow-tableを追加
+            $description = preg_replace('/<table([^>]*)class=["\']([^"\']*)["\']([^>]*)>/', '<table$1class="$2 -narrow-table"$3>', $description);
+          }
+        }
+
+        // テーブルの行数をカウント
+        $row_count = substr_count($description, '<tr>');
+
+        // デバイス判定と行数に応じてクラスを追加
+        $additional_classes = '';
+
+        if (wp_is_mobile()) {
+          // スマホの場合
+          if ($row_count >= 9) {
+            $additional_classes = ' -sp -heightover';
+          }
+        } else {
+          // PCまたはタブレットの場合
+          $user_agent = $_SERVER['HTTP_USER_AGENT'];
+          if (strpos($user_agent, 'iPad') !== false || strpos($user_agent, 'Android') !== false) {
+            // タブレットの場合
+            if ($row_count >= 11) {
+              $additional_classes = ' -tb -heightover';
+            }
+          } else {
+            // PCの場合
+            if ($row_count >= 13) {
+              $additional_classes = ' -pc -heightover';
+            }
+          }
+        }
+
         // rowspanを持つthタグを検索
         preg_match_all('/<tr>\s*<th[^>]*rowspan=["\'](\d+)["\'][^>]*>.*?<\/tr>/is', $description, $matches, PREG_SET_ORDER);
 
@@ -391,11 +456,15 @@ $post_id = get_the_ID();
         }
       }
 
-      // -wideクラスの確認（既存の処理をシンプルに）
-      $has_wide_class = strpos($description, 'class="-wide"') !== false ||
-        strpos($description, 'class="-middle"') !== false;
+      // クラスの確認
+      $has_horizontal = strpos($description, '-horizontal-table') !== false;
+      $has_vertical = strpos($description, '-vertical-table') !== false;
+      $has_narrow = strpos($description, '-narrow-table') !== false;
 
-      if ($has_wide_class) {
+      // -horizontal-table のみが存在する場合のみスクロール誘導用のdivを表示
+      $show_scroll_induction = $has_horizontal && !$has_narrow && !$has_vertical;
+
+      if ($show_scroll_induction) {
         echo '<div class="p-pro_single__contentbox__scroll__induction"></div>';
       }
 
@@ -404,12 +473,39 @@ $post_id = get_the_ID();
         echo $description_irregular;
         echo '</div>';
       } else {
-        echo '<div class="p-pro_single__contentbox__description">';
+        // テーブルの行数をカウント
+        $row_count = substr_count($description, '<tr>');
+
+        // デバイス判定と行数に応じてクラスを追加
+        $additional_classes = '';
+
+        if (wp_is_mobile()) {
+          // スマホの場合
+          if ($row_count >= 9) {
+            $additional_classes = ' -sp -heightover';
+          }
+        } else {
+          // PCまたはタブレットの場合
+          $user_agent = $_SERVER['HTTP_USER_AGENT'];
+          if (strpos($user_agent, 'iPad') !== false || strpos($user_agent, 'Android') !== false) {
+            // タブレットの場合
+            if ($row_count >= 11) {
+              $additional_classes = ' -tb -heightover';
+            }
+          } else {
+            // PCの場合
+            if ($row_count >= 13) {
+              $additional_classes = ' -pc -heightover';
+            }
+          }
+        }
+
+        echo '<div class="p-pro_single__contentbox__description' . $additional_classes . '">';
         echo $description;
         echo '</div>';
       }
 
-      if ($has_wide_class) {
+      if ($show_scroll_induction) {
         echo '<div class="p-pro_single__contentbox__scroll__induction -bottom"></div>';
       }
       ?>

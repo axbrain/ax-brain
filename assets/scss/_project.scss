@@ -1899,6 +1899,23 @@ input[type=submit] {
       margin-top: 1rem;
       overflow: auto;
 
+      &.-heightover {
+        overflow: scroll;
+
+        &.-sp {
+          height: 30rem;
+        }
+
+        &.-tb {
+          height: 40rem;
+        }
+
+        &.-pc {
+          height: 50rem;
+
+        }
+      }
+
       @include media(tb) {}
 
       @include media(pc) {}
@@ -1911,20 +1928,49 @@ input[type=submit] {
       border-spacing: 0;
       empty-cells: show;
       border-top: 1px solid #ddd;
-      width: 100%;
 
-      &.-middle {
-        width: 99rem;
+      &.-narrow-table {
+        display: table !important;
+        width: auto !important;
+
+        td {
+          width: auto !important;
+        }
       }
 
+      // &.-vertical-table,
+      &.-horizontal-table,
+      &.-middle,
       &.-wide {
-        width: 145rem;
-      }
+        width: 100%;
+        display: block;
+        // overflow-x: scroll;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
 
-      tr {
-        th {
-          &:nth-of-type(n+2) {
-            text-align: center;
+        &:nth-child(1) {}
+
+        th,
+        td {
+          z-index: 1;
+          border-left: 1px solid #ddd;
+          left: 0;
+
+          &:nth-child(1) {
+            position: sticky;
+
+            &::before {
+              content: "";
+              width: 100%;
+              height: 100%;
+              display: block;
+              border: 1px solid #E4E4E4;
+              position: absolute;
+              top: -1px;
+              left: -1px;
+              box-sizing: content-box;
+            }
           }
         }
       }
@@ -1933,9 +1979,11 @@ input[type=submit] {
         background: #f5f5f5;
         vertical-align: middle;
 
-        &[rowspan] {
-          // text-align: center;
+        &:nth-of-type(n+2) {
+          text-align: center;
         }
+
+        &[rowspan] {}
 
         &[colspan] {
           text-align: center;
@@ -1946,15 +1994,14 @@ input[type=submit] {
         }
       }
 
-
       td {
         background: #fff;
+        width: 100%;
 
         &.-centercell {
           text-align: center;
         }
       }
-
 
       th,
       td {
@@ -1973,23 +2020,9 @@ input[type=submit] {
         @include media(pc) {}
 
         &:nth-child(1) {
-          z-index: 1;
-          // vertical-align: top;
+          // z-index: 1;
           border-left: 1px solid #ddd;
-          position: sticky;
-          left: 0;
-
-          &::before {
-            content: "";
-            width: 100%;
-            height: 100%;
-            display: block;
-            border: 1px solid #E4E4E4;
-            position: absolute;
-            top: -1px;
-            left: -1px;
-            box-sizing: content-box;
-          }
+          // left: 0;
         }
 
         &.-mergedcell {
@@ -2006,14 +2039,22 @@ input[type=submit] {
         }
 
         &.-sticky-none {
-          position: inherit;
+          position: inherit !important;
           text-align: center;
 
           &::before {
-            display: none;
+            display: none !important;
           }
         }
       }
+
+
+      &.-horizontal-table {
+        td {
+          text-align: center;
+        }
+      }
+
     }
 
     &__attention {
