@@ -1556,6 +1556,7 @@ button,input[type=submit]{
 }
 .p-pro_single__contentbox table.-horizontal-table td{
   text-align:center;
+  vertical-align:middle;
 }
 .p-pro_single__contentbox__attention,.p-pro_single__contentbox__warning{
   font-size:1.2rem;
