@@ -73,7 +73,7 @@
 
 			<div class="p-calender">
 				<p class="p-calender__h1">営業日のご案内</p>
-				<?php echo do_shortcode('[xo_event_calendar holidays="all" previous="1" next="1"]'); ?>
+				<?php echo do_shortcode('[xo_event_calendar holidays="all" previous="1" next="3"]'); ?>
 			</div>
 		</div>
 
