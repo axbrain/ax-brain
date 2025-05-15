@@ -1563,33 +1563,48 @@ button,input[type=submit]{
   margin-top:2rem;
   text-align:justify;
 }
-.p-pro_single__contentbox__pamphlet{
-  margin-top:4rem;
-  text-align:justify;
+.p-pro_single__contentbox__pamphletbox{
+  margin-top:2rem;
+  -webkit-box-orient:vertical;
+  -webkit-box-direction:normal;
+      -ms-flex-direction:column;
+          flex-direction:column;
+  gap:2rem;
 }
-.p-pro_single__contentbox__pamphlet,.p-pro_single__contentbox__pamphlet a{
+.p-pro_single__contentbox__pamphlet,.p-pro_single__contentbox__pamphletbox{
   display:-webkit-box;
   display:-ms-flexbox;
   display:flex;
   -webkit-box-align:center;
       -ms-flex-align:center;
           align-items:center;
+}
+.p-pro_single__contentbox__pamphlet{
+  text-align:justify;
+}
+.p-pro_single__contentbox__pamphlet,.p-pro_single__contentbox__pamphlet a{
   -webkit-box-pack:center;
       -ms-flex-pack:center;
           justify-content:center;
+  width:100%;
 }
 .p-pro_single__contentbox__pamphlet a{
   background-color:#e6e6e6;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-box-align:center;
+      -ms-flex-align:center;
+          align-items:center;
   color:#000;
   font-size:1.4rem;
   gap:1rem;
-  padding:5rem 1rem;
+  padding:2rem 1rem;
   -webkit-transition:all .3s linear;
   transition:all .3s linear;
-  width:100%;
 }
 .p-pro_single__contentbox__pamphlet a img{
-  width:4rem;
+  width:3rem;
 }
 .p-pro_single__contentbox__pamphlet a:hover{
   opacity:.7;
@@ -2400,6 +2415,15 @@ button,input[type=submit]{
     font-size:1.4rem;
     padding:.6rem 1rem;
   }
+  .p-pro_single__contentbox__pamphletbox{
+    -webkit-box-orient:horizontal;
+    -webkit-box-direction:normal;
+        -ms-flex-direction:row;
+            flex-direction:row;
+  }
+  .p-pro_single__contentbox__pamphlet{
+    width:calc(33.33333% - 1rem);
+  }
   .p-pro_single__contentbox__relatedproducts{
     gap:1rem;
     grid-template-columns:repeat(4, 1fr);
@@ -2634,6 +2658,18 @@ button,input[type=submit]{
   }
   .p-pro_single__contentbox__catchphrase,.p-pro_single__contentbox__introduction{
     font-size:1.6rem;
+  }
+  .p-pro_single__contentbox__pamphletbox{
+    gap:1.5rem;
+    margin-top:2rem;
+  }
+  .p-pro_single__contentbox__pamphlet a{
+    gap:.5rem;
+    padding-bottom:2rem;
+    padding-top:2rem;
+  }
+  .p-pro_single__contentbox__pamphlet a img{
+    width:2rem;
   }
   .p-pro_single__contentbox__relatedproducts{
     gap:3rem;

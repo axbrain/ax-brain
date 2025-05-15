@@ -493,16 +493,42 @@ $post_id = get_the_ID();
       </div>
     <?php endif; ?>
 
-    <?php
-    $products_pamphlet = get_field('products_pamphlet');
-    if ($products_pamphlet) : // 値が空でない場合のみ表示
-    ?>
-      <div class="p-pro_single__contentbox__pamphlet">
-        <a href="<?php echo esc_url($products_pamphlet); ?>" target="_blank">パンフレットをダウンロードする
-          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/icon_pdf.svg" alt="ダウンロード">
-        </a>
-      </div>
-    <?php endif; ?>
+    <div class="p-pro_single__contentbox__pamphletbox">
+      <?php
+      $products_pamphlet = get_field('products_pamphlet');
+      if ($products_pamphlet) : // 値が空でない場合のみ表示
+      ?>
+        <div class="p-pro_single__contentbox__pamphlet">
+          <a href="<?php echo esc_url($products_pamphlet); ?>" target="_blank">パンフレット
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/icon_pdf.svg" alt="ダウンロード">
+          </a>
+        </div>
+      <?php endif; ?>
+
+      <?php
+      $products_manual = get_field('products_manual');
+      if ($products_manual) : // 値が空でない場合のみ表示
+      ?>
+        <div class="p-pro_single__contentbox__pamphlet">
+          <a href="<?php echo esc_url($products_pamphlet); ?>" target="_blank">取扱説明書
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/icon_pdf.svg" alt="ダウンロード">
+          </a>
+        </div>
+      <?php endif; ?>
+
+      <?php
+      $products_manual = get_field('products_manual');
+      if ($products_manual) : // 値が空でない場合のみ表示
+      ?>
+        <div class="p-pro_single__contentbox__pamphlet">
+          <a href="<?php echo esc_url($products_pamphlet); ?>" target="_blank">製品安全データシート
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/icon_pdf.svg" alt="ダウンロード">
+          </a>
+        </div>
+      <?php endif; ?>
+    </div>
+
+
     <?php
 
     if (have_rows('products_relatedproducts', $post_id)):
