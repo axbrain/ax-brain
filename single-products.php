@@ -132,10 +132,10 @@ $post_id = get_the_ID();
         <ul class="p-pro_single__productimages">
           <?php
           while (have_rows('products_productimages', $post_id)) : the_row();
-            if ($first_image) {
-              $first_image = false; // 1枚目をスキップ
-              continue;
-            }
+            // if ($first_image) {
+            //   $first_image = false; // 1枚目をスキップ
+            //   continue;
+            // }
             $thumb = get_sub_field('products_productimages_thumb');
             if ($thumb) :
           ?>
