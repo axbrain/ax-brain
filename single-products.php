@@ -510,7 +510,26 @@ $post_id = get_the_ID();
       if ($products_manual) : // 値が空でない場合のみ表示
       ?>
         <div class="p-pro_single__contentbox__pamphlet">
-          <a href="<?php echo esc_url($products_manual); ?>" target="_blank">取扱説明書
+          <a href="<?php echo esc_url($products_manual); ?>" target="_blank">
+            <?php
+            $manual_name = get_field('products_manual-name');
+            echo wp_kses_post($manual_name ? '取扱説明書<span>(' . esc_html($manual_name) . ')</span>' : '取扱説明書');
+            ?>
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/icon_pdf.svg" alt="ダウンロード">
+          </a>
+        </div>
+      <?php endif; ?>
+
+      <?php
+      $products_manual2 = get_field('products_manual2');
+      if ($products_manual2) : // 値が空でない場合のみ表示
+      ?>
+        <div class="p-pro_single__contentbox__pamphlet">
+          <a href="<?php echo esc_url($products_manual2); ?>" target="_blank">
+            <?php
+            $manual_name2 = get_field('products_manual2-name');
+            echo wp_kses_post($manual_name2 ? '取扱説明書<span>(' . esc_html($manual_name2) . ')</span>' : '取扱説明書');
+            ?>
             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/icon_pdf.svg" alt="ダウンロード">
           </a>
         </div>
