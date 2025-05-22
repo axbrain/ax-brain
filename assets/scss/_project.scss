@@ -1770,11 +1770,23 @@ input[type=submit] {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    img {
-      width: 100%;
-      height: auto;
-      display: block; // 画像下の余白を削除
+    a {
+      &:hover {
+        img {
+          opacity: 0.7;
+        }
+      }
+
+      img {
+        transition: all .3s linear;
+        width: 100%;
+        height: auto;
+        display: block; // 画像下の余白を削除
+      }
     }
+
+
+
   }
 
   &__contentbox {

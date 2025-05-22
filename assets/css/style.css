@@ -1385,12 +1385,15 @@ button,input[type=submit]{
   -ms-flex-line-pack:start;
       align-content:flex-start;
 }
-.p-pro_single__productimages img{
+.p-pro_single__productimages a:hover img{
+  opacity:.7;
+}
+.p-pro_single__productimages a img{
   display:block;
   height:auto;
   width:100%;
 }
-.p-pro_single__contentbox{
+.p-pro_single__contentbox,.p-pro_single__productimages a img{
   -webkit-transition:all .3s linear;
   transition:all .3s linear;
 }
