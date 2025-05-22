@@ -75,6 +75,7 @@ $post_id = get_the_ID();
           if (have_rows('products_productimages', $post_id)):
             while (have_rows('products_productimages', $post_id)) : the_row();
               $thumb = get_sub_field('products_productimages_thumb');
+              $url = get_sub_field('products_productimages_url');
               if ($thumb) {
                 $has_valid_images = true;
                 break;
@@ -88,12 +89,28 @@ $post_id = get_the_ID();
                 <?php
                 while (have_rows('products_productimages', $post_id)) : the_row();
                   $thumb = get_sub_field('products_productimages_thumb');
+                  $url = get_sub_field('products_productimages_url');
                   if ($thumb) :
+                    // URLが存在する場合
+                    if ($url) :
+                      // 外部サイトかどうかを判定
+                      $is_external = strpos($url, home_url()) === false;
+                      $target = $is_external ? ' target="_blank"' : '';
                 ?>
-                    <li class="<?php echo $image_count > 1 ? 'splide__slide' : ''; ?>">
-                      <img src="<?php echo esc_url($thumb); ?>" alt="">
-                    </li>
+                      <li class="<?php echo $image_count > 1 ? 'splide__slide' : ''; ?>">
+                        <a href="<?php echo esc_url($url); ?>" <?php echo $target; ?>>
+                          <img src="<?php echo esc_url($thumb); ?>" alt="">
+                        </a>
+                      </li>
+                    <?php
+                    else :
+                      // URLが存在しない場合は通常の画像表示
+                    ?>
+                      <li class="<?php echo $image_count > 1 ? 'splide__slide' : ''; ?>">
+                        <img src="<?php echo esc_url($thumb); ?>" alt="">
+                      </li>
                 <?php
+                    endif;
                   endif;
                 endwhile;
                 ?>
