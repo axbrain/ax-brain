@@ -176,7 +176,7 @@ function create_post_type()
       'menu_position' => 5,
       'supports' => array(
         'title',
-        'editor',
+        // 'editor',
         'thumbnail',
         'revisions',
       ),
