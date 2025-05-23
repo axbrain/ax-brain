@@ -249,5 +249,16 @@
         background: $color_light-gray1;
       }
     }
+
+    &.-cr {
+      a {
+        background: $color_light-gray1;
+        color: #cb0014;
+
+        &:hover {
+          background: $color_light-gray1;
+        }
+      }
+    }
   }
 }

@@ -277,6 +277,13 @@ main.p-fp{
 .c-category__list li a:hover{
   background:#e3e1db;
 }
+.c-category__list li.-cr a{
+  background:#e3e1db;
+  color:#cb0014;
+}
+.c-category__list li.-cr a:hover{
+  background:#e3e1db;
+}
 
 .p-hdr{
   background:#fff;
@@ -1306,6 +1313,13 @@ button,input[type=submit]{
 }
 .p-pro_single__splide .splide__track{
   overflow:hidden;
+}
+.p-pro_single__splide .splide__list li a img{
+  -webkit-transition:all .3s linear;
+  transition:all .3s linear;
+}
+.p-pro_single__splide .splide__list li a:hover img{
+  opacity:.7;
 }
 .p-pro_single__splide .splide__slide{
   position:relative;

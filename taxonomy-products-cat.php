@@ -33,7 +33,7 @@ get_header();
 	?>
 		<ul class="c-category__list">
 			<?php foreach ($categories as $category) : ?>
-				<li>
+				<li class="<?php echo (get_queried_object_id() === $category->term_id) ? '-cr' : ''; ?>">
 					<a href="<?php echo esc_url(get_term_link($category)); ?>">
 						<?php echo esc_html($category->name); ?>
 					</a>
