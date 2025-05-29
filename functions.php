@@ -635,3 +635,16 @@ add_filter("quicktags_settings", function ($qt_init) {
 
   return $qt_init;
 });
+
+
+/**
+ * recaptcha
+ */
+add_action('wp_enqueue_scripts', function () {
+  // recaptchaを表示させたい固定ページのslugを指定します。複数OK
+  $page_list = [
+    'contact', // お問い合わせフォーム
+  ];
+  if (is_page($page_list)) return;
+  wp_deregister_script('google-recaptcha');
+}, 100);
