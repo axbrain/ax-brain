@@ -12,13 +12,13 @@ get_header();
 ?>
 <div class="l-wide p-category c-products">
 
-	<h1 class="c-h1">
+	<h1 class="c-h1 p-category__title">
 		<?php
 		$term = get_queried_object();
 		printf(
 			/* translators: %s: Category name. */
-			esc_html__('カテゴリー: %s', 'ax-brain'),
-			'<span class="p-products__category-name">' . esc_html($term->name) . '</span>'
+			esc_html__(' %s', 'ax-brain'),
+			'<span class="p-products__category-name -' . esc_attr($term->slug) . '">' . esc_html($term->name) . '</span>'
 		);
 		?>
 	</h1>
@@ -33,8 +33,8 @@ get_header();
 	?>
 		<ul class="c-category__list">
 			<?php foreach ($categories as $category) : ?>
-				<li class="<?php echo (get_queried_object_id() === $category->term_id) ? '-cr' : ''; ?>">
-					<a href="<?php echo esc_url(get_term_link($category)); ?>">
+				<li>
+					<a href="<?php echo esc_url(get_term_link($category)); ?>" class="<?php echo (get_queried_object_id() === $category->term_id) ? '-cr -' . esc_attr($category->slug) : ''; ?>">
 						<?php echo esc_html($category->name); ?>
 					</a>
 				</li>

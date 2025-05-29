@@ -2321,14 +2321,13 @@ input[type=submit] {
     color: $color_dark-gray;
     text-align: center;
     margin-bottom: 4rem;
+    font-size: 1.6rem;
 
     @include media(tb) {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
     }
 
-    @include media(pc) {
-      font-size: 1.8rem;
-    }
+    @include media(pc) {}
   }
 
   &__query {
@@ -2342,6 +2341,55 @@ input[type=submit] {
 .p-products {
   &__category-name {
     color: #CB0014;
+
+    &.-laser {
+      color: $color_laser;
+    }
+
+    &.-measuring {
+      color: $color_measuring;
+    }
+
+    &.-vacuum_cleaner {
+      color: $color_vacuum_cleaner;
+    }
+
+    &.-hand_tool {
+      color: $color_hand_tool;
+    }
+
+    &.-knife_knife_saw_scissor {
+      color: $color_knife_knife_saw_scissor;
+    }
+
+    &.-led_light {
+      color: $color_led_light;
+    }
+
+    &.-toolbag_toolholder {
+      color: $color_toolbag_toolholder;
+    }
+
+    &.-boring_cuttingtool {
+      color: $color_boring_cuttingtool;
+    }
+
+    &.-fastening {
+      color: $color_fastening;
+    }
+
+    &.-workingglove {
+      color: $color_workingglove;
+    }
+
+    &.-safetysupplies {
+      color: $color_safetysupplies;
+    }
+
+    &.-chemicalproducts {
+      color: $color_chemicalproducts;
+    }
+
   }
 
   &__categories {

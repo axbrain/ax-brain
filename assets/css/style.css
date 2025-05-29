@@ -171,15 +171,64 @@ main.p-fp{
 .c-products__item a:hover{
   opacity:.7;
 }
+.c-products__img{
+  position:relative;
+}
 .c-products__img img{
   display:block;
   height:auto;
   width:100%;
 }
+.c-products__cat{
+  color:#fff;
+  font-size:1rem;
+  left:0;
+  line-height:1;
+  padding:.5rem;
+  position:absolute;
+  text-align:center;
+  top:0;
+}
+.c-products__cat.-laser{
+  background-color:#0081d2;
+}
+.c-products__cat.-measuring{
+  background-color:#b35c7f;
+}
+.c-products__cat.-vacuum_cleaner{
+  background-color:#0195df;
+}
+.c-products__cat.-hand_tool{
+  background-color:#c47e24;
+}
+.c-products__cat.-knife_knife_saw_scissor{
+  background-color:#50963e;
+}
+.c-products__cat.-led_light{
+  background-color:#014499;
+}
+.c-products__cat.-toolbag_toolholder{
+  background-color:#923d4a;
+}
+.c-products__cat.-boring_cuttingtool{
+  background-color:#7f097a;
+}
+.c-products__cat.-fastening{
+  background-color:#477d38;
+}
+.c-products__cat.-workingglove{
+  background-color:#be004f;
+}
+.c-products__cat.-safetysupplies{
+  background-color:#6169af;
+}
+.c-products__cat.-chemicalproducts{
+  background-color:#88a53b;
+}
 .c-products__title{
   color:#4d4d4d;
-  font-size:1.4rem;
-  line-height:1.5;
+  font-size:1.2rem;
+  line-height:1.3;
   margin-top:1rem;
 }
 .c-products__pagination{
@@ -252,10 +301,11 @@ main.p-fp{
   display:-webkit-box;
   display:-ms-flexbox;
   display:flex;
-  -ms-flex-wrap:wrap;
-      flex-wrap:wrap;
+  -ms-flex-wrap:nowrap;
+      flex-wrap:nowrap;
   gap:1rem;
   margin-bottom:.5rem;
+  overflow:scroll;
 }
 .c-category__list li,.c-category__list li a{
   display:inline-block;
@@ -277,12 +327,60 @@ main.p-fp{
 .c-category__list li a:hover{
   background:#e3e1db;
 }
-.c-category__list li.-cr a{
-  background:#e3e1db;
-  color:#cb0014;
+.c-category__list li a.-cr{
+  color:#fff;
+  pointer-events:none;
 }
-.c-category__list li.-cr a:hover{
-  background:#e3e1db;
+.c-category__list li a.-cr.-laser{
+  background-color:#0081d2;
+  border-color:#0081d2;
+}
+.c-category__list li a.-cr.-measuring{
+  background-color:#b35c7f;
+  border-color:#b35c7f;
+}
+.c-category__list li a.-cr.-vacuum_cleaner{
+  background-color:#0195df;
+  border-color:#0195df;
+}
+.c-category__list li a.-cr.-hand_tool{
+  background-color:#c47e24;
+  border-color:#c47e24;
+}
+.c-category__list li a.-cr.-knife_knife_saw_scissor{
+  background-color:#50963e;
+  border-color:#50963e;
+}
+.c-category__list li a.-cr.-led_light{
+  background-color:#014499;
+  border-color:#014499;
+}
+.c-category__list li a.-cr.-toolbag_toolholder{
+  background-color:#923d4a;
+  border-color:#923d4a;
+}
+.c-category__list li a.-cr.-boring_cuttingtool{
+  background-color:#7f097a;
+  border-color:#7f097a;
+}
+.c-category__list li a.-cr.-fastening{
+  background-color:#477d38;
+  border-color:#477d38;
+}
+.c-category__list li a.-cr.-workingglove{
+  background-color:#be004f;
+  border-color:#be004f;
+}
+.c-category__list li a.-cr.-safetysupplies{
+  background-color:#6169af;
+  border-color:#6169af;
+}
+.c-category__list li a.-cr.-chemicalproducts{
+  background-color:#88a53b;
+  border-color:#88a53b;
+}
+.c-category__list li a.-cr:hover{
+  background:#0081d2;
 }
 
 .p-hdr{
@@ -1706,12 +1804,49 @@ button,input[type=submit]{
 
 .p-search__title{
   color:#4d4d4d;
+  font-size:1.6rem;
   margin-bottom:4rem;
   text-align:center;
 }
 
 .p-products__category-name,.p-search__query{
   color:#cb0014;
+}
+.p-products__category-name.-laser{
+  color:#0081d2;
+}
+.p-products__category-name.-measuring{
+  color:#b35c7f;
+}
+.p-products__category-name.-vacuum_cleaner{
+  color:#0195df;
+}
+.p-products__category-name.-hand_tool{
+  color:#c47e24;
+}
+.p-products__category-name.-knife_knife_saw_scissor{
+  color:#50963e;
+}
+.p-products__category-name.-led_light{
+  color:#014499;
+}
+.p-products__category-name.-toolbag_toolholder{
+  color:#923d4a;
+}
+.p-products__category-name.-boring_cuttingtool{
+  color:#7f097a;
+}
+.p-products__category-name.-fastening{
+  color:#477d38;
+}
+.p-products__category-name.-workingglove{
+  color:#be004f;
+}
+.p-products__category-name.-safetysupplies{
+  color:#6169af;
+}
+.p-products__category-name.-chemicalproducts{
+  color:#88a53b;
 }
 .p-products__categories{
   margin-bottom:4rem;
@@ -2191,13 +2326,9 @@ button,input[type=submit]{
     gap:1.5rem;
     margin-top:6rem;
   }
-  .c-products__pagination .page-numbers{
-    height:5rem;
-    width:5rem;
-  }
   .c-category__list li a{
     font-size:1.4rem;
-    padding:1.2rem 1.8rem;
+    padding:1.2rem 1.6rem;
   }
   .p-hdr__slide{
     height:5.4rem;
@@ -2481,7 +2612,7 @@ button,input[type=submit]{
     padding:2rem 5rem;
   }
   .p-search__title{
-    font-size:2.4rem;
+    font-size:2.2rem;
   }
   .p-products__categories{
     margin-bottom:6rem;
@@ -2526,9 +2657,22 @@ button,input[type=submit]{
     padding-bottom:4rem;
   }
   .c-products__list{
-    gap:3rem;
+    gap:4rem 3rem;
     grid-template-columns:repeat(4, 1fr);
     margin-top:3rem;
+  }
+  .c-products__title{
+    font-size:1.4rem;
+    line-height:1.5;
+  }
+  .c-products__pagination .page-numbers{
+    height:5rem;
+    width:5rem;
+  }
+  .c-category__list{
+    -ms-flex-wrap:wrap;
+        flex-wrap:wrap;
+    overflow:inherit;
   }
   .p-hdr__slide ul li{
     font-size:1.4rem;
@@ -2715,9 +2859,6 @@ button,input[type=submit]{
   }
   .p-404__text{
     font-size:2rem;
-  }
-  .p-search__title{
-    font-size:1.8rem;
   }
   .p-products__categories{
     margin-bottom:8rem;
