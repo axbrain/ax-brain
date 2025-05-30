@@ -204,30 +204,30 @@ $post_id = get_the_ID();
   <div class="p-pro_single__contentbox">
 
     <h1 class="p-pro_single__h1">
+      <span class="p-pro_single__h1-cat<?php
+                                        $post_type = get_post_type();
+                                        $taxonomies = get_object_taxonomies($post_type);
+                                        if (!empty($taxonomies)) {
+                                          $terms = get_the_terms(get_the_ID(), $taxonomies[0]);
+                                          if (!empty($terms) && !is_wp_error($terms)) {
+                                            echo ' -' . esc_attr($terms[0]->slug);
+                                          }
+                                        }
+                                        ?>"><?php
+                                            $post_type = get_post_type();
+                                            $taxonomies = get_object_taxonomies($post_type);
+                                            if (!empty($taxonomies)) {
+                                              $terms = get_the_terms(get_the_ID(), $taxonomies[0]);
+                                              if (!empty($terms) && !is_wp_error($terms)) {
+                                                echo esc_html($terms[0]->name);
+                                              }
+                                            }
+                                            ?></span>
       <?php
       $products_partnumber = get_field('products_partnumber');
       $products_name = get_field('products_name');
       if ($products_partnumber) : // 値が空でない場合のみ表示
       ?>
-        <span class="p-pro_single__h1-cat<?php
-                                          $post_type = get_post_type();
-                                          $taxonomies = get_object_taxonomies($post_type);
-                                          if (!empty($taxonomies)) {
-                                            $terms = get_the_terms(get_the_ID(), $taxonomies[0]);
-                                            if (!empty($terms) && !is_wp_error($terms)) {
-                                              echo ' -' . esc_attr($terms[0]->slug);
-                                            }
-                                          }
-                                          ?>"><?php
-                                              $post_type = get_post_type();
-                                              $taxonomies = get_object_taxonomies($post_type);
-                                              if (!empty($taxonomies)) {
-                                                $terms = get_the_terms(get_the_ID(), $taxonomies[0]);
-                                                if (!empty($terms) && !is_wp_error($terms)) {
-                                                  echo esc_html($terms[0]->name);
-                                                }
-                                              }
-                                              ?></span>
         <span class="p-pro_single__h1-label"><?php echo esc_html($products_partnumber); ?></span>
       <?php endif; ?>
       <?php if ($products_name) : ?><span class="p-pro_single__h1-value"><?php echo esc_html($products_name); ?><?php if (get_field('products_newitem') === '有効'): ?><span class="c-new-badge p-pro_single__h1-new">【NEW】</span><?php endif; ?></span><?php endif; ?>
