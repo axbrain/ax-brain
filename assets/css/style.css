@@ -1350,6 +1350,54 @@ button,input[type=submit]{
       -ms-flex-direction:column;
           flex-direction:column;
 }
+.p-pro_single__h1-cat{
+  color:#fff;
+  display:inline-block;
+  font-size:1.2rem;
+  line-height:1;
+  margin-bottom:1rem;
+  padding:.7rem .5rem .5rem;
+  text-align:center;
+  width:-webkit-fit-content;
+  width:-moz-fit-content;
+  width:fit-content;
+}
+.p-pro_single__h1-cat.-laser{
+  background-color:#0081d2;
+}
+.p-pro_single__h1-cat.-measuring{
+  background-color:#b35c7f;
+}
+.p-pro_single__h1-cat.-vacuum_cleaner{
+  background-color:#0195df;
+}
+.p-pro_single__h1-cat.-hand_tool{
+  background-color:#c47e24;
+}
+.p-pro_single__h1-cat.-knife_knife_saw_scissor{
+  background-color:#50963e;
+}
+.p-pro_single__h1-cat.-led_light{
+  background-color:#014499;
+}
+.p-pro_single__h1-cat.-toolbag_toolholder{
+  background-color:#923d4a;
+}
+.p-pro_single__h1-cat.-boring_cuttingtool{
+  background-color:#7f097a;
+}
+.p-pro_single__h1-cat.-fastening{
+  background-color:#477d38;
+}
+.p-pro_single__h1-cat.-workingglove{
+  background-color:#be004f;
+}
+.p-pro_single__h1-cat.-safetysupplies{
+  background-color:#6169af;
+}
+.p-pro_single__h1-cat.-chemicalproducts{
+  background-color:#88a53b;
+}
 .p-pro_single__h1-label,.p-pro_single__h1-value{
   font-weight:bold;
 }
@@ -2549,6 +2597,10 @@ button,input[type=submit]{
     top:0;
     -webkit-transition:all .3s linear;
     transition:all .3s linear;
+  }
+  .p-pro_single__h1-cat{
+    font-size:1.4rem;
+    padding:.7rem .7rem .5rem;
   }
   .p-pro_single__splide{
     margin-top:0;

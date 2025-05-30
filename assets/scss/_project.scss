@@ -1553,6 +1553,85 @@ input[type=submit] {
       display: none;
     }
 
+    &-cat {
+      color: #fff;
+      font-size: 1.2rem;
+      line-height: 1;
+      padding: 0.7rem .5rem .5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      display: inline-block;
+      width: fit-content;
+
+      @include media(tb) {
+        font-size: 1.4rem;
+        padding: 0.7rem .7rem .5rem;
+
+      }
+
+      // カテゴリーごとの色
+      // レーザー機器
+      &.-laser {
+        background-color: $color_laser;
+      }
+
+      // 測定・測量機器
+      &.-measuring {
+        background-color: $color_measuring;
+      }
+
+      // バキュームクリーナー
+      &.-vacuum_cleaner {
+        background-color: $color_vacuum_cleaner;
+      }
+
+      // 作業工具
+      &.-hand_tool {
+        background-color: $color_hand_tool;
+      }
+
+      // ナイフ・鑢・作業用ハサミ
+      &.-knife_knife_saw_scissor {
+        background-color: $color_knife_knife_saw_scissor;
+      }
+
+      // LEDライト
+      &.-led_light {
+        background-color: $color_led_light;
+      }
+
+      // ツールバッグ・ツールホルダー
+      &.-toolbag_toolholder {
+        background-color: $color_toolbag_toolholder;
+      }
+
+      // 先端工具
+      &.-boring_cuttingtool {
+        background-color: $color_boring_cuttingtool;
+      }
+
+      // ファスニング
+      &.-fastening {
+        background-color: $color_fastening;
+      }
+
+      // 安全用品
+      &.-workingglove {
+        background-color: $color_workingglove;
+      }
+
+      // ケミカル製品・その他
+      &.-safetysupplies {
+        background-color: $color_safetysupplies;
+      }
+
+      // ケミカル製品・その他
+      &.-chemicalproducts {
+        background-color: $color_chemicalproducts;
+      }
+
+    }
+
     &-label,
     &-value {
       font-weight: bold;
@@ -1684,8 +1763,6 @@ input[type=submit] {
 
     .splide__slide {
       position: relative; // スライドに相対位置を設定
-
-
 
       a {
 
@@ -2611,8 +2688,6 @@ input[type=submit] {
       align-items: center;
       justify-content: center;
     }
-
-
 
     .icon-hamburger {
       width: 30px;
