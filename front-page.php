@@ -201,7 +201,7 @@ get_header();
 
 		<?php wp_reset_postdata(); ?>
 		<div class="p-fp__newproducts__more">
-			<a href="<?php echo home_url(); ?>/products/">▶　新製品をもっと見る</a>
+			<a href="<?php echo home_url('/new-products'); ?>">▶　新製品をもっと見る</a>
 		</div>
 
 	</section>
