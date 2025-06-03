@@ -232,7 +232,6 @@ function shortcode_template_parts($params = array())
 }
 add_shortcode('myphp', 'shortcode_template_parts');
 
-
 /**
  * 不要なWordPress固有のデータ読み込みを削除
  */
@@ -648,3 +647,18 @@ add_action('wp_enqueue_scripts', function () {
   if (is_page($page_list)) return;
   wp_deregister_script('google-recaptcha');
 }, 100);
+
+// テーマパスを取得するショートコード
+function get_template_path_shortcode()
+{
+  return get_template_directory_uri();
+}
+add_shortcode('template', 'get_template_path_shortcode');
+
+// アップロードディレクトリのパスを取得するショートコード
+function get_upload_path_shortcode()
+{
+  $upload_dir = wp_upload_dir();
+  return $upload_dir['baseurl'];
+}
+add_shortcode('upload', 'get_upload_path_shortcode');
