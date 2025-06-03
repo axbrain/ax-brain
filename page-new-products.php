@@ -7,10 +7,10 @@
 get_header();
 ?>
 
-<div class="l-wide p-new-products c-products">
-	<h1 class="c-h1">新製品一覧</h1>
-	<?php get_template_part('template-parts/new-products'); ?>
-
-</div>
+<?php if (have_posts()) : ?>
+	<?php while (have_posts()) : the_post(); ?>
+		<?php the_content(); ?>
+	<?php endwhile; ?>
+<?php endif; ?>
 
 <?php get_footer(); ?>

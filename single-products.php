@@ -1,5 +1,5 @@
 <?php
-// template name:お問い合わせ
+// template name:製品情報詳細
 get_header();
 // 投稿IDを取得
 $post_id = get_the_ID();
