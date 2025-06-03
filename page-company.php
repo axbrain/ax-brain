@@ -16,12 +16,6 @@ get_header();
       <p>E-mail: <a class="c-link-txt" href="mailto:info@axbrain.com" target="_blank">info@axbrain.com</a></p>
     </dd>
 
-    <dt>東京事務所</dt>
-    <dd>
-      <p>〒174-0043/東京都板橋区坂下3-1-1</p>
-      <p>TEL:03-5994-2051　<br>FAX :03-5994-0749</p>
-    </dd>
-
     <dt>代表者</dt>
     <dd>代表取締役　小野　慶士</dd>
 
@@ -32,12 +26,13 @@ get_header();
     <dd>1,000万円</dd>
 
     <dt>取引銀行</dt>
-    <dd>三菱東京UFJ銀行　大阪西支店</dd>
+    <dd>三菱UFJ銀行　大阪西支店</dd>
 
     <dt>主力商品</dt>
-    <dd>レーザー墨出し器（レーザーマン）<br>
+    <dd>レーザー墨出し器（LASERMAN・G-Liner）<br>
       高級勾配水平器（AX MASTER）<br>
-      高級作業用手袋（AX GRIP ・PRO GRIP etc.）</dd>
+      ハイパワークリーナー（DUSTMAN）<br>
+      ファスニング（マルチドリルビス・エフプラグ・マルチドリルビス）</dd>
   </dl>
 </div>
 
