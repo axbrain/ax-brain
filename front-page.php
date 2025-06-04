@@ -251,25 +251,18 @@ get_header();
 											$products_partnumber = get_field('products_partnumber');
 											$products_newitem = get_field('products_newitem');
 
-											if ($products_name || $products_partnumber) :
 									?>
-												<li>
-													<a href="<?php the_permalink(); ?>">
-														<?php
-														if ($products_partnumber) {
-															echo esc_html($products_partnumber) . ' ';
-														}
-														if ($products_name) {
-															echo esc_html($products_name);
-														}
-														if ($products_newitem === '有効') {
-															echo ' <span class="c-new-badge">【NEW】</span>';
-														}
-														?>
-													</a>
-												</li>
+											<li>
+												<a href="<?php the_permalink(); ?>">
+													<?php
+													the_title();
+													if ($products_newitem === '有効') {
+														echo ' <span class="c-new-badge">【NEW2】</span>';
+													}
+													?>
+												</a>
+											</li>
 									<?php
-											endif;
 										endwhile;
 										wp_reset_postdata();
 									endif;
