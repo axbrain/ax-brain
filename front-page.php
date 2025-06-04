@@ -257,7 +257,7 @@ get_header();
 													<?php
 													the_title();
 													if ($products_newitem === '有効') {
-														echo ' <span class="c-new-badge">【NEW2】</span>';
+														echo ' <span class="c-new-badge">【NEW】</span>';
 													}
 													?>
 												</a>
